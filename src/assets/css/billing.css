@@ -1,0 +1,168 @@
+.dis-offer{
+    width:25px;
+    height:25px
+}
+
+.offer-box{
+    border:solid 1px rgb(214, 209, 209);
+    padding:15px;
+    border-radius:5px;
+}
+
+.offer-text{
+    font-size:15px;
+    font-weight:600;
+    color:rgb(54, 54, 54)
+}
+.price-off-bg{
+    background-color: aliceblue;
+    padding:15px;
+    box-shadow:inset 2px 2px 5px rgb(214, 214, 224)
+}
+
+.off-price-text{
+    color:rgb(83, 82, 82);
+    font-weight:600;
+    font-size:13px
+}
+
+.list-off{
+    font-size:14px
+}
+ul li{
+    color:rgb(97, 96, 96);
+    margin-top:5px;
+    width: fit-content;
+}
+
+.showmoretext{
+    display: none;
+  }
+  .num-text{
+    font-size:15px;
+    font-weight:500;
+    color:red;
+    cursor: pointer;
+  }
+
+  .code-text{
+    width:100%;
+    color:rgb(59, 58, 58);
+    font-size:12px;
+    font-weight: 500;
+    border-radius:5px;
+    border:solid 1px rgb(124, 123, 123);
+    padding:10px
+  }
+  .code-pay{
+    font-size:12px;
+    font-weight:500
+  }
+
+  .tab-bg{
+    background-color:rgb(231, 224, 224);
+    padding:15px;
+  }
+
+  .tab h6.active{
+    background-color: white;
+    border-left:solid 5px blue;
+    padding:15px;
+    padding-left:10px;
+    font-size:14px;
+    font-weight:600;
+    color:blue
+  }
+
+  @media only screen  and (max-width:767px){
+    .tab h6.active{
+        background-color: white;
+        border-left:solid 5px blue;
+        padding:10px;
+        padding-left:10px;
+        font-size:15px;
+        font-weight:600;
+        color:blue
+      }
+  }
+  .tablinks{
+    font-size:14px;
+    font-weight:600;
+  }
+  .radio-btn{
+    font-size:15px;
+    font-weight:600;
+    color:rgb(22, 22, 22);
+    letter-spacing: 0.55px;
+  }
+  .rec-icon{
+    border-radius:100%;
+    border:solid 1px rgb(197, 196, 196);
+    /* padding-left:7px;
+    padding-right:7px;
+    padding-top:4px;
+    padding-bottom:3px; */
+    padding:3px;
+    width:30px;
+    height:30px
+  }
+
+  .span-pay{
+    margin-top:-30px
+  }
+
+  .net-icon{
+    width:35px;
+    height:35px;
+    border-radius:100%;
+    border:solid 1px rgb(197, 196, 196);
+    padding:2px
+  }
+
+.select-box{
+  padding:5px;
+  font-size:15px;
+  font-weight:600;
+  border-radius:5px;
+  border:solid 1px grey;
+  color:rgb(22, 22, 22)
+}
+
+.gift-card{
+  font-size:15px;
+  font-weight:500;
+  color:rgb(37, 37, 37)
+}
+
+.app-card{
+  font-size:15px;
+  font-weight:600;
+  color:rgb(53, 4, 167);
+  cursor: pointer;
+}
+.hp-text{
+  font-size:16px;
+  font-weight:500;
+  color:rgb(31, 30, 30)
+}
+
+.images{
+  display: inline-block;
+}
+
+.footer-bank-img{
+  width:60px;
+  height:30px
+}
+
+.payment-bg{
+  background-color:rgb(240, 241, 241);
+  padding:15px;
+  box-shadow:1px 1px 3px rgb(238, 237, 237);
+}
+
+@media only screen and (max-width:767px){
+  .row-dirt{
+    flex-direction: column-reverse;
+  }
+}

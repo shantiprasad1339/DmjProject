@@ -1,0 +1,65 @@
+
+
+.modal-content {
+    top: 80px;
+}
+
+.check-local .btn-1 {
+    background: rgb(223, 196, 42);
+    margin: 5px 15px;
+    border: none;
+}
+
+.check-local .btn:hover {
+    background: rgb(223, 196, 42);
+}
+
+.check-local .box-1 {
+    margin: 15px;
+    padding-bottom: 15px;
+}
+
+.check-local input {
+    width: 80%;
+    height: 35px;
+    border: gray 0.8px solid;
+    border-radius: 5px;
+
+}
+
+.check-local .hr-tag {
+    border: none;
+    border-bottom: 3px dotted rgb(231, 10, 10);
+    width: 90%;
+    margin: auto;
+    font-weight: bold;
+}
+
+.check-local .btn-2 {
+    margin-left: 8px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    width: 17%;
+    background-color: #0D6Efd;
+    color: #fff;
+}
+
+.check-local select {
+    width: 94%;
+    /* margin: 20px 15px; */
+    margin: 20px 20px 10px 15px;
+    height: 35px;
+    border: gray 0.8px solid;
+    border-radius: 5px;
+
+
+}
+
+.check-local .btn-3 {
+    background: rgb(223, 196, 42);
+    margin: 15px;
+    border: none;
+    width: 20%;
+    float: right;
+}

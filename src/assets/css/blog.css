@@ -1,0 +1,51 @@
+.cate-box{
+    background:#dbdddf;
+    border-radius:5px;
+    padding:15px;
+    border-top:3px solid rgb(255, 94, 0)
+}
+
+.blog-cate{
+    font-size:13px;
+    font-weight:400
+}
+.text-para:hover{
+    color:blue;
+    cursor:pointer
+    
+}
+
+.blog-img{
+    width:100px;
+    height:100px;
+    border-radius:10px
+}
+
+.image-blog{
+   
+    height:200px;
+    border-radius:10px
+}
+
+.cont-text{
+    text-align: justify;
+}
+
+.detail-text{
+    font-size:13px;
+    font-weight:500
+}
+
+.heading-bottom{
+    border-bottom:solid 2px rgb(66, 66, 66);
+    width:40%;
+    margin:auto;
+    
+}
+
+.comment-box{
+    border:solid 1px grey;
+    border-radius:10px;
+    padding:15px
+}
+

@@ -1,0 +1,848 @@
+/* ----------------------------Sidebar-------------------------------- */
+.sidenav {
+    width: 100%;
+    max-width:250px;
+    height:100%;
+    
+    background-color: rgb(243, 243, 243);
+    position:fixed;
+}
+.sidenav:hover{
+    overflow-y: scroll;
+}
+.sidebar-content{
+    width:1000px;
+    margin:auto;
+    position:relative;
+    left:120px;
+}
+.side-tab{
+    font-size:14px;
+    font-weight: 500;
+    cursor: pointer;
+    /* letter-spacing: 0.75px; */
+    padding-left:10px;
+    padding-top:7px;
+    padding-bottom:7px;
+}
+.side-tab:hover{
+    color:rgb(196, 111, 0)
+}
+
+
+.sidenav a,
+.dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    color: #616161;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+.rev-img {
+    width: 250px;
+    height: 250px
+}
+
+.order-btn {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    border-radius: 3px;
+
+    background-color: rgb(29, 29, 248);
+    color: white;
+    border: none;
+    border-radius: 7px
+}
+
+/* ---------------------------Dashboard Component------------------------------ */
+.view-box {
+
+    border: solid 1px rgb(218, 215, 215);
+    cursor: pointer;
+
+    padding: 35px;
+
+    height: 250px !important;
+
+
+}
+
+.view-box:hover {
+    background-color: rgb(234, 234, 248);
+    cursor: pointer
+}
+
+.view-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(150, 149, 149)
+}
+
+.user-bg {
+    background-color: rgb(227, 227, 248);
+
+    padding: 20px
+}
+
+.userinfo {
+    display: flex;
+}
+
+.usermail {
+    margin-top: 30px;
+    margin-left: 20px;
+
+    font-size: 16px;
+    font-weight: 500
+}
+
+.edit-info {
+    font-size: 14px;
+    font-weight: 500;
+
+    border: solid 1.5px black;
+    border-radius: 3px;
+    background-color: transparent;
+    color: black;
+
+    padding-left: 7px;
+    padding-right: 7px;
+
+
+}
+
+.filter-btn {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    color: white;
+    background-color: blue;
+    border: solid 1px blue;
+
+    font-size: 17px;
+    font-weight: 500
+}
+
+.order-view {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-info {
+    padding: 20px;
+
+    background-color: rgb(243, 243, 243);
+
+    margin-top: 50px
+}
+
+.del-img {
+    width: 35px;
+    height: 35px;
+
+    background-color: rgb(22, 22, 22);
+    border-radius: 50%;
+
+    padding: 5px;
+
+
+}
+
+.order-display {
+    display: flex;
+
+    padding: 10px
+}
+
+.date-text {
+    font-size: 14px;
+    font-weight: 400;
+
+    color: grey;
+
+    margin-top: -5px
+}
+
+.product-image {
+    width: 70px;
+    height: 90px;
+
+    background-color: #ffffff;
+
+    padding: 5px
+}
+
+.info-del-pro {
+    background-color: rgb(243, 243, 247);
+    cursor: pointer;
+
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.info-del-pro:hover {
+    background-color: rgb(214, 214, 218);
+}
+
+.pro-info-text {
+    font-size: 14px;
+    font-weight: 500;
+
+    color: rgb(85, 85, 85);
+    letter-spacing: 0.75px;
+}
+
+.delivery-bg {
+    background-color: #ffffff;
+
+    padding: 10px;
+
+    margin-top: 10px
+}
+
+.pro-icon {
+    font-size: 25px;
+
+    margin-left: 3px;
+
+    color: rgb(134, 133, 133);
+}
+
+.borderline {
+    border-left: solid 1px rgb(187, 186, 186);
+
+    height: 70px;
+
+    margin-left: 20px
+}
+
+.coupon-text {
+    font-size: 14.5px;
+    font-weight: 400;
+
+    color: rgb(145, 143, 143)
+}
+
+.code-text {
+    font-size: 15px;
+    font-weight: 500;
+
+    color: rgb(148, 147, 147);
+
+    margin-top: -10px
+}
+
+.del-font {
+    color: blue;
+    cursor: pointer
+}
+
+.coupon-bg {
+    background-color: #ffffff;
+
+    margin-top: 20px;
+
+    padding: 20px
+}
+
+.savecard-img {
+    width: 400px;
+    height: 350px;
+
+    margin-top: 50px
+}
+
+.retry-btn {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    margin-top: 20px;
+
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+
+    font-size: 16px;
+    font-weight: 500
+}
+
+.add-new {
+    border: solid 1.5px blue;
+    color: blue;
+    background-color: transparent;
+    border-radius: 5px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px
+}
+
+.address-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: grey;
+
+    margin-top: -10px
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 500
+}
+
+.user-add-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-line {
+    font-size: 13px;
+    font-weight: 500;
+
+    background-color: rgb(245, 245, 245);
+    color: #616161;
+    border-radius: 10px;
+    border: solid 0.50px grey;
+    cursor: pointer;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.ed-text {
+    font-size: 17px;
+    font-weight: 500;
+
+    color: blue;
+    cursor: pointer;
+}
+
+.add-info-box {
+    background-color: #ffffff;
+
+    padding: 25px;
+}
+
+.add-info-box:hover {
+    background-color: rgb(247, 247, 247);
+    transform: scale(1.01);
+}
+
+.profile-info-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(97, 97, 97);
+    margin-top: 25px;
+
+
+}
+
+.span-profile-info {
+    margin-left: 100px
+}
+
+.pro-ed-btn {
+    background-color: blue;
+    color: white;
+    width: 100%;
+    border: none;
+
+    margin-top: 20px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.profile-info-box {
+    width: 100%;
+
+    margin: auto;
+
+    padding: 50px
+}
+
+.policy-text {
+    font-size: 13px;
+    font-weight: 400;
+
+    color: rgb(153, 152, 152);
+    text-align: justify;
+}
+
+.pro-image {
+    width: 130px;
+    height: 150px;
+
+    background-color: #ffffff;
+
+    padding: 10px
+}
+
+.ord-del-box {
+    background-color: rgb(245, 244, 244);
+
+    padding: 35px
+}
+
+.dis-delivery-del {
+    display: flex;
+    color: white;
+    background-color: #379e6e;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    margin-top: 15px;
+}
+
+.delivery-date {
+    font-size: 13px;
+    font-weight: 400;
+
+    margin-top: -7px
+}
+
+.ex-list {
+    background-color: white;
+    margin-top: 15px;
+}
+
+.item-list-text {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.ul-li-text {
+    font-size: 14.3px;
+    font-weight: 400;
+    color: rgb(110, 109, 109)
+}
+
+.add-font {
+    font-size: 20px;
+    font-weight: 600
+}
+
+.user-info {
+    font-size: 15px;
+    font-weight: 400
+}
+
+.od-del-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(105, 104, 104)
+}
+
+.save-text {
+    margin-top: -15px
+}
+
+.invoice-btn {
+    border: solid 1px rgb(192, 192, 192);
+    background-color: transparent;
+    color: #2c2c2c;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding-top: 8px;
+    padding-bottom: 8px
+}
+
+.invoice-btn:hover {
+    background-color: rgba(236, 236, 236, 0.897)
+}
+
+.edit-fm-box {
+    background-color: #ffffff;
+
+    padding: 25px;
+
+    margin-top: 50px;
+}
+
+.textfieldInput {
+    border-radius: 20px;
+}
+
+.edit-del-btn {
+    margin-top: 30px !important;
+
+    width: 100%;
+    border-radius: 0px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.number-box {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    border: solid 1px rgb(197, 193, 193);
+    border-radius: 4px;
+    height: 80px;
+    margin-bottom: 10px
+}
+
+.num-font {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgb(134, 133, 133)
+}
+
+.phone-no-font {
+    font-size: 14px;
+    font-weight: 400
+}
+
+.verify-icon {
+    font-size: 17px !important;
+    color: rgb(2, 110, 35)
+}
+
+.change-btn {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: solid 1px grey !important;
+
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.ord-search-int{
+    border:solid 1px grey;
+    border-radius:5px;
+    font-size:15px;
+    font-weight:500;
+}
+.srch-ord-btnvew{
+    font-size:16px;
+    font-weight:500;
+    background-color:black;
+    color:white;
+    border:solid 1px rgb(0, 0, 0);
+    border-radius:5px;
+    padding-left:50px;
+    padding-right:50px;
+    padding-top:5px;
+    padding-bottom:5px;
+    margin-left:5px;
+}
+
+.ordered-prdctbox{
+    box-shadow :2px 2px 40px 4px rgb(245, 245, 245);
+    background-color:white;
+    border-radius:10px;
+    border:solid 1px rgb(245, 245, 245);
+    padding:15px;
+    cursor: pointer;
+}
+
+.ordered-prdctbox:hover{
+    border:solid 1px rgb(194, 149, 1); 
+    transform: scale(1.001);
+}
+.ord-product-imgvw{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+.ord-prdct-img-boxv{
+    width:100%;
+    max-width:80px;
+    height:100px;
+    
+}
+.prd-namefnt{
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing: 0.75px;
+    margin-top:15px;
+}
+.prd-clr-type{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing: 0.75px;
+    color:rgb(88, 88, 88);
+    margin-top:-10px;
+}
+.ord-price-pro{
+    font-size:16px;
+    font-weight: 600;
+    letter-spacing: 0.75px;
+}
+.rupee-icn-frpr{
+    font-size:17px !important;
+}
+
+.dlry-date-fnts{
+    font-size:15px;
+    font-weight: 600;
+    letter-spacing: 0.75px;
+}
+.rate-fntsz-vw{
+    font-size: 14px !important;
+    font-weight:600;
+    color:#b79d33;
+    cursor: pointer;
+    margin-top:-5px;
+}
+
+
+@media only screen and (max-width:767.98px) {
+    .rate-fntsz-vw{
+        font-size: 14.3px !important;
+        font-weight:500;
+        margin-top:5px;
+    }
+    
+    .order-info {
+        padding: 2px;
+
+        background-color: rgb(231, 229, 229);
+
+        margin-top: 10px
+    }
+    .profile-info-text {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: rgb(97, 97, 97);
+        margin-top: 25px;
+    
+    
+    }
+    .usermail {
+        margin-top: 30px;
+        margin-left: 0px;
+
+        font-size: 14px;
+        font-weight: 400
+    }
+
+    .order-view {
+        display: block;
+        justify-content: space-between;
+    }
+
+
+    .order-display {
+        display: flex;
+
+        padding: 7px
+    }
+
+    .pro-info-text {
+        font-size: 12.5px;
+        font-weight: 400;
+
+        color: rgb(85, 85, 85);
+        letter-spacing: 0.75px;
+    }
+
+    .pro-icon {
+        font-size: 16px;
+
+        margin-left: 3px;
+
+        color: rgb(134, 133, 133);
+    }
+
+    .borderline {
+        border-left: solid 1px rgb(187, 186, 186);
+
+        height: 100px;
+
+        margin-left: 20px
+    }
+
+    .coupon-bg {
+        background-color: #ffffff;
+
+        margin-top: 20px;
+
+        padding: 10px
+    }
+
+    .add-new {
+        border: solid 1px blue;
+        color: blue;
+        background-color: transparent;
+        border-radius: 5px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        font-size: 11px;
+        font-weight: 500
+    }
+
+    .add-info-box {
+        background-color: #ffffff;
+
+        padding: 15px;
+    }
+
+    .profile-info-box {
+        width: 100%;
+
+        margin: auto;
+
+        padding: 10px
+    }
+
+    .dis-delivery-del {
+        display: flex;
+        color: white;
+        background-color: #379e6e;
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+
+        margin-top: 15px;
+    }
+
+    .ord-del-box {
+        background-color: rgb(245, 244, 244);
+
+        padding: 10px
+    }
+
+    .edit-fm-box {
+        background-color: #ffffff;
+
+        padding: 5px;
+
+        margin-top: 50px;
+    }
+
+    .change-btn {
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: solid 1px grey !important;
+
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+}
+
+.account-fnt-sz1{
+    font-size:12px;
+    font-weight:500;
+}
+
+.mob-vw-ordlist{
+    background-color: white;
+    padding:7px;
+}
+.list-box-view{
+    background-color: white;
+    padding:5px;
+    border:solid 1px rgb(209, 209, 209);
+    border-radius: 10px;
+    margin-top:10px;
+    text-align: center;
+}
+
+.row-gridvw{
+    display:flex;
+    
+}
+.column-size{
+    width:49%;
+    margin:5px;
+}
+@media only screen and (max-width:1023.98px){
+    .mob-box-view-sz{
+        display: flex !important;
+        overflow-x: scroll;
+    }
+    .desktop-vw-box{
+        display:none;
+    }
+    /* ul .list-box-view{
+        list-style: none;
+    } */
+
+    .sidebar-content{
+        width:100%;
+        margin:auto;
+        position:relative;
+        left:0px;
+    }
+}
+
+@media screen and (min-width:768px){
+    .ordered-mobviw{
+        display: none;
+       }
+}
+@media only screen and (max-width:767.99px){
+    .order-desktopvw{
+    display: none;
+   }
+   .dlry-date-fnts{
+    font-size:15px;
+    font-weight: 500;
+   }
+
+   .prd-namefnt{
+    font-size:14.4px;
+    font-weight:500;
+    color:rgb(80, 80, 80);
+    margin-top:0px;
+}
+}
+@media only screen and (min-width:1024px) {
+    .mobile-view-tabs{
+         display:none;
+    }
+   
+}

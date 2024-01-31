@@ -1,0 +1,595 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.css-67l5gl {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.bi {
+  cursor: pointer !important;
+}
+
+.nav-item a {
+  color: black;
+}
+
+.header-bg {
+  position: relative;
+  z-index: 200;
+}
+
+.dropdown-menu {
+  visibility: visible !important;
+
+  top: 80px !important;
+  opacity: 1 !important;
+
+  display: block;
+
+}
+
+.carouselCard {
+  width: 320px;
+
+  margin-left: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  display: flex !important;
+  align-items: center;
+}
+
+.slide {
+  min-width: auto !important;
+  /* left: 150px; */
+}
+
+.carousel.carousel-slider {
+  overflow: visible !important;
+  height: 500px;
+}
+
+.slider.animated {
+  width: 20% !important;
+}
+
+.selected {
+  bottom: 25px !important;
+}
+
+.carousel .slider {
+  height: 550px;
+}
+
+.carousel-root {
+  height: 550px;
+}
+
+
+.control-dots {
+  display: none !important;
+}
+
+.drop-img {
+  height: 50px !important;
+}
+
+.jwdetails .slide {
+  width: 300px;
+  height: 300px;
+}
+
+.showCardCarousel {
+  display: none;
+}
+
+.itemImg {
+  display: block;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+
+
+
+img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.PhoneInputCountry img {
+  width: 50px;
+  height: 50px;
+}
+
+
+
+/* adding browser compatibility for additional css  */
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
+th {
+  text-align: -webkit-match-parent;
+  text-align: inherit;
+
+}
+
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.err-box {
+  height: fit-content;
+}
+
+.accordion-button {
+  overflow-anchor: none;
+}
+.accordion-button:not(.collapsed){
+  color:rgb(68, 3, 219);
+}
+
+.owl-carousel .owl-stage {
+  -moz-backface-visibility: hidden;
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider {
+  -ms-box-orient: horizontal;
+}
+
+
+abbr[data-bs-original-title],
+abbr[title] {
+  text-decoration-skip-ink: none;
+}
+
+
+
+/* login page css additional here */
+
+/* .login-bg {
+  background-color: white;
+  width: 30%;
+  margin: auto;
+  height: auto;
+} */
+
+.fullpage-bg {
+  background-color: rgb(238, 243, 248);
+  padding-top: 15px;
+  height: 100vh;
+  /* height: 595px; */
+}
+
+.login-input {
+  border-radius: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(17 17 17);
+  margin-top: 10px;
+  padding: 8px;
+  width: 95%;
+  border: solid 1px rgb(204, 202, 202);
+  /* margin-left:30px; */
+}
+
+.tele-code {
+  font-size: 13px;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  border: solid 1px rgb(204, 202, 202);
+  padding: 8px;
+  padding-bottom: 9px;
+  border-right: none;
+}
+
+.tp-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgb(119, 119, 119);
+  margin-top: 20px;
+}
+
+.user-login {
+  padding: 20px;
+}
+
+
+.coupon-img {
+  width: 100%;
+  max-width: 130px;
+  height: 130px;
+ 
+}
+
+.tp-color {
+  color: #DC3545;
+  cursor: pointer;
+}
+
+.sliderCard {
+  margin-left: 5px;
+}
+
+.sliderCardImg {
+  max-width: 250px;
+  height: 200px;
+}
+
+.sliderCardImg img {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 2px;
+}
+
+.filterBox {
+  background-color: rgb(255, 255, 255);
+
+  border: none;
+  border-top: 1px solid black;
+  border-radius: 1px;
+
+
+  width: 100%;
+  height: 50px;
+
+  overflow: hidden;
+
+  position: fixed;
+  bottom: 0px;
+
+  z-index: 300;
+
+  align-items: center;
+  justify-content: center;
+
+  display: none;
+}
+
+.sort,
+.filter {
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: auto;
+
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+
+  cursor: pointer;
+
+  height: 40px;
+
+
+}
+
+.sort p,
+.filter p {
+  margin-left: 14px;
+}
+
+.sortBox,
+.filterPopup {
+  width: 99%;
+  height: 500px;
+  margin: auto;
+
+  position: absolute;
+  top: 37px;
+
+  overflow: hidden;
+
+  background-color: #ffffff;
+  /* background-position: center;
+  background-attachment: fixed; */
+
+  z-index: 49;
+
+  padding: 20px;
+}
+
+/* .filterPopup {
+  bottom: 47px;
+} */
+
+.sortLine {
+  border: 1px solid rgba(0, 0, 0, 0.363);
+
+  width: 100%;
+}
+
+.sortList {
+  display: flex;
+  justify-content: left;
+  padding: 15px;
+}
+
+.TopFilter {
+  display: block;
+}
+
+
+
+.sortList p {
+  margin-left: 20px;
+}
+
+/* .filter {
+  margin-left: 5px;
+  margin-right: 5px;
+} */
+
+.filterOption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
+
+
+
+
+.login-bg {
+ 
+  background-color: white;
+  max-width: 350px;
+  width: 100%;
+  margin: auto;
+  height: auto;
+}
+
+
+.continue-btn {
+  background-color: #DC3545;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  width: 100%;
+  margin-top: 25px
+}
+
+
+@media only screen and (min-width:20px) and (max-width:767px) {
+
+  /* .fullpage-bg {
+    background-color: rgb(213, 217, 230);
+    padding-top: 10px;
+        
+    
+  } */
+
+  .user-login {
+    padding-left: 15px;
+    padding-right: 15px;
+    /* margin-top:10px */
+  }
+
+  .login-input {
+
+    width: 85%;
+
+  }
+
+  .tele-code {
+    top: 6px;
+    border-color: black;
+  }
+
+}
+
+.vtLine {
+  height: 100%;
+
+  border: solid 0.12px rgba(0, 0, 0, 0.363);
+
+  position: absolute;
+  left: 32.7%;
+
+}
+
+
+
+/* filter box style :start here */
+
+.colorOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.colorOption div {
+  width: 20px;
+  height: 20px;
+  border: 0.8px solid gainsboro;
+}
+
+
+
+
+
+/* media query starts here  */
+
+@media only screen and (max-width:980px) {
+
+  .nav-bg {
+    padding: 5px;
+  }
+}
+
+
+@media only screen and (max-width:980px) {
+
+
+  .navElement {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+
+    max-width: 980px;
+    width: 100%;
+    height: auto;
+
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-bottom: 40px;
+
+    background: rgba(245, 245, 245, 0.986);
+
+    overflow: auto;
+
+    z-index: 300;
+  }
+
+
+}
+
+@media only screen and (max-width:760px) {
+  .showCardCarousel {
+    margin-top: 20px;
+    display: block;
+  }
+
+  .itemImg {
+    display: none;
+  }
+
+  .jewel-bg {
+    padding: 5px;
+  }
+
+  .container-fluid {
+    padding: 5px;
+  }
+
+  .cardBox {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+
+    z-index: 409;
+
+    cursor: pointer;
+  }
+
+}
+
+
+
+
+
+
+.cp-img-boxvw{
+  margin-top:45px;
+}
+
+
+
+@media only screen and (max-width:767.98px) {
+  .cp-img-boxvw{
+    margin-top:5px;
+  }
+  
+  .login-bg {
+
+    background-color: white;
+    width: 100%;
+    height: 87vh;
+ 
+  }
+
+ .fullpage-bg {
+    background-color: rgb(213, 217, 230);
+    padding-top: 0px;
+    height:100vh;
+    /* position: fixed/ */
+  }
+
+  .user-login {
+    padding-left: 15px;
+    padding-right: 15px;
+    /* margin-top:10px */
+  }
+
+  .login-input {
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(190, 190, 190);
+    margin-top: 6px;
+    padding: 8px;
+    width: 95%;
+    border: solid 1px rgb(46, 45, 45)
+  }
+
+  .sliderCardImg img {
+    height: 100%;
+  }
+
+  .sliderCardImg {
+    height: 150px;
+  }
+
+  .icons a {
+    width: 28px !important;
+    height: 28px;
+  }
+
+  .icons a i {
+    line-height: 30px !important;
+  }
+
+  .footerText {
+    flex-wrap: wrap;
+  }
+
+  .filterBox {
+    display: flex;
+  }
+
+  .TopFilter {
+    display: none;
+  }
+
+}
+
+.for-pass-fnt{
+  font-size:13px;
+  font-weight:500;
+  text-align: end;
+  letter-spacing: 0.75px;
+  color:#0323b1;
+  cursor:pointer;
+}
+/* @media only screen and (max-width:420px){
+  .row{
+    margin-right: 0px;
+  }
+} */

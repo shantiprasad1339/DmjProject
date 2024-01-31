@@ -1,0 +1,541 @@
+.id-tag-fnt{
+    font-size:14px;
+    font-weight:600;
+    margin-top:15px;
+    color:rgb(114, 114, 114)
+}
+.coins-sz-1{
+    width:30px;
+    height:30px;
+}
+.coin-hd-fnt-1{
+font-weight:600;
+font-size:16px;
+color:black;
+letter-spacing: 0.75px;
+}
+.coin-para-fnt-1{
+    font-weight:600;
+    font-size:14px;
+    color:rgb(94, 94, 94); 
+    margin-top:-5px ;
+    letter-spacing: 0.75px;
+}
+.reward-heading{
+    font-size:17px;
+    font-weight:600;
+    letter-spacing: 0.75px;
+    margin-bottom:15px;
+}
+.invce-btn-1{
+    font-size:16px;
+    font-weight:600;
+    color:#b79d33;
+    padding-left: 25px;
+    padding-right:25px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border-radius: 7px;
+    border:solid 1px #b79d33;
+    background-color:white;
+
+}
+.customer-add-fnt{
+    font-size:15px;
+    font-weight:600;
+    color:rgb(145, 144, 144);
+    letter-spacing: 0.75px;
+    margin-top:-10px;
+}
+.tl-rupee-fnt{
+    font-size:17px;
+    font-weight:600;  
+}
+.tl-rupee-icon{
+    font-size:20px !important
+}
+.tl-delvry-offer{
+    font-size:16px;
+    font-weight:600;
+    color:rgb(0, 128, 68);
+}
+.tl-rate-help-clr{
+    font-size:16px !important;
+    font-weight:600;
+    color:#080079
+}
+.item-dlry-fnt-sz{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing: 0.75px;
+    color:rgb(121, 121, 121);
+    border:solid 0.40px rgb(226, 228, 228);
+    padding:6px;
+    border-radius:6px;
+    height:45px;
+    margin-top:15px;
+    
+}
+.tl-dl-line-1{
+    border-bottom:dotted 2px rgb(226, 228, 228);
+    margin-top:20px;
+}
+.extend-fnt-sz-1{
+    font-size:15px;
+    font-weight:600;
+    color:rgb(36, 35, 35);
+    letter-spacing: 0.75px;
+    margin-top:25px
+}
+.tl-cmpy-icon-img{
+    width:60px;
+    height:60px;
+}
+.dlry-tel-hd-fnt{
+    font-size:13px !important;
+    font-weight:600;
+}
+.ord-dlry-tel-para{
+    font-size:12px;
+    font-weight:600;
+    color:rgb(150, 149, 149)
+}
+.css-ha3bif-MuiTimelineItem-root:before{
+    content:none !important;
+}
+
+
+/*-------------------------------------------------------------*/
+
+.checkbox{
+    padding: 5%;
+    margin-top: -30px;
+}
+.checkbox input{
+    margin-top: 15px;
+}
+
+.label-order-fntsz{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing: 0.75px;
+}
+.orderimg-3{
+    width: 80px;
+    height:80px;
+    padding: 10px;
+    display: flex;
+    
+}
+
+
+.order-search-btnvw{
+    padding-left:30px;
+    padding-right:30px;
+    padding-top:5px;
+    padding-bottom:5px;
+    font-size:16px;
+    font-weight:600;
+    background-color:#b79d33;
+    color:white;
+    border-radius:7px;
+    border:solid 1px #b79d33;
+}
+.order-box-bgvw{
+    background-color:rgb(233, 244, 250);
+    padding:10px;
+}
+/*-------------------------------------------------------------*/
+@media only screen and (max-width:767.98px){
+    .id-tag-fnt{
+        font-size:13px;
+        font-weight:600;
+        margin-top:15px;
+        color:rgb(114, 114, 114)
+    }
+    .coins-sz-1{
+        width:30px;
+        height:30px;
+    }
+    .coin-hd-fnt-1{
+    font-weight:600;
+    font-size:15px;
+    color:black;
+    letter-spacing: 0.75px;
+    }
+    .coin-para-fnt-1{
+        font-weight:600;
+        font-size:13px;
+        color:rgb(94, 94, 94); 
+        margin-top:-5px ;
+        letter-spacing: 0.75px;
+    }
+    .reward-heading{
+        font-size:16px;
+        font-weight:600;
+        letter-spacing: 0.75px;
+        margin-bottom:15px;
+    }
+    .invce-btn-1{
+        font-size:16px;
+        font-weight:600;
+        color:#b79d33;
+        padding-left: 25px;
+        padding-right:25px;
+        padding-top:5px;
+        padding-bottom:5px;
+        border-radius: 7px;
+        border:solid 1px #b79d33;
+        background-color:white;
+    
+    }
+    .customer-add-fnt{
+        font-size:14px;
+        font-weight:600;
+        color:rgb(145, 144, 144);
+        letter-spacing: 0.75px;
+        margin-top:-10px;
+    }
+    .tl-rupee-fnt{
+        font-size:16px;
+        font-weight:600;  
+    }
+    .tl-rupee-icon{
+        font-size:17px !important
+    }
+    .tl-delvry-offer{
+        font-size:14px;
+        font-weight:600;
+        color:rgb(0, 128, 68);
+    }
+    .tl-rate-help-clr{
+        font-size:15px !important;
+        font-weight:600;
+        color:#080079
+    }
+    .item-dlry-fnt-sz{
+        font-size:15px;
+        font-weight:600;
+        letter-spacing: 0.75px;
+        color:rgb(121, 121, 121);
+        border:solid 0.40px rgb(226, 228, 228);
+        padding:6px;
+        border-radius:6px;
+        height:auto;
+        margin-top:15px;
+        
+    }
+    .tl-dl-line-1{
+        border-bottom:dotted 2px rgb(226, 228, 228);
+        margin-top:20px;
+    }
+    .extend-fnt-sz-1{
+        font-size:14px;
+        font-weight:600;
+        color:rgb(36, 35, 35);
+        letter-spacing: 0.75px;
+        margin-top:25px;
+        text-align: justify;
+    }
+    .hprate-icon{
+        font-size:20px !important;
+    }
+    .ord-sch-bxvw{
+        margin-top:10px;
+    }
+    .order-flt-deskview{
+        display: none;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:1023.98px){
+    .coins-sz-1{
+        width:25px;
+        height:25px;
+    }
+    .coin-hd-fnt-1{
+    font-weight:600;
+    font-size:15px;
+    color:black;
+    letter-spacing: 0.75px;
+    }
+    .coin-para-fnt-1{
+        font-weight:600;
+        font-size:13.5px;
+        color:rgb(94, 94, 94); 
+        margin-top:-5px ;
+        letter-spacing: 0.75px;
+    }
+    .reward-heading{
+        font-size:16px;
+        font-weight:600;
+        letter-spacing: 0.75px;
+        margin-bottom:15px;
+    }
+    .css-55vwbm-MuiTimeline-root{
+        margin-left:90px 
+    }
+    .tl-rate-help-clr{
+        font-size:15px !important;
+        font-weight:600;
+        color:#080079
+    }
+    .hprate-icon{
+        font-size:20px !important;
+    }
+    .tl-cmpy-icon-img{
+        width:50px;
+        height:50px;
+    }
+    .tl-rupee-icon{
+        font-size:17px !important
+    }
+    .tl-rupee-fnt{
+        font-size:15px;
+        font-weight:600;  
+    }
+
+    
+    
+    .checkbox{
+        padding: 0%;
+        margin-top: 0px;
+    }
+    .checkbox input{
+        margin-top: 0px;
+    }
+    
+    .label-order-fntsz{
+        font-size:13px;
+        font-weight:600;
+        letter-spacing: 0.75px;
+    }
+    .orderimg-3{
+        width: 80px;
+        height:80px;
+    
+    }
+    .order-search-btnvw{
+        padding-left:30px;
+        padding-right:30px;
+        padding-top:5px;
+        padding-bottom:5px;
+        font-size:16px;
+        font-weight:600;
+        background-color:#b79d33;
+        color:white;
+        border-radius:7px;
+        border:solid 1px #b79d33;
+    }
+    .order-box-bgvw{
+        background-color:rgb(233, 244, 250);
+        padding:0px;
+        
+    }
+}
+.css-k76dbp-MuiTimelineDot-root{
+    margin: 1px !important;
+    border-width:4px !important;
+}
+.css-1ami7lv-MuiTimelineConnector-root{
+    width: 4px !important;
+    background-color: rgb(54, 146, 54) !important;
+}
+.css-55vwbm-MuiTimeline-root{
+    padding: 0px 16px !important;
+}
+@media only screen and (min-width:768px) and (max-width:1600px){
+    .order-flt-mobview{
+        display:none;
+    }
+    .offcnvs-vw-index{
+        z-index:100 !important
+    }
+
+
+}
+
+.css-k76dbp-MuiTimelineDot-root{
+    margin: 1.5px !important;
+    width: 10px;
+    height: 10px;
+}
+
+.css-1ami7lv-MuiTimelineConnector-root {
+    width: 3.5px !important;
+    background-color: #198754 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* <---------------------------------time LIne sss ---------------------------> */
+.tracking-list {
+    border: 1px solid #e5e5e5;
+  }
+  .tracking-item {
+    border-left: 4px solid #00ba0d;
+    position: relative;
+    padding: 2rem 1.5rem 0.5rem 2.5rem;
+    font-size: 0.9rem;
+    margin-left: 3rem;
+    min-height: 5rem;
+  }
+  .tracking-item:last-child {
+    padding-bottom: 4rem;
+  }
+  .tracking-item .tracking-date {
+    margin-bottom: 0.5rem;
+  }
+  .tracking-item .tracking-date span {
+    color: #888;
+    font-size: 85%;
+    padding-left: 0.4rem;
+  }
+  .tracking-item .tracking-content {
+    padding: 0.5rem 0.8rem;
+    background-color: #f4f4f4;
+    border-radius: 0.5rem;
+  }
+  .tracking-item .tracking-content span {
+    display: block;
+    color: #767676;
+    font-size: 13px;
+  }
+  .tracking-item .tracking-icon {
+    position: absolute;
+    left: -0.7rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    background-color: #fff;
+    color: #fff;
+  }
+  
+  .tracking-item-pending {
+    border-left: 4px solid #d6d6d6;
+    position: relative;
+    padding: 2rem 1.5rem 0.5rem 2.5rem;
+    font-size: 0.9rem;
+    margin-left: 3rem;
+    min-height: 5rem;
+  }
+  .tracking-item-pending:last-child {
+    padding-bottom: 4rem;
+  }
+  .tracking-item-pending .tracking-date {
+    margin-bottom: 0.5rem;
+  }
+  
+  .img-responsive {
+    width: 15%;
+    position: relative;
+    left: 95px;
+    top: -25px;
+  }
+  
+  .tracking-item-pending .tracking-date span {
+    color: #888;
+    font-size: 85%;
+    padding-left: 0.4rem;
+  }
+  .tracking-item-pending .tracking-content {
+    padding: 0.5rem 0.8rem;
+    background-color: #f4f4f4;
+    border-radius: 0.5rem;
+  }
+  .tracking-item-pending .tracking-content span {
+    display: block;
+    color: #767676;
+    font-size: 13px;
+  }
+  .tracking-item-pending .tracking-icon {
+    line-height: 2.6rem;
+    position: absolute;
+    left: -0.7rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    color: #d6d6d6;
+  }
+  
+  .tracking-item-pending .tracking-content {
+    font-weight: 600;
+    font-size: 17px;
+  }
+  
+  .tracking-item .tracking-icon.status-current {
+    width: 1.9rem;
+    height: 1.9rem;
+    left: -1.1rem;
+  }
+  .tracking-item .tracking-icon.status-intransit {
+    color: #00ba0d;
+    font-size: 0.6rem;
+  }
+  
+  .tracking-item .tracking-icon.status-current {
+    color: #00ba0d;
+    font-size: 0.6rem;
+  }
+
+
+
+  @media (min-width: 992px) {
+    /* .tracking-item {
+      margin-left: 10rem;
+    } */
+    .tracking-item .tracking-date {
+      position: absolute;
+      left: -10rem;
+      width: 7.5rem;
+      text-align: right;
+    }
+    .tracking-item .tracking-date span {
+      display: block;
+    }
+    .tracking-item .tracking-content {
+      padding: 0;
+      background-color: transparent;
+    }
+  
+    /* .tracking-item-pending {
+      margin-left: 10rem;
+    } */
+    .tracking-item-pending .tracking-date {
+      position: absolute;
+      left: -10rem;
+      width: 7.5rem;
+      text-align: right;
+    }
+    .tracking-item-pending .tracking-date span {
+      display: block;
+    }
+    .tracking-item-pending .tracking-content {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+  
+  .tracking-item .tracking-content {
+    font-weight: 600;
+    font-size: 17px;
+  }
+/* <---------------------------------time LIne sss ---------------------------> */

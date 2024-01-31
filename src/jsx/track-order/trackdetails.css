@@ -1,0 +1,60 @@
+.track-icon-sz{
+    width:33px;
+    height:33px;
+}
+.del-tbl-hd{
+    font-size:25px;
+    font-weight:600;
+    letter-spacing: 0.45px;
+    margin-left:8px;
+    margin-top:2px;
+    color:#DC3545
+}
+.table-box-bdr{
+    border:solid 1px rgb(226, 226, 226);
+    padding:20px; 
+}
+.box-bg-color{
+    background-color: #f5f5f5;
+}
+
+.table-box-vw{
+    border-collapse: collapse;
+  width: 100%;
+}
+
+.table-box-vw1{
+    border-collapse: collapse;
+  width: 100%;
+  overflow-y: scroll;
+}
+.table-box-vw1 tr{
+   border:solid 1px #ddd;
+
+} 
+.table-box-vw1 td{
+    padding:13px;
+}
+.table-box-vw td{
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+
+  .tbl-p-tagcnt{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing: 0.75px;
+    color:rgb(63, 63, 63);
+  }
+
+  .tbl-h5-tagcnt{
+    font-size:18px;
+    font-weight:600;
+    /* letter-spacing: 0.65px; */
+    margin-top:-10px;
+  }
+  .tm-dt-dlry-fnt{
+    font-size:14px;
+    font-weight:500;
+    letter-spacing: 0.75px;
+  }

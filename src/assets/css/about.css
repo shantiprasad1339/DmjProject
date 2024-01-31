@@ -1,0 +1,232 @@
+.banner{
+
+  position:relative;
+
+}
+
+
+
+.banner-text{
+
+  position:absolute;
+
+ top:35%;
+
+  left:43%
+
+}
+
+
+
+@media only screen and (max-width:767.98px){
+
+  .banner-text{
+
+      position:absolute;
+
+     top:20%;
+
+      left:35%
+
+    }
+
+}
+
+@media only screen and (max-width:767px){
+
+.banner-img{
+
+  width:100%;
+
+  height:160px;
+  object-fit: cover;
+
+}
+
+}
+
+
+
+.about-heading{
+
+  color:#3E3C3C;
+
+}
+
+
+
+.para-text{
+
+  text-align: justify;
+
+  color:#5C5B5B;
+
+  letter-spacing: 0.7px;
+
+}
+
+
+
+.vision-img{
+
+  width:70px;
+
+  height:70px !important;
+
+}
+
+.about-card-img{
+
+  width:320px;
+
+  height:350px;
+
+  border-radius:15px;
+  /* object-fit:inherit; */
+
+}
+
+
+
+@media only screen and (max-width:767px){
+
+  .about-card-img{
+
+      width:100%;
+
+      height:auto;
+
+      border-radius:15px
+
+  } 
+
+}
+
+
+
+.letter-bg{
+
+background:#EEEBEB;
+
+}
+
+
+
+
+
+.subscribe_form {
+
+max-width: 470px;
+
+width: 100%;
+
+margin: 0 auto;
+
+box-shadow: 0px 2px 5px 0px rgba(10, 6, 20, 0.24);
+
+}
+
+.subscribe_form:focus {
+
+outline: none;
+
+}
+
+.subscribe_form .form-control {
+
+border: none;
+
+}
+
+.subscribe_form .form-control:focus {
+
+box-shadow: none;
+
+}
+
+.subscribe_form input {
+
+height: 44px;
+
+}
+
+.subscribe_form button {
+
+border: none;
+
+height: 44px;
+
+background-color: #E9B530;
+
+color: #fff;
+
+margin: -1px;
+
+border-radius: 0;
+
+width: 120px;
+
+text-transform: uppercase;
+
+position: relative;
+
+transition: all ease 0.3s;
+
+
+
+}
+
+.subscribe_form button:hover, .subscribe_form button:focus, .subscribe_form button:active, .subscribe_form button:visited {
+
+color: #fff;
+
+background-color: rgba(160, 230, 69, 0.77);
+
+outline: none;
+
+transition: all ease 0.3s;
+
+
+
+}
+
+.subscribe_form button:hover:before, .subscribe_form button:focus:before, .subscribe_form button:active:before, .subscribe_form button:visited:before {
+
+background-color: rgba(160, 230, 69, 0.77);
+
+transition: all ease 0.3s;
+
+
+
+}
+
+.subscribe_form button:before {
+
+content: '';
+
+position: absolute;
+
+top: 100%;
+
+left: 0;
+
+height: 1px;
+
+background-color: #E9B530;
+
+width: 100%;
+
+transition: all ease 0.3s;
+
+
+
+}
+
+.subscribe_form .input-group-btn:last-child > .btn, .subscribe_form .input-group-btn:last-child > .btn-group {
+
+z-index: 2;
+
+margin-left: 0px;
+
+}
+

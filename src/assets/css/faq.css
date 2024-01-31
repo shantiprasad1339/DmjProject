@@ -1,0 +1,78 @@
+.faq-font button{
+
+    font-size:17px;
+
+    font-weight:500
+
+}
+
+.ans-font{
+    font-size: 15px;
+    font-weight: 400;
+text-align: justify;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px){
+  .faq-font{
+
+    font-size:14px;
+
+    font-weight:500
+
+}  
+
+.ans-font{
+    font-size: 12px;
+    font-weight: 600;
+text-align: justify;
+}
+}
+.label-text{
+    font-size: 17px;
+    font-weight: 500;
+}
+.input-holder{
+    border-radius: 10px;
+    border: solid 1px rgb(130, 149, 245);
+}
+.input-holder::placeholder{
+    font-size: 14px;
+    font-weight: 500;
+    color: grey;
+    
+}
+
+.signup-btn{
+    border-radius: 8px;
+    border: solid 2px rgb(250, 163, 2);
+    background-color: rgb(250, 163, 2);
+    width: 50%;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.signup-btn:hover{
+    background-color: white;
+    color: rgb(250, 163, 2);
+    border: solid 2px rgb(250, 163, 2);
+ font-size: 17px;
+    font-weight: 500;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px){
+   .signup-btn{
+    border-radius: 8px;
+    border: solid 2px rgb(250, 163, 2);
+    background-color: rgb(250, 163, 2);
+    width: 100%;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+} 
+}
+.error{
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+}

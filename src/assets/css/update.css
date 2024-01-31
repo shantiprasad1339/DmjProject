@@ -1,0 +1,249 @@
+.outer-login {
+
+    width: 100%;
+    height: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
+.inner-login,
+.otpInner {
+    border: solid 2px red;
+
+    max-width: 450px;
+    width: 100%;
+    height: 530px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inputBoxContainer {
+    margin: auto;
+    margin-top: 40px;
+
+    /* 
+    border: solid 1px green; */
+
+    max-width: 390px;
+    height: 100%;
+}
+
+.inputBoxContainer label {
+    font-size: 0.8rem;
+}
+
+.checkBox-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkIcon {
+    color: white;
+    font-size: 1.2rem !important;
+
+    background: green;
+
+    border: solid 1px green;
+    border-radius: 50%;
+}
+
+.inputFeild input {
+
+    width: 350px;
+    /* // width: 100%; */
+
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.inputFeild label {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.errorBox {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.err-box {
+    width: fit-content;
+    height: fit-content;
+
+    padding: 6px;
+    margin-left: 10px;
+
+
+    font-size: 0.7rem;
+}
+
+.radioControl {
+    display: flex;
+    align-items: center;
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+
+.radioButtonGroup {
+    margin-left: 50px;
+
+    font-size: 1rem;
+}
+
+.radioButtonGroup label span {
+    font-size: 0.85rem;
+}
+
+#input-with-icon-textfield {
+    font-size: 1rem;
+    font-weight: 500;
+
+    width: 318px;
+
+
+}
+
+.signUpButton {
+    width: 101.8%;
+
+    position: relative;
+    bottom: 50px;
+    right: 4px
+}
+
+.nameBox {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.nameBox input {
+    max-width: 165px;
+    width: 100%;
+}
+
+.lstName {
+    margin-left: 20px !important;
+}
+
+@media only screen and (max-width:500px) {
+    .inner-login {
+        padding: 2px;
+        margin-top: 0px !important;
+    }
+
+
+    .inputBoxContainer {
+        max-width: 320px;
+        width: 100%;
+
+        padding: 10px;
+        margin-top: 10px;
+
+        overflow: auto;
+
+    }
+
+    #input-with-icon-textfield,
+    .inputFeild input {
+        max-width: 318px;
+        width: 100%;
+    }
+
+    .err-box {
+        margin-left: 3px;
+        padding: 4px;
+
+        font-size: 0.67rem;
+    }
+
+    .radioButtonGroup {
+        flex-wrap: nowrap !important;
+        margin-left: 20px;
+    }
+
+    .signUpButton {
+        width: 102.5%;
+        right: 5px;
+        bottom: -40px;
+    }
+}
+
+
+/* otp page desinging :start */
+
+.otpInner {
+
+    padding-top: 30px;
+    z-index: 10;
+}
+
+.otpIcon {
+    width: 50px;
+    height: 70px;
+
+    margin-bottom: 50px;
+}
+
+.otpIcon img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.otpInner label {
+    font-size: 0.78rem;
+}
+
+.otpInput{
+    margin-top: 8px;
+}
+
+.otpInput input {
+    width: 37px;
+    height: 50px;
+
+    margin-left: 20px;
+
+    text-align: center;
+
+    font-size: 1.2rem;
+}
+
+.otpInput input:nth-child(1) {
+    margin-left: 0px;
+}
+
+.inputBox {
+
+    width: fit-content;
+
+}
+
+.loadingOuter {
+    background-color: rgba(248, 235, 235, 0.58);
+
+    width: 100%;
+    height: 98vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    z-index: 5000;
+
+}

@@ -1,0 +1,11 @@
+.bottom-border{
+    width:20%;
+    border-bottom:solid 2px rgb(109, 109, 109)
+}
+
+.privacy-para{
+    font-size:16px;
+    font-weight:600 ;
+    color:rgb(83, 83, 83);
+    margin-top:15px;
+}

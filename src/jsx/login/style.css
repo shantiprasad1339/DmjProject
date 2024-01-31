@@ -1,0 +1,25 @@
+.react-tel-input .form-control {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: .01rem;
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
+    padding-left: 48px;
+    margin-left: 0;
+    background: #FFFFFF;
+    border: 0px solid #CACACA;
+    border-radius: 5px;
+    line-height: 25px;
+    height: 35px;
+    width: 90%;
+    outline: none;
+}
+.horizontalDiv{
+    height: 2px;
+    width: 100%;
+background-color: #CACACA;
+}
+.form-control:focus {
+    border: none !important;
+    box-shadow: none;
+}

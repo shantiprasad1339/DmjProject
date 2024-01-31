@@ -1,0 +1,195 @@
+.pay-text{
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:blue
+
+}
+
+
+
+.acc-text{
+
+    font-size:13px;
+
+    font-weight:400
+
+}
+
+
+
+@media only screen and (max-width:767px){
+
+    .pay-btn{
+
+font-size:13px;
+
+font-weight: 400;
+
+    }
+
+
+
+    .pay-btn:hover{
+
+        font-size:13px;
+
+        font-weight: 400;  
+
+    }
+
+
+
+   
+
+}
+
+
+
+.box-style{
+
+    border:solid 1px rgb(204, 203, 203);
+
+    border-radius:9px;
+
+    padding:7px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:rgb(105, 104, 104)
+
+}
+
+
+
+.pay-bg{
+
+    background-color: rgb(222, 234, 250);
+
+    padding:20px;
+
+    /* border-radius:5px */
+
+    box-shadow:1px 1px 3px rgb(219, 218, 218);
+
+    
+
+}
+
+
+
+.display-form{
+
+    display:flex;
+
+    justify-content: space-between;
+
+}
+
+.cart-img{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:3px
+
+   
+
+}
+
+
+
+.cart-text{
+
+    font-size:15px;
+
+    font-weight:500
+
+}
+
+
+
+@media only screen and (max-width:767px){
+
+   
+
+
+
+        .cart-text{
+
+            font-size:19px;
+
+            font-weight:500
+
+        }
+
+
+
+        .display-form{
+
+            display:block;
+
+            
+
+        }
+
+}
+
+
+
+.coupon-card{
+
+    border:solid 1px rgb(241, 210, 69);
+
+    padding:7px
+
+}
+
+
+
+.coupon-text{
+
+    font-size:13px;
+
+    font-weight:400;
+
+}
+
+
+
+.label-font{
+
+    font-size:16px;
+
+    font-weight:600
+
+}
+
+
+
+.display-track{
+
+    width:50%;
+
+    margin:auto;
+
+}
+
+
+
+@media only screen and (max-width:767px){
+
+    .display-track{
+
+        width:100%;
+
+        margin:auto;
+
+    }   
+
+}

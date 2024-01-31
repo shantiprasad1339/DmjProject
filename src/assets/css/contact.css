@@ -1,0 +1,105 @@
+.box-bg{
+
+    background:#ffffff;
+
+    box-shadow: 1px 1px 2px 2px rgb(248, 248, 248);
+
+    border-radius:13px;
+
+    padding:15px;
+    border: solid 1px #b79d33;
+}
+
+.box-bg:hover{
+    transform: scale(1.01);
+   border:solid 1px #a7a7a7
+}
+.cont-zoom-icon{
+    font-size:23px;
+}
+.cont-zoom-icon:hover{
+    transform: scale(1.05);
+    font-size:20px;
+}
+.contact-box{
+
+    background:#ffffff;
+
+    box-shadow:1px 1px 2px 2px rgb(247, 247, 247);
+    border:solid 1px rgb(219, 219, 219);
+
+    border-radius:13px;
+
+    padding:15px; 
+
+    width:100%;
+
+    margin:auto;
+border:solid 1px #b79d33
+}
+
+.cont-img{
+  width:45px;
+  height:45px;
+  margin-top:20px
+}
+
+@media only screen and (max-width:767.98px){
+
+    .contact-box{
+        padding:5px; 
+
+        width:100%;
+
+        margin:auto
+
+    }   
+
+}
+
+
+
+.input-box-contact{
+
+    border-radius:10px;
+    font-size:15px !important;
+    font-weight:600 !important;
+    letter-spacing: 0.75px !important;
+    color:rgb(187, 187, 187);
+    border:solid 1px rgb(197, 197, 197);
+    box-shadow: 1px 1px 2px 2px rgb(243, 243, 243);
+    /* padding:10px */
+
+}
+
+.contact_button{
+
+    background:#f59f04;
+
+    border:2px solid #f59f04;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:500;
+
+    border-radius:11px
+
+}
+.successfullmsg{
+  
+    position: fixed;
+    top: 18%;
+    right: 42%;
+   
+    z-index: 1;
+}
+.succesmsg{
+    color:rgb(0, 187, 0);
+    font: 1.5em sans-serif;
+}
+.errmsg{
+    color:rgb(255, 0, 0);
+    font: 1.5em sans-serif; 
+}

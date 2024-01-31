@@ -1,0 +1,17 @@
+.confirm-popup{
+    background-color: white;
+    padding: 25px;
+    width:100%;
+    max-width:400px;
+    box-shadow: 2px 2px 40px 5px rgb(241, 241, 241);
+    margin:auto;
+}
+
+.fnt-sz-pop-para{
+    font-size:15px;
+    font-weight: 600;
+    letter-spacing: 0.75px;
+    color:rgb(85, 85, 85);
+    text-align: center;
+    margin-top:20px
+}

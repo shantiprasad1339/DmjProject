@@ -1,0 +1,251 @@
+input[type="checkbox"] {
+  margin-right: 12px;
+  font-weight: 100;
+}
+
+.dsearch {
+  width: 100%;
+  padding: 12px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+}
+
+.pricein {
+  width: 49%;
+  padding: 12px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+.count {
+  font-size: 10px;
+  line-height: 14px;
+  background: #f4f4f8;
+  color: #343434;
+  padding: 5px;
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  margin-top: -3px;
+  margin-left: -4px;
+  border: 1px solid #555555;
+  border-radius: 2px;
+  background-color: white;
+}
+
+input[type="checkbox"]:checked:before {
+  border: 1px solid blue;
+  background: blue;
+}
+
+input[type="checkbox"]:checked+label {
+  color: blue;
+}
+
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: 1px solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  margin-top: -3px;
+  margin-left: -4px;
+}
+
+.accor-width {
+  width: 200px;
+  padding: 10px;
+  box-shadow: 2px 2px 1px 1px rgb(241, 241, 241);
+  text-transform: capitalize;
+
+
+}
+
+.pro-hd-font {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.75px !important;
+}
+
+.css-ahj2mt-MuiTypography-root {
+  font-family: none !important;
+}
+
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  box-shadow: none !important;
+}
+
+.subcat-font {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  margin-top: 5px;
+}
+
+.coll-btn {
+  background-color: white !important;
+  border-radius: 0px !important;
+  border: solid 1px grey !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.coll-btn:hover {
+  background-color: rgb(230, 228, 228) !important;
+}
+
+.coll-btn-box {
+  margin: 25px;
+}
+
+.categories li {
+  list-style: none !important;
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+  padding: 0px !important;
+}
+
+ul.cate-flt-list {
+  padding: 0px !important;
+}
+
+.pro-cd-flt-box {
+  padding-top: 0px;
+  padding-bottom:3px;
+  padding-left:3px;
+  padding-right:3px;
+}
+
+@media only screen and (max-width:767.98px) {
+
+  ul.cate-flt-list {
+    padding: 5px !important;
+  }
+
+  .sh-list-flt {
+    padding-left: 10px !important
+  }
+}
+
+@media only screen and (max-width:1023.98px){
+  .accor-width {
+    display: none;
+ 
+   }
+}
+ .mobview-filter-box{
+  display:flex;
+  justify-content: space-around;
+  padding-left:25px;
+  padding-right:25px;
+  padding-top:15px;
+  padding-bottom:15px;
+  background-color: white;
+  box-shadow: 2px 2px 4px 4px rgb(240, 240, 240);
+margin-top:3px;
+ }
+ .sort-fltr-mb{
+  font-size:20px;
+  font-weight:600;
+  // letter-spacing: 0.65px;
+  margin-top:5px;
+cursor: pointer;
+margin-left:5px;
+ }
+ .fltr-bdr-linevw{
+  border-left:solid 1.5px rgb(49, 49, 49);
+  width:20px;
+  height:20px;
+  margin:auto;
+ }
+ .sortftr-box{
+  width:100%;
+  padding:10px;
+  background-color: white;
+ }
+ .close-tabbtn{
+  font-size:15px;
+  font-weight: 600;
+  color:#b79d33;
+  letter-spacing: 0.75px;
+ }
+ .sorting-bottomline{
+  border-top:solid 1px rgb(219, 218, 218);
+  width:100%;
+ }
+ .radiostr-fntsz{
+  font-size:15px;
+  font-weight:600;
+  letter-spacing: 0.75px;
+  color:#555555;
+  margin-top:10px;
+ }
+ .offcanvas-endvw-shw{
+  height: 100vh;
+  z-index:40000
+ }
+ .accord-details-vw{
+  padding:10px;
+  font-size:15px !important;
+  font-weight:600 !important;
+  letter-spacing: 0.75px;
+  color:rgb(80, 79, 79);
+ }
+//  .home-card-icnpost img{
+//   width:200px;
+//   height:200px;
+//  }
+@media only screen and (min-width:1024px){
+  .mobview-filter-box{
+    display:none;
+  }
+}
+.filter-iconsz{
+  width:35px;
+  height:35px;
+}
+.desktop-mob-vw-bx{
+  display: flex;
+}
+@media only screen and (max-width:1023.98px){
+  .desktop-fltr-box{
+    display: none;
+  }
+  .desktop-mob-vw-bx{
+    display: none;
+  
+  }
+}
+
