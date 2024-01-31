@@ -67,7 +67,7 @@ const [userAge,setUserAge] = useState('')
   }
   function userDetailsAddress(){
     axios.get(url+endPoint+userId).then((res)=>{
-      console.log("userDetails",res.data.data);
+      // console.log("userAddress",res.data.data);
       setUserName(res.data.data.userName)
       setUserGender(res.data.data.gender)
       setUserEmail(res.data.data.email)
@@ -262,15 +262,20 @@ const DlryAddress = ({ handleSetAddress }) => {
   const [isOfficeChecked, setIsOfficeChecked] = useState(false);
 
   function getUserLocation(postalCode) {
-    const zipodeApi = "https://postcode.diwamjewels.com/api/get/data/?code=341505"
+    const zipodeApi = "https://postcode.diwamjewels.com/api/get/data/?code="
     const pin = postalCode.slice(0, 6);
   
     setDelivery({ ...delivery, postalCode: pin });
   
-    axios.get(zipodeApi).then((res) => {
+    axios.get( "https://postcode.diwamjewels.com/api/get/data/?code=341505").then((res) => {
       console.log("userDetails ======>>>>", res.data);
-    });
+    })
   }
+
+
+
+
+
   function userDetailsAddress(){
     axios.get(url+endPoint+userId).then((res)=>{
       setDelivery({

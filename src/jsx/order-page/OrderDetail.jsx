@@ -141,7 +141,10 @@ const CustomerAddress = ({ orderAddress }) => {
       </p>
       <h6 className="coin-hd-fnt-1">Phone Number</h6>
       <p className="customer-add-fnt">
-        {orderAddress && orderAddress.mobile},
+        {orderAddress && orderAddress.mobile}
+        <br/>
+        <br/>
+        <h6 className="coin-hd-fnt-1">Alternate Phone Number</h6>
         {orderAddress && orderAddress.alternateNumber}
       </p>
     </>
@@ -197,7 +200,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
           </div>
           <div className="item-dlry-fnt-sz">
             <p>
-              <WidgetsIcon /> Item was opened and verified at the time of
+              {/* <WidgetsIcon /> Item was opened and verified at the time of */}
               delivery.
             </p>
           </div>
