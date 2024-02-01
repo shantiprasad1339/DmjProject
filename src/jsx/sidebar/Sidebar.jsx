@@ -40,7 +40,7 @@ class Sidenavbar extends React.Component {
       // terms: "",
       // vpacard: "",
       // editprofile: "",
-      displayElement: "Profile",
+      displayElement: "order",
     };
   }
   setDisplay(val) {
@@ -59,6 +59,13 @@ class Sidenavbar extends React.Component {
                             </h6>
                         </li>
                         <hr></hr> */}
+ <h6 className="side-tab" aria-current="page" onClick={() => this.setDisplay('order')}>
+                  <LocalShippingIcon className="fs-5"></LocalShippingIcon> ORDERS
+                </h6>
+
+            
+              <hr></hr>
+              <li className="nav-item">
               <h6
                 className="side-tab"
                 onClick={() => this.setDisplay("Profile")}
@@ -66,11 +73,6 @@ class Sidenavbar extends React.Component {
                 <ManageAccountsIcon className="fs-5"></ManageAccountsIcon>{" "}
                 Profile
               </h6>
-              <hr></hr>
-              <li className="nav-item">
-                <h6 className="side-tab" aria-current="page" onClick={() => this.setDisplay('order')}>
-                  <LocalShippingIcon className="fs-5"></LocalShippingIcon> ORDERS
-                </h6>
               </li>
 
               {/* <li className="nav-item">
@@ -127,8 +129,8 @@ class Sidenavbar extends React.Component {
         </div>
         </div>
 
-        {displayElement === "Profile" ? <Profileinfo /> :
-          displayElement === "order" ? <Orderpage /> : null
+        {displayElement === "order" ? <   Orderpage/> :
+          displayElement === "Profile" ? <Profileinfo /> : null
         }
 
         {/* (displayElement === 'overview') ? <Overviewpage /> :

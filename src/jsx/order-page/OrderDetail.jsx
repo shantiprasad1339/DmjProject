@@ -180,6 +180,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
                 productShipping.map((item, index) => {
                   const imgUrl =
                     "https://images.diwamjewels.com/";
+                    console.log("item======>>>>>",item);
                   return (
                     <ProductOrderDetails
                       image={imgUrl + item.productImagesModel.thum_image}
@@ -198,12 +199,12 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
               <RateHelpBox />
             </div>
           </div>
-          <div className="item-dlry-fnt-sz">
+          {/* <div className="item-dlry-fnt-sz">
             <p>
-              {/* <WidgetsIcon /> Item was opened and verified at the time of */}
+              <WidgetsIcon /> Item was opened and verified at the time of
               delivery.
             </p>
-          </div>
+          </div> */}
         
         </div>
       </div>
@@ -348,9 +349,11 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
 const RateHelpBox = () => {
   return (
     <>
-      <h6 className="tl-rate-help-clr">
-        <StarsIcon className="hprate-icon" /> Rate & Review Product
+     <NavLink to='/rating'> 
+      <h6 className="tl-rate-help-clr" style={{textDecoration:'none'}}>
+      <StarsIcon className="hprate-icon" /> Rate & Review Product
       </h6>
+      </NavLink>
       <h6 className="tl-rate-help-clr">
         <HelpIcon className="hprate-icon" /> Need help?
       </h6>

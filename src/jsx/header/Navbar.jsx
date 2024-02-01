@@ -1,4 +1,4 @@
-import {React, useState, memo, useRef } from "react";
+import { React, useState, memo, useRef } from "react";
 import "./newNav.css";
 // import logo from "../../assets/images/dmjicon.png";
 import searchIcon from "./icons/search.png";
@@ -15,27 +15,23 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Accordion from "react-bootstrap/Accordion";
 import "../search-contentbox/search-input-box.css";
 // import newlogoimg from '../../assets/images/newpnglogo.png';
-import newdmjlogo from '../../assets/images/newdmjlogo.gif';
+import newdmjlogo from "../../assets/images/newdmjlogo.gif";
 import DeskDropdown from "../desktop-dropdown/DeskDropdown";
 import axios from "axios";
-import timer from '../../assets/images/timer.png'
-import image1 from '../../assets/images/earring.jpg'
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import LoginWithMobileNo from '../login/LoginPage'
+import timer from "../../assets/images/timer.png";
+import image1 from "../../assets/images/earring.jpg";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import LoginWithMobileNo from "../login/LoginPage";
 
-const urlimg = 'https://squid-app-2-7wbvi.ondigitalocean.app/'
+const urlimg = "https://images.diwamjewels.com/";
 const url = "https://api.diwamjewels.com/DMJ/";
 const endPoint2 = "api/v1/user/";
 const endPoint = "api/v1/category/navbarItem";
 const subSubEndPoint = "api/v1/category/subcategory/";
 const userId = localStorage.getItem("userId");
 
-
-
-
 function Navbar() {
-
   async function fetchMenu() {
     try {
       const res = await axios.get(url + endPoint);
@@ -62,10 +58,10 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const [wishLength, setWishLength] = useState(0)
-  const [cartLength, setCartLength] = useState(0)
+  const [wishLength, setWishLength] = useState(0);
+  const [cartLength, setCartLength] = useState(0);
 
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState("");
 
   const [showModal, setShowModal] = useState(false);
 
@@ -90,9 +86,8 @@ function Navbar() {
   async function handleSignOut() {
     localStorage.removeItem("userId");
     localStorage.clear();
-    navigate('/')
+    navigate("/");
   }
-
 
   function handleJewelEnter() {
     setIsJwelOpen(!isJwelOpen);
@@ -103,20 +98,18 @@ function Navbar() {
     // /console.log('fired')
   }
 
-
   async function fetchUserData() {
-    console.log(userId);
+    // console.log(userId);
     try {
       const res = await axios.get(url + endPoint2 + userId);
       // console.log(res.data.data.userName)
       const userName = res.data.data.userName;
-      const firstWord = userName.split(' ')[0];
-      setUserName(firstWord)
+      const firstWord = userName.split(" ")[0];
+      setUserName(firstWord);
     } catch (err) {
       console.log(err);
     }
   }
-
 
   function handleArtEnter() {
     setIsArtOpen(!isArtOpen);
@@ -147,27 +140,25 @@ function Navbar() {
   useEffect(() => {
     // console.log(searchTxt)
     let userId = localStorage.getItem("userId");
-    let wishList = JSON.parse(localStorage.getItem('wishList')) || [];
+    let wishList = JSON.parse(localStorage.getItem("wishList")) || [];
     const uniqueWishList = [...new Set(wishList)];
-    setWishLength(uniqueWishList.length)
+    setWishLength(uniqueWishList.length);
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartLength(cart.length)
+    setCartLength(cart.length);
 
     if (userId) {
-      fetchUserData()
+      fetchUserData();
     }
     setSearch(searchTxt);
     fetchMenu();
     // Attach the event listener when the component mounts
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-
   }, [searchTxt]);
-
 
   const handleMouseEnter = () => {
     setIsJwelOpen(true);
@@ -195,14 +186,13 @@ function Navbar() {
 
   useEffect(() => {
     // Attach the event listener when the component mounts
-    document.addEventListener('mouseover', handleClickOutside);
+    document.addEventListener("mouseover", handleClickOutside);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.removeEventListener('mouseover', handleClickOutside);
+      document.removeEventListener("mouseover", handleClickOutside);
     };
   }, []);
-
 
   // const [issearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -213,11 +203,11 @@ function Navbar() {
 
   useEffect(() => {
     // Add an event listener to close the results when clicking outside
-    document.addEventListener('click', handleClickSOutside);
+    document.addEventListener("click", handleClickSOutside);
 
     return () => {
       // Remove the event listener when the component unmounts
-      document.removeEventListener('click', handleClickSOutside);
+      document.removeEventListener("click", handleClickSOutside);
     };
   }, []);
 
@@ -232,28 +222,33 @@ function Navbar() {
     setSearch(query);
 
     // Make an API request when the user types in the search input
-    axios.get('https://api.diwamjewels.com/DMJ/api/v1/category/search?query=' + query)
-      .then(response => {
+    axios
+      .get(
+        "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query
+      )
+      .then((response) => {
         // console.log(response.data.data)
         setSearchResults(response.data.data);
         setIsResultsOpen(true); // Show results when there are results
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err);
         setIsResultsOpen(false);
       });
   };
 
   const handleProSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
   };
 
-
   return (
     <>
-      <div className="nav-outer-dropdown nav-drop-shadow shadow desktop-navbar-vw" ref={dropdownRef}>
+      <div
+        className="nav-outer-dropdown nav-drop-shadow shadow desktop-navbar-vw"
+        ref={dropdownRef}
+      >
         <div className="navOuter shadow-sm">
           <NavLink to="/">
             <div className="nav-logo">
@@ -266,12 +261,11 @@ function Navbar() {
                 className="dropdown1 mt-2"
                 onClick={() => handleJewelEnter()}
                 onMouseEnter={handleMouseEnter}
-              // onMouseLeave={() => handleLeaveMouse()}
+                // onMouseLeave={() => handleLeaveMouse()}
               >
                 <NavLink
                   className="nav-box-product"
                   style={isJwelOpen ? { color: "#d0b646" } : null}
-                  
                 >
                   Jewellery{" "}
                   {!isJwelOpen ? (
@@ -286,13 +280,12 @@ function Navbar() {
                 className="dropdown1 mt-2"
                 onClick={() => handleArtEnter()}
                 onMouseEnter={handleMouseEnter1}
-              // onMouseLeave={() => handleLeaveMouse()}
+                // onMouseLeave={() => handleLeaveMouse()}
               >
                 <NavLink
                   className="nav-box-product"
                   style={isArtOpen ? { color: "#d0b646" } : null}
                 >
-                  
                   HandiCraft{" "}
                   {!isArtOpen ? (
                     <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
@@ -305,7 +298,7 @@ function Navbar() {
                 className="mt-2 dropdown1"
                 onClick={() => handleCraft()}
                 onMouseEnter={handleMouseEnter2}
-              // onMouseLeave={() => handleLeaveMouse()}
+                // onMouseLeave={() => handleLeaveMouse()}
               >
                 <NavLink
                   className="nav-box-product"
@@ -322,36 +315,40 @@ function Navbar() {
             </div>
           </ul>
 
-
           <form onSubmit={handleProSearch}>
             <div className="nav-box-search" ref={searchBoxRef}>
-
               <input
                 type="text"
                 className="nav-search"
                 value={search}
                 onChange={handleSearch}
               />
-              <button type="submit" style={{ background: 'transparent', border: 'none' }}>
+              <button
+                type="submit"
+                style={{ background: "transparent", border: "none" }}
+              >
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
                   onClick={handleProSearch}
                 />
               </button>
-
             </div>
           </form>
 
-
-
           {isResultsOpen && ( // Only show search results if isResultsOpen is true
-            <div className='srch-ipt-cntet-bx'>
-              <h6 className='mt-2'><b>Search Results</b></h6>
-              {searchResults.map(result => (
-                
-                <ImageWithSearch key={result.name} detail={result.name} image={urlimg + result.image} query={result.name} />
-                ))}
+            <div className="srch-ipt-cntet-bx">
+              <h6 className="mt-2">
+                <b>Search Results</b>
+              </h6>
+              {searchResults.map((result) => (
+                <ImageWithSearch
+                  key={result.name}
+                  detail={result.name}
+                  image={urlimg + result.image}
+                  query={result.name}
+                />
+              ))}
             </div>
           )}
 
@@ -363,13 +360,19 @@ function Navbar() {
               }}
             >
               <div className="">
-                <i className="bi bi-person-circle nav-icon-item" style={{ position: 'relative', top: '-2px' }}></i><br />
-                <p className="user-name-fntsz">Hi, {userId ? userName : "Guest"}</p>
+                <i
+                  className="bi bi-person-circle nav-icon-item"
+                  style={{ position: "relative", top: "-2px" }}
+                ></i>
+                <br />
+                <p className="user-name-fntsz">
+                  Hi, {userId ? userName : "Guest"}
+                </p>
               </div>
             </div>
             {profile && (
               <div className="more-profile">
-                {(!userId && userId == undefined) ? (
+                {!userId && userId == undefined ? (
                   <li
                     // onClick={async () => {
                     //   navigate("/defaultlogin");
@@ -379,10 +382,9 @@ function Navbar() {
                   >
                     Log In / Sign Up
                   </li>
-
                 ) : (
                   <>
-                    <li onClick={() => navigate('/profile')}>Profile</li>
+                    <li onClick={() => navigate("/profile")}>Profile</li>
                     <li
                       className="mt-2"
                       onClick={() => {
@@ -392,23 +394,22 @@ function Navbar() {
                     >
                       Sign Out
                     </li>
-
-                    
                   </>
-      
-      )}
+                )}
               </div>
-              
             )}
 
-            <Modal centered show={showModal} onHide={handleClose} style={{zIndex:'60000',}}>
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>
-          <LoginWithMobileNo />
-        </Modal.Body>
-
-      </Modal>
+            <Modal
+              centered
+              show={showModal}
+              onHide={handleClose}
+              style={{ zIndex: "60000" }}
+            >
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <LoginWithMobileNo />
+              </Modal.Body>
+            </Modal>
             <div className="nav-box ms-4">
               <NavLink to="/wishlist">
                 {" "}
@@ -421,7 +422,6 @@ function Navbar() {
             <div className="nav-box ms-4">
               <NavLink to="/addToCart">
                 {" "}
-
                 <div className="show-numbericn">
                   <i className="bi bi-cart4 nav-icon-item"></i>
                   <div className="number-icon-sz">{cartLength}</div>
@@ -433,24 +433,23 @@ function Navbar() {
 
         <div className="navbar-mobile">
           <div className="nav-mob-icon">
-
             <img src={newdmjlogo} alt="logo" className="nav-logo" />
             {isMobNav ? (
               <ThreeLine
                 onClick={() => {
                   setIsMobNav(false);
                 }}
-                />
-                ) : (
-                  <CrossIcon
+              />
+            ) : (
+              <CrossIcon
                 onClick={() => {
                   setIsMobNav(true);
                   setIsJwelOpen(false);
                   setIsArtOpen(false);
                   setIsCarpet(false);
                 }}
-                />
-                )}
+              />
+            )}
           </div>
           {!isMobNav ? (
             <div className="nav-mobile-item">
@@ -463,16 +462,15 @@ function Navbar() {
                       setIsArtOpen(false);
                       setIsCarpet(false);
                     }}
-                    >
+                  >
                     <NavLink
                       className="nav-box-product"
                       style={isJwelOpen ? { color: "#d0b646" } : null}
-                      >
-                      
+                    >
                       Jewellery{" "}
                       {!isJwelOpen ? (
                         <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-                        ) : (
+                      ) : (
                         <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
                       )}
                     </NavLink>
@@ -490,7 +488,6 @@ function Navbar() {
                       className="nav-box-product"
                       style={isArtOpen ? { color: "#d0b646" } : null}
                     >
-                    
                       Art & Craft{" "}
                       {!isArtOpen ? (
                         <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
@@ -523,8 +520,6 @@ function Navbar() {
               </ul>
               <div className="nav-box-search" onClick={toggleOpen}>
                 <form onSubmit={handleProSearch}>
-
-
                   <input
                     type="text"
                     className="nav-search"
@@ -532,8 +527,6 @@ function Navbar() {
                     onChange={handleSearch}
                   />
                   <button type="submit">
-
-
                     <img
                       src={searchIcon}
                       className="nav-search-icon"
@@ -545,15 +538,13 @@ function Navbar() {
 
               {issearchOpen && (
                 <>
-                  <div className='srch-ipt-cntet-bx'>
-
+                  <div className="srch-ipt-cntet-bx">
                     <ImageWithSearch detail="Rings" image={image1} />
                     <ImageWithSearch detail="Necklace" image={image1} />
                     <ImageWithSearch detail="Bangles" image={image1} />
                   </div>
                 </>
               )}
-
 
               <div className="nav-account">
                 <div
@@ -563,13 +554,19 @@ function Navbar() {
                   }}
                 >
                   <div>
-                    <i className="bi bi-person-circle nav-icon-item ms-5" style={{ position: 'relative', top: '-2px' }}></i><br />
-                    <p className="user-name-fntsz">Hi, {userId ? userName : "Guest"}</p>
+                    <i
+                      className="bi bi-person-circle nav-icon-item ms-5"
+                      style={{ position: "relative", top: "-2px" }}
+                    ></i>
+                    <br />
+                    <p className="user-name-fntsz">
+                      Hi, {userId ? userName : "Guest"}
+                    </p>
                   </div>
                 </div>
                 {profile && (
                   <div className="more-profile">
-                    {(!userId && userId == undefined) ? (
+                    {!userId && userId == undefined ? (
                       <li
                         onClick={async () => {
                           navigate("/login");
@@ -579,7 +576,13 @@ function Navbar() {
                       </li>
                     ) : (
                       <>
-                        <li onClick={() => { navigate('/profile') }}>Profile</li>
+                        <li
+                          onClick={() => {
+                            navigate("/profile");
+                          }}
+                        >
+                          Profile
+                        </li>
                         <li
                           className="mt-2"
                           onClick={() => {
@@ -620,7 +623,6 @@ function Navbar() {
             marginLeft="170px"
             handleNavMouseEnter={handleArtEnter}
             onMouseLeave={handleMouseLeave}
-
           />
         ) : null}
         {isCarpet && cateData.length > 0 ? (
@@ -672,14 +674,17 @@ function Navbar() {
                 setProfile(!profile);
               }}
             >
-              <div style={{ marginTop: '-6px' }}>
-                <i className="bi bi-person-circle nav-icon-item ms-4"></i><br />
-                <p className="user-name-fntsz1">Hi, {userId ? userName : "Guest"}</p>
+              <div style={{ marginTop: "-6px" }}>
+                <i className="bi bi-person-circle nav-icon-item ms-4"></i>
+                <br />
+                <p className="user-name-fntsz1">
+                  Hi, {userId ? userName : "Guest"}
+                </p>
               </div>
             </NavLink>
             {profile && (
               <div className="more-profile">
-                {(!userId && userId == undefined) ? (
+                {!userId && userId == undefined ? (
                   <li
                     onClick={async () => {
                       navigate("/login");
@@ -689,7 +694,13 @@ function Navbar() {
                   </li>
                 ) : (
                   <>
-                    <li onClick={() => { navigate('/profile') }}>Profile</li>
+                    <li
+                      onClick={() => {
+                        navigate("/profile");
+                      }}
+                    >
+                      Profile
+                    </li>
                     <li
                       className="mt-2"
                       onClick={() => {
@@ -701,7 +712,6 @@ function Navbar() {
                     </li>
                   </>
                 )}
-
               </div>
             )}
 
@@ -729,8 +739,6 @@ function Navbar() {
 
 export default Navbar;
 
-
-
 function MobileMenuBar({ cateData, sch, ...props }) {
   // console.log(cateData)
   const [show, setMenuShow] = useState(false);
@@ -738,29 +746,50 @@ function MobileMenuBar({ cateData, sch, ...props }) {
   const handleClose = () => setMenuShow(false);
   const handleShow = () => setMenuShow(true);
 
+  const [searchResults, setSearchResults] = useState([]);
+  const [isResultsOpen, setIsResultsOpen] = useState(false);
 
-  const [search, setSearch] = useState("");
   const searchTxt = useSelector((state) => state.product.search.payload);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    // console.log(searchTxt)
-    setSearch(searchTxt);
-
-  }, [searchTxt]);
+  const [search, setSearch] = useState('');
 
   async function handleSearch(e) {
     e.preventDefault();
-    setSearch(e.target.value);
-    dispatch(addSearch(e.target.value));
-    // navigate('/search')
+    const searchText = e.target.value.trim(); // Trim leading and trailing whitespaces
+  
+    setSearch(searchText);
+    dispatch(addSearch(searchText));
+  
+    try {
+      if (searchText !== '') {
+        const response = await axios.get(
+          "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + searchText
+        );
+        setSearchResults(response.data.data);
+        setIsResultsOpen(true);
+      } else {
+        // Clear the results and close the results panel when there is no search text
+        setSearchResults([]);
+        setIsResultsOpen(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setIsResultsOpen(false);
+    }
   }
+  
+  useEffect(() => {
+    // console.log(searchTxt)
+    setSearch(searchTxt);
+  }, [searchTxt]);
   async function handleProSearch(e) {
-    e.preventDefault()
+    e.preventDefault();
     navigate(`/c/${e.target.value}`);
     dispatch(addSearch(e.target.value));
     // toggleBoxVisibility()
   }
+  const urlimg =  "https://images.diwamjewels.com/";
 
   return (
     <>
@@ -777,13 +806,37 @@ function MobileMenuBar({ cateData, sch, ...props }) {
           <Offcanvas.Title></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-
-          {sch && <form className="d-flex mb-3 justify-content-center" onSubmit={handleProSearch}>
-            <input type="text" className="srch-input-box w-100" placeholder="Search here..." value={search}
-              onChange={handleSearch} />
-            <button type="submit" className="search-offbtn">Search</button>
-          </form>}
-
+          {sch && (
+            <form
+              className="d-flex mb-3 justify-content-center"
+              onSubmit={handleProSearch}
+            >
+              <input
+                type="text"
+                className="srch-input-box w-100"
+                placeholder="Search here..."
+                value={search}
+                onChange={handleSearch}
+              />
+              <button type="submit" className="search-offbtn">
+                Search
+              </button>
+            </form>
+          )}
+          {isResultsOpen === true
+            ? searchResults.map((result) => {
+               return(
+                <>
+                <ImageWithSearch
+                  key={result.name}
+                  detail={result.name}
+                  image={urlimg + result.image}
+                  query={result.name}
+                />
+                </>
+               )
+              })
+            : ""}
           {cateData.length > 0 &&
             cateData.map((cate) => {
               // console.log(cate)
@@ -801,7 +854,6 @@ function MobileMenuBar({ cateData, sch, ...props }) {
   );
 }
 
-
 function AccordianMenuList({ title, subCateDate, handleClose }) {
   // console.log(subCateDate)
   return (
@@ -814,14 +866,21 @@ function AccordianMenuList({ title, subCateDate, handleClose }) {
           <Accordion.Body>
             {subCateDate.map((item) => {
               // console.log(item)
-              if(item.name== "Gold Jewellery" || item.name == "Silver Jewellery"){
-                <></>
-              }else{
-                return <AccordianSubMenu title={item.name} id={item.id} handleClose={handleClose} />;
+              if (
+                item.name == "Gold Jewellery" ||
+                item.name == "Silver Jewellery"
+              ) {
+                <></>;
+              } else {
+                return (
+                  <AccordianSubMenu
+                    title={item.name}
+                    id={item.id}
+                    handleClose={handleClose}
+                  />
+                );
               }
-              
             })}
-
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
@@ -834,8 +893,8 @@ export { AccordianMenuList, MobileMenuBar, AccordianSubMenu };
 function AccordianSubMenu({ title, id, handleClose }) {
   const [subCate, setSubCate] = useState([]);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function getSubSubCate(value) {
     // console.log(value)
@@ -851,7 +910,6 @@ function AccordianSubMenu({ title, id, handleClose }) {
       console.log(err);
       setSubCate([]);
     }
-
   }
   useEffect(() => {
     getSubSubCate(id);
@@ -860,7 +918,7 @@ function AccordianSubMenu({ title, id, handleClose }) {
   // console.log(id)/
   return (
     <>
-      <Accordion >
+      <Accordion>
         <Accordion.Item eventKey="0" className="accord-item-list-box">
           <Accordion.Header className="menucate-title-fnt">
             {title}
@@ -871,11 +929,15 @@ function AccordianSubMenu({ title, id, handleClose }) {
               subCate.map((item, index) => {
                 return (
                   <>
-                    <p className="list-ptag-font" key={index} onClick={() => {
-                      handleClose()
-                      dispatch(addSearch(item.type));
-                      navigate('/search')
-                    }}>
+                    <p
+                      className="list-ptag-font"
+                      key={index}
+                      onClick={() => {
+                        handleClose();
+                        dispatch(addSearch(item.type));
+                        navigate("/search");
+                      }}
+                    >
                       {item.type}
                     </p>
                   </>
@@ -888,8 +950,6 @@ function AccordianSubMenu({ title, id, handleClose }) {
   );
 }
 
-
-
 const SearchInputContent = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -898,44 +958,40 @@ const SearchInputContent = () => {
   };
   return (
     <>
-
       <div className="nav-box-search mt-2 mb-3" onClick={toggleOpen}>
-        <input type="text" className='nav-search' />
-        <img src={searchIcon} className='nav-search-icon' />
+        <input type="text" className="nav-search" />
+        <img src={searchIcon} className="nav-search-icon" />
       </div>
-
-
 
       {isOpen && (
         <>
-          <div className='srch-ipt-cntet-bx'>
+          <div className="srch-ipt-cntet-bx">
             <SearchDetails title="Jewellery" />
             <SearchDetails title="Handi Craft" />
             <SearchDetails title="Blue Pottery" />
-            <h6 className='mt-2'><b>Discover More</b></h6>
+            <h6 className="mt-2">
+              <b>Discover More</b>
+            </h6>
             <ImageWithSearch detail="Rings" image={image1} />
             <ImageWithSearch detail="Necklace" image={image1} />
             <ImageWithSearch detail="Bangles" image={image1} />
           </div>
         </>
       )}
-
     </>
   );
-}
-
+};
 
 const SearchDetails = (props) => {
   return (
     <>
-      <div className='d-flex'>
-        <img src={timer} alt="icon" className='timer-iconsz' />
-        <p className='srch-ipt-detail-ptag'>{props.title}</p>
+      <div className="d-flex">
+        <img src={timer} alt="icon" className="timer-iconsz" />
+        <p className="srch-ipt-detail-ptag">{props.title}</p>
       </div>
     </>
-
   );
-}
+};
 
 const ImageWithSearch = (props) => {
   const navigate = useNavigate();
@@ -946,10 +1002,13 @@ const ImageWithSearch = (props) => {
 
   return (
     <>
-      <div className='d-flex mt-2' onClick={() => handleButtonClick(props.query)}>
-        <img src={props.image} alt="icon" className='search-img-dtl1' />
-        <p className='srch-ipt-detail-ptag mt-2'>{props.detail}</p>
+      <div
+        className="d-flex mt-2"
+        onClick={() => handleButtonClick(props.query)}
+      >
+        <img src={props.image} alt="icon" className="search-img-dtl1" />
+        <p className="srch-ipt-detail-ptag mt-2">{props.detail}</p>
       </div>
     </>
-  )
-}
+  );
+};

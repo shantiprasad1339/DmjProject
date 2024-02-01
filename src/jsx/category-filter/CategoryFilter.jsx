@@ -15,6 +15,8 @@ import axios from "axios";
 import { ProductItemCard } from "../ProductCard/FilterCard";
 import Pagination from "@mui/material/Pagination";
 import Button from "@mui/material/Button";
+import filter from "../../assets/images/filter.png";
+import { NavLink } from "react-router-dom";
 
 const proto = "https://api.diwamjewels.com/DMJ/";
 const imgUrl = "https://images.diwamjewels.com/";
@@ -67,7 +69,8 @@ console.log("useParams",params.page);
       <Navbar />
 
       <div className="mt-4">
-        <ProductFilter />
+        {/* <ProductFilter /> */}
+        <FilterTabView/>
       </div>
       <div className="mb-5">
         <FilterCategoryCard query={query} />
@@ -253,6 +256,143 @@ console.log('props',props);
         ) : data ? (
           <div dangerouslySetInnerHTML={{ __html: props.categoryDes }}></div>
         ) : null}
+      </div>
+    </>
+  );
+};
+
+
+const FilterTabView = () => {
+  const [iscategoryOpen, setIsCategoryOpen] = useState(false);
+  const [iscolorOpen, setIsColorOpen] = useState(false);
+  const [isbrandOpen, setIsBrandOpen] = useState(false);
+  const [ispriceOpen, setIsPriceOpen] = useState(false);
+  const [israngeOpen, setIsRangeOpen] = useState(false);
+  function handleCategoryOpen() {
+    setIsCategoryOpen(!iscategoryOpen);
+    setIsColorOpen(false);
+    setIsBrandOpen(false);
+    setIsPriceOpen(false);
+    setIsRangeOpen(false);
+  }
+  function handleColorOpen() {
+    setIsCategoryOpen(false);
+    setIsColorOpen(!iscolorOpen);
+    setIsBrandOpen(false);
+    setIsPriceOpen(false);
+    setIsRangeOpen(false);
+  }
+  function handleBrandOpen() {
+    setIsCategoryOpen(false);
+    setIsColorOpen(false);
+    setIsBrandOpen(!isbrandOpen);
+    setIsPriceOpen(false);
+    setIsRangeOpen(false);
+  }
+  function handlePriceOpen() {
+    setIsCategoryOpen(false);
+    setIsColorOpen(false);
+    setIsBrandOpen(false);
+    setIsPriceOpen(!ispriceOpen);
+    setIsRangeOpen(false);
+  }
+  function handleRangeOpen() {
+    setIsCategoryOpen(false);
+    setIsColorOpen(false);
+    setIsBrandOpen(false);
+    setIsPriceOpen(false);
+    setIsRangeOpen(!israngeOpen);
+  }
+  return (
+    <>
+      <div className="d-flex">
+        <div className="d-flex p-3">
+          <img src={filter} alt="filter" className="menubar-icon-nav" />
+          <h6 className="sort-fltr-mb">Filters</h6>
+        </div>
+        <ul className="filter-flow-view mt-3">
+          <li className="filter-tab ms-2" onClick={() => handleCategoryOpen()}>
+            <NavLink
+              className="nav-box-product"
+              style={iscategoryOpen ? { color: "#D0B646" } : null}
+            >
+              Categories{" "}
+              {!iscategoryOpen ? (
+                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
+              ) : (
+                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
+              )}
+            </NavLink>
+          </li>
+          <li className="filter-tab ms-2" onClick={() => handleColorOpen()}>
+            <NavLink
+              className="nav-box-product"
+              style={iscolorOpen ? { color: "#D0B646" } : null}
+            >
+              Color{" "}
+              {!iscolorOpen ? (
+                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
+              ) : (
+                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
+              )}
+            </NavLink>
+          </li>
+          <li className="filter-tab ms-2" onClick={() => handleBrandOpen()}>
+            <NavLink
+              className="nav-box-product"
+              style={isbrandOpen ? { color: "#D0B646" } : null}
+            >
+             Brand{" "}
+              {!isbrandOpen ? (
+                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
+              ) : (
+                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
+              )}
+            </NavLink>
+          </li>
+          <li className="filter-tab ms-2" onClick={() => handlePriceOpen()}>
+            <NavLink
+              className="nav-box-product"
+              style={ispriceOpen ? { color: "#D0B646" } : null}
+            >
+            Price{" "}
+              {!ispriceOpen ? (
+                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
+              ) : (
+                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
+              )}
+            </NavLink>
+          </li>
+          <li className="filter-tab ms-2" onClick={() => handleRangeOpen()}>
+            <NavLink
+              className="nav-box-product"
+              style={israngeOpen ? { color: "#D0B646" } : null}
+            >
+              Range{" "}
+              {!israngeOpen ? (
+                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
+              ) : (
+                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
+              )}
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+      {iscategoryOpen ? <FilterDropdownMenu list="Category" /> : null}
+      {iscolorOpen ? <FilterDropdownMenu list="Color" /> : null}
+      {isbrandOpen ? <FilterDropdownMenu list="Brand" /> : null}
+      {ispriceOpen ? <FilterDropdownMenu list="Price" /> : null}
+      {israngeOpen ? <FilterDropdownMenu list="Range" /> : null}
+    </>
+  );
+};
+const FilterDropdownMenu = (props) => {
+  return (
+    <>
+      <div className="fltr-dropdown-menu-vw">
+        <ul className="filter-flow-view" style={{ listStyle: "none", paddingLeft: "0px" }}>
+          <li className="filter-tab ms-2">{props.list}</li>
+        </ul>
       </div>
     </>
   );

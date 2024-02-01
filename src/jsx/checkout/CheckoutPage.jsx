@@ -1,4 +1,3 @@
-
 import HeaderCon from "../header/HeaderCon";
 import Navbar from "../header/Navbar";
 import Footer from "../footer/Footer";
@@ -43,18 +42,16 @@ const userId = localStorage.getItem("userId");
 var cart = JSON.parse(localStorage.getItem("cart")) || [];
 const CheckoutPage = () => {
   const [userInfo, setUserInfo] = useState(false);
-  const [addressId, setAddressId] = useState('')
-const [userName,setUserName] = useState('')
-const [userEmail,setUserEmail] = useState('')
-const [userGender,setUserGender] = useState('')
-const [userPhone,setUserPhone] = useState('')
-const [userAge,setUserAge] = useState('')
-
+  const [addressId, setAddressId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userAge, setUserAge] = useState("");
 
   async function handleSetAddress(val) {
-    setAddressId(val)
+    setAddressId(val);
   }
-
 
   async function fetchUserData() {
     try {
@@ -65,21 +62,21 @@ const [userAge,setUserAge] = useState('')
       console.log(err);
     }
   }
-  function userDetailsAddress(){
-    axios.get(url+endPoint+userId).then((res)=>{
+  function userDetailsAddress() {
+    axios.get(url + endPoint + userId).then((res) => {
       // console.log("userAddress",res.data.data);
-      setUserName(res.data.data.userName)
-      setUserGender(res.data.data.gender)
-      setUserEmail(res.data.data.email)
-      setUserPhone(res.data.data.phoneNumber)
-      setUserAge(res.data.data.age)
-    })
+      setUserName(res.data.data.userName);
+      setUserGender(res.data.data.gender);
+      setUserEmail(res.data.data.email);
+      setUserPhone(res.data.data.phoneNumber);
+      setUserAge(res.data.data.age);
+    });
   }
 
   useEffect(() => {
     fetchUserData();
-    userDetailsAddress()
-    // console.log("cart", cart);
+    userDetailsAddress();
+    window.scrollTo(0, 0);    // console.log("cart", cart);
   }, []);
 
   return (
@@ -103,9 +100,7 @@ const [userAge,setUserAge] = useState('')
                       Delivery Address
                     </Accordion.Header>
                     <Accordion.Body>
-                      <DlryAddress
-                        handleSetAddress={handleSetAddress}
-                      />
+                      <DlryAddress handleSetAddress={handleSetAddress} />
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
@@ -124,14 +119,10 @@ const [userAge,setUserAge] = useState('')
                 <DlryOptions />
 
                 {/* <PaymentType /> */}
-
-
               </div>
 
               <div className="col-md-5 mt-3">
-                <CheckoutItem
-                  addressId={addressId}
-                />
+                <CheckoutItem addressId={addressId} />
               </div>
             </div>
           </div>
@@ -254,46 +245,45 @@ const DlryAddress = ({ handleSetAddress }) => {
       state: "",
       postalCode: "",
       hometype: "",
-   
     },
   ]);
-
+const [postalcode,setPostalcode] = useState()
   const [isHomeChecked, setIsHomeChecked] = useState(false);
   const [isOfficeChecked, setIsOfficeChecked] = useState(false);
 
   function getUserLocation(postalCode) {
-    const zipodeApi = "https://postcode.diwamjewels.com/api/get/data/?code="
-    const pin = postalCode.slice(0, 6);
-  
+    const zipodeApi = "https://shark-app-cnaaz.ondigitalocean.app/api/data/"
+    const pin = postalCode
+
     setDelivery({ ...delivery, postalCode: pin });
-  
-    axios.get( "https://postcode.diwamjewels.com/api/get/data/?code=341505").then((res) => {
-      console.log("userDetails ======>>>>", res.data);
-    })
+    setPostalcode(pin)
+console.log("pin =====>>>",pin);
+    axios
+      .get(zipodeApi+postalCode)
+      .then((res) => {
+        console.log("userDetails ======>>>>", res.data);
+        setDelivery({
+          ...delivery,
+          city: res.data.data.District,
+          state: res.data.data.StateName
+        });
+      });
   }
 
-
-
-
-
-  function userDetailsAddress(){
-    axios.get(url+endPoint+userId).then((res)=>{
+  function userDetailsAddress() {
+    axios.get(url + endPoint + userId).then((res) => {
       setDelivery({
         ...delivery,
-        fName:  res.data.data.userName,
+        fName: res.data.data.userName,
         mobileNo: res.data.data.countryCode + res.data.data.phoneNumber,
-       
       });
-      
-    })
+    });
   }
 
   useEffect(() => {
-    userDetailsAddress()
+    userDetailsAddress();
     // console.log("cart", cart);
   }, []);
-
-
 
   const handleCheckboxChange = (e) => {
     if (e.target.name === "home") {
@@ -309,7 +299,7 @@ const DlryAddress = ({ handleSetAddress }) => {
     e.preventDefault();
 
     try {
-      const apiUrl = url + "api/v1/address"; 
+      const apiUrl = url + "api/v1/address";
       const requestData = {
         name: `${delivery.fName}`,
         pincode: parseInt(delivery.postalCode),
@@ -343,7 +333,7 @@ const DlryAddress = ({ handleSetAddress }) => {
 
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [isDelveryNewAddress, setNewDelveryAddress] = useState(false)
+  const [isDelveryNewAddress, setNewDelveryAddress] = useState(false);
 
   useEffect(() => {
     const apiUrl = url + "api/v1/address/userId/" + userId; // Update with your API URL
@@ -352,10 +342,9 @@ const DlryAddress = ({ handleSetAddress }) => {
       .get(apiUrl)
       .then((response) => {
         if (response.status === 200) {
-       
-          handleSetAddress(response.data.data[0].id)
+          handleSetAddress(response.data.data[0].id);
           setDeliveryOptions(response.data.data);
-          setNewDelveryAddress(false)
+          setNewDelveryAddress(false);
         } else {
           // Handle other response statuses if needed
           console.error("Failed to fetch delivery options:", response);
@@ -363,7 +352,7 @@ const DlryAddress = ({ handleSetAddress }) => {
       })
       .catch((error) => {
         setDeliveryOptions([]);
-        setNewDelveryAddress(true)
+        setNewDelveryAddress(true);
         // Handle any errors that occur during the request
         console.error("API Error:", error);
       });
@@ -373,31 +362,35 @@ const DlryAddress = ({ handleSetAddress }) => {
     setSelectedOption(option);
   };
 
-
-  
   return (
     <>
       <div className="del-ct-bg mt-2">
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="standard"
-          name="radio-buttons-group"
-        >
-          <div className="del-ct-bg mt-2">
-            <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
-            {deliveryOptions.length > 0 &&
-              deliveryOptions.map((option) => (
-                <RateOptions
-                  key={option.id}
-                  rate={option.name}
-                  dlryname={option.area}
-                  date={option.mobile}
-                  isSelected={option === selectedOption}
-                  onOptionSelect={() => handleOptionSelect(option)}
-                />
-              ))}
-          </div>
-        </RadioGroup>
+      <RadioGroup
+  aria-labelledby="demo-radio-buttons-group-label"
+  defaultValue={deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined}
+  name="radio-buttons-group"
+>
+  <div className="del-ct-bg mt-2">
+    <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
+    {deliveryOptions.length > 0 &&
+      deliveryOptions.map((option) => {
+        // console.log("option =====>>>>", option);
+        return (
+          <RateOptions
+            key={option.id}
+            rate={option.name}
+            dlryname={option.area}
+            required
+            date={option.mobile}
+            isSelected={option === selectedOption}
+            onOptionSelect={() => handleOptionSelect(option)}
+          />
+        );
+      })}
+  </div>
+</RadioGroup>
+
+
 
         <h3
           className="hd-tag-font"
@@ -415,15 +408,15 @@ const DlryAddress = ({ handleSetAddress }) => {
             paddingBottom: "5px",
             borderRadius: "5px",
           }}
-          onClick={() => { setNewDelveryAddress(!isDelveryNewAddress) }}
+          onClick={() => {
+            setNewDelveryAddress(!isDelveryNewAddress);
+          }}
         >
           <AddIcon /> ADD NEW ADDRESS
         </h3>
 
-
-        {isDelveryNewAddress &&
+        {isDelveryNewAddress && (
           <>
-
             <h3 className="hd-tag-font">DELIVERY ADDRESS</h3>
             <form onSubmit={handleSubmit}>
               <FormLabel className="fm-lbl-heading">Full NAME </FormLabel>
@@ -455,11 +448,11 @@ const DlryAddress = ({ handleSetAddress }) => {
               <FormLabel className="fm-lbl-heading">POSTAL CODE </FormLabel>
               <br />
               <Input
-  type="number"
-  className="input-box-bdr mt-1"
-  value={delivery.postalCode}
-  onChange={(e) => getUserLocation(e.target.value)}
-></Input>
+                type="number"
+                className="input-box-bdr mt-1"
+                value={postalcode}
+                onChange={(e) => getUserLocation(e.target.value)}
+              ></Input>
               <br />
               <FormLabel className="fm-lbl-heading">ADDRESS </FormLabel>
               <br />
@@ -480,7 +473,9 @@ const DlryAddress = ({ handleSetAddress }) => {
                 className="input-box-bdr mt-1"
                 required
                 value={delivery.city}
-                onChange={(e) => setDelivery({ ...delivery, city: e.target.value })}
+                onChange={(e) =>
+                  setDelivery({ ...delivery, city: e.target.value })
+                }
               ></Input>
               <br />
               <FormLabel className="fm-lbl-heading">STATE </FormLabel>
@@ -524,14 +519,12 @@ const DlryAddress = ({ handleSetAddress }) => {
                 <option value="Home">Home</option>
               </select>
 
-
-
               <Button className="dlry-btn" type="submit">
                 DELIVER TO THIS ADDRESS
               </Button>
             </form>
           </>
-        }
+        )}
       </div>
     </>
   );
@@ -723,209 +716,173 @@ const AccountCardType = (props) => {
 
 const CheckoutItem = ({ addressId }) => {
   // const [totalPrice, setTotal] = useState(0);
-  const totalPrice = JSON.parse(localStorage.getItem("total"))
+  const totalPrice = JSON.parse(localStorage.getItem("total"));
   // const [disTotal, setDisTotal] = useState(0);
   const disTotal1 = JSON.parse(localStorage.getItem("discounttotal"));
-  const disTotal = totalPrice - disTotal1
+  const disTotal = totalPrice - disTotal1;
   const [deliveryCharges, setDeliveryCharges] = useState(150);
   const [proDetails, setProDetails] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [quantity, setQuantity] = useState(null);
-  const [checkOutProducts, setProducts]= useState()
+  const [checkOutProducts, setProducts] = useState();
   const [productDetails, setProductDetails] = useState([]);
   const { name, price } = useParams();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch()
-cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const dispatch = useDispatch();
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
   async function fethcProductData(id) {
     // console.log(id)
     try {
       const res = await axios.get(url + productEndPoint + "/" + id);
       setProDetails((items) => [...items, res.data.data]);
 
-      console.log("i want product detailpart1" ,proDetails)
+      console.log("i want product detailpart1", proDetails);
       setIsUpdate(true);
     } catch (err) {
       console.log(err);
     }
-
-
   }
 
   const [proQuant, setProQuanty] = useState("");
-  
 
   async function handleAllPrice(item1) {
     console.log(item1);
     setProQuanty(cart);
-    
-  
+
     // let total = 0;
     // let discountTotal = 0;
     let quanti = [];
-  
-    
-  //   cart.map(async (cartItem) => {
-  //       setQuantity(cartItem.quantity);
-  //       const matchingItem = item1.find((item) => item.id === cartItem.productId);
-  // console.log("matchingItem", matchingItem);
-  //       const productPrice = parseInt(
-  //         matchingItem.images[0].productVariantEntities[0].price
-  //       );
-  //       const productManualPrice = parseInt(
-  //         matchingItem.images[0].productVariantEntities[0].manualPrice
-  //       );
-  
-  //       total += productPrice * (cartItem.quantity - 1);
-  //       discountTotal += productManualPrice * (cartItem.quantity - 1);
-  //       quanti.push(cartItem.quantity);
-     
-    
-  
-    
-  
-  //   setTotal(total);
-    
-  //   setDisTotal(discountTotal);
-  // })
 
+    //   cart.map(async (cartItem) => {
+    //       setQuantity(cartItem.quantity);
+    //       const matchingItem = item1.find((item) => item.id === cartItem.productId);
+    // console.log("matchingItem", matchingItem);
+    //       const productPrice = parseInt(
+    //         matchingItem.images[0].productVariantEntities[0].price
+    //       );
+    //       const productManualPrice = parseInt(
+    //         matchingItem.images[0].productVariantEntities[0].manualPrice
+    //       );
 
+    //       total += productPrice * (cartItem.quantity - 1);
+    //       discountTotal += productManualPrice * (cartItem.quantity - 1);
+    //       quanti.push(cartItem.quantity);
 
-   
-  
-   
-  
- 
+    //   setTotal(total);
 
+    //   setDisTotal(discountTotal);
+    // })
+  }
 
-
-
-  };
-  
-  
-
-  
   useEffect(() => {
     // cart = JSON.parse(localStorage.getItem("cart")) || [];
     window.scrollTo(0, 0);
-    
+
     console.log("cartData", cart);
     // setAdtCart(cart)
     cart.map((id) => fethcProductData(id.productId));
   }, [isUpdate]);
 
-  
   useEffect(() => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-     
 
-    const selectedProducts = cart.map(cartItem => {
-      const productDetail = proDetails.find(detail => detail.id === cartItem.productId);
+    const selectedProducts = cart.map((cartItem) => {
+      const productDetail = proDetails.find(
+        (detail) => detail.id === cartItem.productId
+      );
       return {
-        name: productDetail?.seo_title || 'Unknown', 
-        quantity: cartItem.quantity || 0, 
-        image: productDetail?.images[0].thumbImage || '',
-        price: productDetail?.images[0].productVariantEntities[0].price || 0, 
-        amount:productDetail?.images[0].productVariantEntities[0].manualPrice ?? 0,
-        discount: productDetail?.images[0].productVariantEntities[0].discount || 0, 
-        productVariantId: productDetail?.images[0].productVariantEntities[0].id || 0,
-    };
-    
-    },);
+        name: productDetail?.seo_title || "Unknown",
+        quantity: cartItem.quantity || 0,
+        image: productDetail?.images[0].thumbImage || "",
+        price: productDetail?.images[0].productVariantEntities[0].price || 0,
+        amount:
+          productDetail?.images[0].productVariantEntities[0].manualPrice ?? 0,
+        discount:
+          productDetail?.images[0].productVariantEntities[0].discount || 0,
+        productVariantId:
+          productDetail?.images[0].productVariantEntities[0].id || 0,
+      };
+    });
 
-   
     setProductDetails(selectedProducts);
-
-
-  }, [proDetails]); 
+  }, [proDetails]);
 
   async function newProductAdd(order, orderId) {
     // console.log("order", order,"orderId", orderId);
     try {
       // Use setTimeout to delay execution by 1 second
-    
-        const res = await axios.post(url + 'api/v1/orderdetails', order);
-        console.log(res);
-  
-        if (res.data.status === 'OK') {
-          // alert("Order Added Successfully ")
-          navigate('/payment/' + orderId);
-         
-          // window.location.href = 'https://lobster-app-d9ye4.ondigitalocean.app/#/pay/' + orderId;
-        }
-      
+
+      const res = await axios.post(url + "api/v1/orderdetails", order);
+      console.log(res);
+
+      if (res.data.status === "OK") {
+        // alert("Order Added Successfully ")
+        // navigate("/payment/" + orderId);
+
+        window.location.href = 'https://lobster-app-d9ye4.ondigitalocean.app/#/pay/' + orderId;
+      }
     } catch (err) {
-      console.error('Error adding order details:', err);
+      console.error("Error adding order details:", err);
     }
   }
-  
 
-// console.log("productDetails",productDetails);
+  // console.log("productDetails",productDetails);
   async function placeOrder(orderId) {
-
     productDetails.forEach((item, index) => {
-     
       let order = {
-        "amount": (Number(item.amount) * (item.quantity - 1)) + 150,
-        "price": item.price,
-        "discount": item.discount,
-        "quantity": item.quantity - 1,
-        "productVarintId": item.productVariantId,
-        "orderId": orderId
+        amount: Number(item.amount) * (item.quantity - 1) + 150,
+        price: item.price,
+        discount: item.discount,
+        quantity: item.quantity - 1,
+        productVarintId: item.productVariantId,
+        orderId: orderId,
       };
-      
 
-      newProductAdd(order, orderId)
-    })
+      newProductAdd(order, orderId);
+    });
     // console.log('placeOrder')
   }
-
-
 
   const createNewOrder = async () => {
     const orderData = {
       userId: userId,
-      price:  totalPrice,
+      price: totalPrice,
       addressId: addressId,
-      amount:totalPrice -  disTotal + deliveryCharges,
+      amount: totalPrice - disTotal + deliveryCharges,
       discount: disTotal,
     };
     // console.log(orderData)
     try {
       // Define the data to be sent
-      console.log("orderData",orderData);
+      console.log("orderData", orderData);
 
       // Make a POST request using Axios
-      const response = await axios.post(url + 'api/v1/order', orderData);
-// console.log("response",response);
+      const response = await axios.post(url + "api/v1/order", orderData);
+      // console.log("response",response);
       // Check the response status and handle accordingly
       if (response.status === 200) {
         // Request was successful
-        placeOrder(response.data.data)
+        placeOrder(response.data.data);
         // console.log('Order data sent successfully:', response.data);
       } else {
         // Handle errors here
 
-        console.error('Error sending order data:', response.status);
+        console.error("Error sending order data:", response.status);
       }
     } catch (error) {
       // Handle any exceptions
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
-  useEffect(()=>{
-    fethcProductData()
+  useEffect(() => {
+    fethcProductData();
     cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.map((id) => fethcProductData(id.productId));
     setProDetails([]);
     handleAllPrice(proDetails);
-  },[])
-
-  
-
- 
+  }, []);
 
   return (
     <>
@@ -967,7 +924,7 @@ cart = JSON.parse(localStorage.getItem("cart")) || [];
               </div>
             
             )): '...'} */}
-            {/* <h2 className="opt-dlry-fnt">White Color</h2> */}
+        {/* <h2 className="opt-dlry-fnt">White Color</h2> */}
 
         <hr className="mt-1" />
         <div className="ct-box justify-content-between">
@@ -1006,9 +963,7 @@ cart = JSON.parse(localStorage.getItem("cart")) || [];
           type="button"
           disabled={cart.length > 0 ? false : true}
           style={
-            cart.length > 0
-              ? { cursor: "pointer" }
-              : { cursor: "not-allowed" }
+            cart.length > 0 ? { cursor: "pointer" } : { cursor: "not-allowed" }
           }
           onClick={() => createNewOrder()}
         >
@@ -1018,12 +973,9 @@ cart = JSON.parse(localStorage.getItem("cart")) || [];
         <p className="cond-font">
           By placing your order you agree to our{" "}
           <NavLink to="/terms">Terms & Conditions</NavLink>,
-          <NavLink to="/privacypolicy">
-            privacy and returns policies
-          </NavLink>{" "}
-          . You also consent to some of your data being stored by ,
-          which may be used to make future shopping experiences better
-          for you.
+          <NavLink to="/privacypolicy">privacy and returns policies</NavLink> .
+          You also consent to some of your data being stored by , which may be
+          used to make future shopping experiences better for you.
         </p>
       </div>
     </>
