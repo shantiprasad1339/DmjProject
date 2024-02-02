@@ -83,6 +83,10 @@ const NewDropdownMenu = ({ cateData }) => {
   };
 
   let navigate = useNavigate();
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div className="new-menu-boxvw">
@@ -156,7 +160,7 @@ const NewDropdownMenu = ({ cateData }) => {
                             )
                           }
 
-                        // onMouseLeave={handleCategoryMouseOut}
+                       
                         />
                       </>
                     );
@@ -171,7 +175,11 @@ const NewDropdownMenu = ({ cateData }) => {
                     return (
                       <p
                         className="subcate-fnt-sz"
-                        onClick={() => navigate(`/c/${item.type}`)}
+                        onClick={() => {
+                          navigate(`/c/${item.type}`)
+                          handleRefreshClick()
+
+                        }}
                       >
                         {item.name}
                       </p>
@@ -196,6 +204,10 @@ const MainCategory = ({
   category,
 }) => {
   let navigate = useNavigate();
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
 
   return (
     <>
@@ -206,7 +218,10 @@ const MainCategory = ({
       >
         <p
           className="main-cate-fnt-sz"
-          onClick={() => navigate(`/c/${category}`)}
+          onClick={() => {
+            navigate(`/c/${category}`)
+            handleRefreshClick()
+          }}
         >
           {category}
         </p>
@@ -226,6 +241,10 @@ const SubcategoryBox = () => {
 
 const SubcategoryList = (props) => {
   let navigate = useNavigate();
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div
@@ -234,7 +253,10 @@ const SubcategoryList = (props) => {
         onMouseLeave={props.onMouseLeave}
       >
         <p
-          onClick={() => navigate(`/c/${props.subcategory}`)}
+          onClick={() => {
+            navigate(`/c/${props.subcategory}`)
+            handleRefreshClick()
+          }}
           className="main-cate-fnt-sz"
         >
           {props.subcategory}

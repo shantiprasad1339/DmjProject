@@ -51,17 +51,17 @@ const OrderDetail = () => {
     });
     axios.get(url + "api/v1/order/status/orderId/" + order_Id).then((res) => {
       const latestStatus = res.data.data[3];
-      
+
       setIsOrderShipped(latestStatus && latestStatus.statusDetailsModel.status === "Delivered");
     });
-   
+
   }
   const originalDate = new Date(timeLineDate);
 
   // Apply the UTC offset for IST (UTC+5:30)
   originalDate.setUTCHours(originalDate.getUTCHours() + 5);
   originalDate.setUTCMinutes(originalDate.getUTCMinutes() + 30);
-  
+
   const formattedDate = originalDate.toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
     hour12: true,
@@ -87,8 +87,8 @@ const OrderDetail = () => {
 };
 export default OrderDetail;
 
-const OrderDelivery = ({ orderData , ID, isOrderShipped}) => {
- 
+const OrderDelivery = ({ orderData, ID, isOrderShipped }) => {
+
   return (
     <>
       <div className="container">
@@ -107,17 +107,17 @@ const OrderDelivery = ({ orderData , ID, isOrderShipped}) => {
             <div className="col-md-3">
               <div className="text-center mt-4">
 
-              
-              {isOrderShipped ? ( 
-                <NavLink to={`/invoice/${ID}`}>
-                  <button className="invce-btn-1"> Invoice</button>
-                </NavLink>
 
-              ) : (
-                <>
-                  
-                </>
-              )}
+                {isOrderShipped ? (
+                  <NavLink to={`/invoice/${ID}`}>
+                    <button className="invce-btn-1"> Invoice</button>
+                  </NavLink>
+
+                ) : (
+                  <>
+
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -142,8 +142,8 @@ const CustomerAddress = ({ orderAddress }) => {
       <h6 className="coin-hd-fnt-1">Phone Number</h6>
       <p className="customer-add-fnt">
         {orderAddress && orderAddress.mobile}
-        <br/>
-        <br/>
+        <br />
+        <br />
         <h6 className="coin-hd-fnt-1">Alternate Phone Number</h6>
         {orderAddress && orderAddress.alternateNumber}
       </p>
@@ -180,13 +180,18 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
                 productShipping.map((item, index) => {
                   const imgUrl =
                     "https://images.diwamjewels.com/";
+                    console.log('fgjdsguj',item)
                   return (
-                    <ProductOrderDetails
-                      image={imgUrl + item.productImagesModel.thum_image}
-                      name={item.name}
-                      price={item.amount}
-                      color={item.color}
-                    />
+                    <>
+                      <ProductOrderDetails
+                        image={imgUrl + item.productImagesModel.thum_image}
+                        name={item.name}
+                        price={item.amount}
+                        color={item.color}
+                      />
+                      <RateHelpBox />
+                    </>
+
                   );
                 })}
             </div>
@@ -195,7 +200,6 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
             </div>
 
             <div className="col-md-3 mt-5">
-              <RateHelpBox />
             </div>
           </div>
           <div className="item-dlry-fnt-sz">
@@ -204,7 +208,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
               delivery.
             </p>
           </div>
-        
+
         </div>
       </div>
     </>
@@ -230,6 +234,7 @@ const ProductOrderDetails = (props) => {
             <CurrencyRupeeIcon className="tl-rupee-icon" />
             {props.price}
           </h5>
+
           {/* <p className="tl-delvry-offer">2 Offers Applied</p> */}
         </div>
       </div>
@@ -238,8 +243,8 @@ const ProductOrderDetails = (props) => {
 };
 const TimelineView = ({ order_Id, timeLineDate }) => {
   const [timeLine, setTimeLine] = useState([]);
-  const [orderDate, setOrderDate] = useState( );
- 
+  const [orderDate, setOrderDate] = useState();
+
 
   function timeLineColor() {
     const url = "https://api.diwamjewels.com/DMJ/api/v1/order/status/orderId/";
@@ -248,8 +253,8 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
       setTimeLine(res.data.data);
     });
   }
- 
- 
+
+
   useEffect(() => {
     timeLineColor();
   }, []);
@@ -263,7 +268,7 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
           // Apply the UTC offset for IST (UTC+5:30)
           originalDate.setUTCHours(originalDate.getUTCHours() + 5);
           originalDate.setUTCMinutes(originalDate.getUTCMinutes() + 30);
-          
+
           const formattedDate = originalDate.toLocaleString("en-IN", {
             timeZone: "Asia/Kolkata",
             hour12: true,
@@ -272,60 +277,60 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
             day: "numeric",
             hour: "numeric",
             minute: "numeric",
-           
-           
+
+
           });
           return (
-          
+
             <div className="tracking-item">
-                              <div className="tracking-icon status-intransit">
-                                <svg
-                                  className="svg-inline--fa fa-circle fa-w-16"
-                                  aria-hidden="true"
-                                  data-prefix="fas"
-                                  data-icon="circle"
-                                  role="img"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 512 512"
-                                  data-fa-i2svg=""
-                                >
-                                  <path
-                                    fill="currentColor"
-                                    d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
-                                  ></path>
-                                </svg>
-                              </div>
-                            
-                              <div className="tracking-content">
-                                
-                              <h4 className="dlry-tel-hd-fnt">
-                   {item.statusDetailsModel.status}
-                  </h4>
+              <div className="tracking-icon status-intransit">
+                <svg
+                  className="svg-inline--fa fa-circle fa-w-16"
+                  aria-hidden="true"
+                  data-prefix="fas"
+                  data-icon="circle"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  data-fa-i2svg=""
+                >
+                  <path
+                    fill="currentColor"
+                    d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                  ></path>
+                </svg>
+              </div>
+
+              <div className="tracking-content">
+
+                <h4 className="dlry-tel-hd-fnt">
+                  {item.statusDetailsModel.status}
+                </h4>
                 <p className="ord-dlry-tel-para ">
-                {item.statusDetailsModel.description}
-                 </p>
-              {item.logisticName && (
-                 <p className="ord-dlry-tel-para">
-                    Logistic Name: {item.logisticName}
-                    </p>
-               )}
-               {item.trackingId && (
-                   <p className="ord-dlry-tel-para">
-                     TrackingNo: {item.trackingId}
-                  </p>
-                 )}
-              <p className="ord-dlry-tel-para">
-                Date: {formattedDate ? formattedDate : item.date}
+                  {item.statusDetailsModel.description}
                 </p>
-                               
-                              </div>
-                            </div>
+                {item.logisticName && (
+                  <p className="ord-dlry-tel-para">
+                    Logistic Name: {item.logisticName}
+                  </p>
+                )}
+                {item.trackingId && (
+                  <p className="ord-dlry-tel-para">
+                    TrackingNo: {item.trackingId}
+                  </p>
+                )}
+                <p className="ord-dlry-tel-para">
+                  Date: {formattedDate ? formattedDate : item.date}
+                </p>
+
+              </div>
+            </div>
           );
         })
       ) : (
 
 
-        
+
         <Timeline>
           <TimelineItem>
             <TimelineSeparator>
@@ -351,9 +356,9 @@ const RateHelpBox = () => {
       <h6 className="tl-rate-help-clr">
         <StarsIcon className="hprate-icon" /> Rate & Review Product
       </h6>
-      <h6 className="tl-rate-help-clr">
+      {/* <h6 className="tl-rate-help-clr">
         <HelpIcon className="hprate-icon" /> Need help?
-      </h6>
+      </h6> */}
     </>
   );
 };

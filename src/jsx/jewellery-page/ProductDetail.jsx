@@ -122,6 +122,10 @@ function Product() {
   const [zipCode,setZipCode]= useState()
 const [deleveryMsg,setDeliveryMsg] = useState(null)
 const [color,setColor]= useState(null)
+const [shareIconData , setSahreIconData] = useState({
+  image :null,
+  desc : ''
+})
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -136,7 +140,15 @@ const [color,setColor]= useState(null)
   async function getProductId(skuNo) {
     try {
       const proRes = await axios.get(url + getProductEnd + skuNo);
-      // console.log(proRes.data);
+      console.log('vzdv', imgUrl+proRes.data.data.images[0].thumbImage);
+      // setSahreIconData(imgUrl + proRes.data.data.images[0].pictures)
+      setSahreIconData(
+        {
+          ...shareIconData,
+          image: proRes.data.data.images[0].pictures,
+          desc: proRes.data.data.description,
+        }
+      )
       return proRes.data.data.id;
     } catch (err) {
       console.log(err);
@@ -259,11 +271,14 @@ const [color,setColor]= useState(null)
 
   async function handleShare() {
     const currentUrl = window.location.href;
+    console.log('davgbdsafv',shareIconData.image);
     if (navigator.share) {
       navigator.share({
+
         text: "Checkout This Awesome Website",
-     
+        iamge : shareIconData.image,
         url: currentUrl,
+        text: shareIconData.desc,
       });
     } else {
       navigator.clipboard.writeText(currentUrl);

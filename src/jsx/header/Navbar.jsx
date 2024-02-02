@@ -251,6 +251,9 @@ function Navbar() {
   };
 
 
+
+ 
+
   return (
     <>
       <div className="nav-outer-dropdown nav-drop-shadow shadow desktop-navbar-vw" ref={dropdownRef}>
@@ -611,6 +614,7 @@ function Navbar() {
             marginLeft="140px"
             handleNavMouseEnter={handleJewelEnter}
             onMouseLeave={handleMouseLeave}
+            
           />
         ) : null}
         {isArtOpen && cateData.length > 0 ? (
@@ -620,6 +624,7 @@ function Navbar() {
             marginLeft="170px"
             handleNavMouseEnter={handleArtEnter}
             onMouseLeave={handleMouseLeave}
+            
 
           />
         ) : null}
@@ -630,6 +635,7 @@ function Navbar() {
             marginLeft="200px"
             handleNavMouseEnter={handleCraft}
             onMouseLeave={handleMouseLeave}
+            
           />
         ) : null}
       </div>
@@ -792,6 +798,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
                   title={cate.type}
                   subCateDate={cate.subCategory}
                   handleClose={handleClose}
+                  // onClick={handleRefreshClick}
                 />
               );
             })}
