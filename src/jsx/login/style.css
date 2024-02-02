@@ -20,6 +20,6 @@
 background-color: #CACACA;
 }
 .form-control:focus {
-    border: none !important;
+    /* border:  !important; */
     box-shadow: none;
 }

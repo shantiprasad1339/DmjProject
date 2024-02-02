@@ -17,6 +17,13 @@ import Pagination from "@mui/material/Pagination";
 import Button from "@mui/material/Button";
 import filter from "../../assets/images/filter.png";
 import { NavLink } from "react-router-dom";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 
 const proto = "https://api.diwamjewels.com/DMJ/";
 const imgUrl = "https://images.diwamjewels.com/";
@@ -27,9 +34,9 @@ const CategoryFilter = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [categoryDes, setCategoryDes] = useState();
-  const params= useParams();
-  const query  = params.page
-console.log("useParams",params.page);
+  const params = useParams();
+  const query = params.page;
+  console.log("useParams", params.page);
   const fetchData = () => {
     setLoading(true);
     const apiUrl = `https://api.diwamjewels.com/DMJ/api/v1/category/type?type=${query}`;
@@ -70,7 +77,7 @@ console.log("useParams",params.page);
 
       <div className="mt-4">
         {/* <ProductFilter /> */}
-        <FilterTabView/>
+        <FilterTabView />
       </div>
       <div className="mb-5">
         <FilterCategoryCard query={query} />
@@ -117,7 +124,7 @@ const CategoryComponent = (props) => {
 };
 
 const FilterCategoryCard = ({ query }) => {
-  console.log("query",query);
+  console.log("query", query);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState("0");
@@ -125,13 +132,12 @@ const FilterCategoryCard = ({ query }) => {
   const [searchData, setSearchData] = useState([]);
   const [isLoad, setLoad] = useState(false);
 
-
-  
-
   const fetData = async () => {
     setLoad(true);
     try {
-      const res = await axios.get(`${proto}${endPoint}${query}&pageSize=${pageSize}`);
+      const res = await axios.get(
+        `${proto}${endPoint}${query}&pageSize=${pageSize}`
+      );
       // console.log(res.data,'cgbfg');
       setElement(res.data.data.totalPage);
       setSearchData(res.data.data.order);
@@ -142,14 +148,12 @@ const FilterCategoryCard = ({ query }) => {
     }
   };
   useEffect(() => {
-    
     window.scrollTo(0, 0);
   }, [query]);
 
-  
-useEffect(()=>{
-  fetData()
-},[pageSize])
+  useEffect(() => {
+    fetData();
+  }, [pageSize]);
   const handlePagination = (e, page) => {
     // console.log(page - 1)
 
@@ -183,18 +187,14 @@ useEffect(()=>{
           )}
         </div>
       </div>
-   
+
       <div className="mt-3 mb-5">
-
-      <Pagination
-            count={element && element}
-            color="primary"
-            onChange={handlePagination}
-          />
-   
-    </div>
-
-      
+        <Pagination
+          count={element && element}
+          color="primary"
+          onChange={handlePagination}
+        />
+      </div>
     </>
   );
 };
@@ -212,7 +212,7 @@ const ProductContentFilter = (props) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-console.log('props',props);
+  console.log("props", props);
   const fetchData = () => {
     setLoading(true);
     const apiUrl = `https://api.diwamjewels.com/DMJ/api/v1/category/type?type=${searchTxt}`;
@@ -261,139 +261,430 @@ console.log('props',props);
   );
 };
 
-
 const FilterTabView = () => {
-  const [iscategoryOpen, setIsCategoryOpen] = useState(false);
-  const [iscolorOpen, setIsColorOpen] = useState(false);
-  const [isbrandOpen, setIsBrandOpen] = useState(false);
-  const [ispriceOpen, setIsPriceOpen] = useState(false);
-  const [israngeOpen, setIsRangeOpen] = useState(false);
-  function handleCategoryOpen() {
-    setIsCategoryOpen(!iscategoryOpen);
-    setIsColorOpen(false);
-    setIsBrandOpen(false);
-    setIsPriceOpen(false);
-    setIsRangeOpen(false);
-  }
-  function handleColorOpen() {
-    setIsCategoryOpen(false);
-    setIsColorOpen(!iscolorOpen);
-    setIsBrandOpen(false);
-    setIsPriceOpen(false);
-    setIsRangeOpen(false);
-  }
-  function handleBrandOpen() {
-    setIsCategoryOpen(false);
-    setIsColorOpen(false);
-    setIsBrandOpen(!isbrandOpen);
-    setIsPriceOpen(false);
-    setIsRangeOpen(false);
-  }
-  function handlePriceOpen() {
-    setIsCategoryOpen(false);
-    setIsColorOpen(false);
-    setIsBrandOpen(false);
-    setIsPriceOpen(!ispriceOpen);
-    setIsRangeOpen(false);
-  }
-  function handleRangeOpen() {
-    setIsCategoryOpen(false);
-    setIsColorOpen(false);
-    setIsBrandOpen(false);
-    setIsPriceOpen(false);
-    setIsRangeOpen(!israngeOpen);
-  }
   return (
     <>
-      <div className="d-flex">
-        <div className="d-flex p-3">
-          <img src={filter} alt="filter" className="menubar-icon-nav" />
-          <h6 className="sort-fltr-mb">Filters</h6>
-        </div>
+      <div className="filters-box-vw">
         <ul className="filter-flow-view mt-3">
-          <li className="filter-tab ms-2" onClick={() => handleCategoryOpen()}>
-            <NavLink
-              className="nav-box-product"
-              style={iscategoryOpen ? { color: "#D0B646" } : null}
-            >
-              Categories{" "}
-              {!iscategoryOpen ? (
-                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-              ) : (
-                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
-              )}
-            </NavLink>
+          <li>
+            <SortingFilters />
           </li>
-          <li className="filter-tab ms-2" onClick={() => handleColorOpen()}>
-            <NavLink
-              className="nav-box-product"
-              style={iscolorOpen ? { color: "#D0B646" } : null}
-            >
-              Color{" "}
-              {!iscolorOpen ? (
-                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-              ) : (
-                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
-              )}
-            </NavLink>
+
+          <li>
+            <FiltersTabs />
           </li>
-          <li className="filter-tab ms-2" onClick={() => handleBrandOpen()}>
-            <NavLink
-              className="nav-box-product"
-              style={isbrandOpen ? { color: "#D0B646" } : null}
-            >
-             Brand{" "}
-              {!isbrandOpen ? (
-                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-              ) : (
-                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
-              )}
-            </NavLink>
+          <li>
+            <BrandingFilters />
           </li>
-          <li className="filter-tab ms-2" onClick={() => handlePriceOpen()}>
-            <NavLink
-              className="nav-box-product"
-              style={ispriceOpen ? { color: "#D0B646" } : null}
-            >
-            Price{" "}
-              {!ispriceOpen ? (
-                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-              ) : (
-                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
-              )}
-            </NavLink>
+
+          <li>
+            <BrandingFilters />
           </li>
-          <li className="filter-tab ms-2" onClick={() => handleRangeOpen()}>
-            <NavLink
-              className="nav-box-product"
-              style={israngeOpen ? { color: "#D0B646" } : null}
-            >
-              Range{" "}
-              {!israngeOpen ? (
-                <i className="bi bi-chevron-down caret-icon-sz ms-2 mt-1"></i>
-              ) : (
-                <i className="bi bi-chevron-up caret-icon-sz ms-2 mt-1"></i>
-              )}
-            </NavLink>
+          <li>
+            <BrandingFilters />
+          </li>
+          <li>
+            <BrandingFilters />
           </li>
         </ul>
       </div>
-      {iscategoryOpen ? <FilterDropdownMenu list="Category" /> : null}
-      {iscolorOpen ? <FilterDropdownMenu list="Color" /> : null}
-      {isbrandOpen ? <FilterDropdownMenu list="Brand" /> : null}
-      {ispriceOpen ? <FilterDropdownMenu list="Price" /> : null}
-      {israngeOpen ? <FilterDropdownMenu list="Range" /> : null}
     </>
   );
 };
-const FilterDropdownMenu = (props) => {
+
+const SortFilterBox = ({ name, ...props }) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
-      <div className="fltr-dropdown-menu-vw">
-        <ul className="filter-flow-view" style={{ listStyle: "none", paddingLeft: "0px" }}>
-          <li className="filter-tab ms-2">{props.list}</li>
-        </ul>
+      <h6 onClick={handleShow} className="filter-tab">
+        Sort By<i className="bi bi-chevron-down fltr-dwn-icn"></i>
+      </h6>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        {...props}
+        style={{ zIndex: "100000", height: "auto" }}
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title className="sort-fltr-mb">SORT BY</Offcanvas.Title>
+        </Offcanvas.Header>
+        <div className="sorting-bottomline"></div>
+        <Offcanvas.Body>
+          <RadioSorting name="Relevence" />
+          <RadioSorting name="Popularity" />
+          <RadioSorting name="Price : Low to High" />
+          <RadioSorting name="Price : High to Low" />
+          <RadioSorting name="Newest First" />
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+};
+
+function SortingFilters() {
+  return (
+    <>
+      {["bottom"].map((placement, idx) => (
+        <SortFilterBox key={idx} placement={placement} name={placement} />
+      ))}
+    </>
+  );
+}
+
+const RadioSorting = (props) => {
+  return (
+    <>
+      <div className="d-flex justify-content-between">
+        <label htmlFor="" className="radiostr-fntsz">
+          {props.name}
+        </label>
+        <input type="radio" />
       </div>
     </>
   );
 };
+
+const BrandFilterBox = ({ name, ...props }) => {
+  const [brandshow, setBrandShow] = useState(false);
+
+  const handleClose = () => setBrandShow(false);
+  const handleShow = () => setBrandShow(true);
+
+  return (
+    <>
+      <h6 onClick={handleShow} className="filter-tab">
+        Brand<i className="bi bi-chevron-down fltr-dwn-icn"></i>
+      </h6>
+      <Offcanvas
+        show={brandshow}
+        onHide={handleClose}
+        {...props}
+        style={{ zIndex: "100000", height: "auto" }}
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title className="sort-fltr-mb">Filters</Offcanvas.Title>
+        </Offcanvas.Header>
+        <div className="sorting-bottomline"></div>
+        <Offcanvas.Body>
+          <form action="">
+            <div>
+              <input
+                type="text"
+                placeholder="Search"
+                className="srch-brnd-input"
+              />
+              <i className="bi bi-search fltr-srch-icnvw"></i>
+            </div>
+
+            <h6 className="poplr-fltr-fnt mb-4">Popular Filters</h6>
+            <div className="d-flex flex-wrap">
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Sukhi
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Brado jewellery
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  SAIYONI
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Samridhi DC
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Atasi International
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  DC
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Karishma Kreations
+                </label>
+              </div>
+            </div>
+            <div className="d-flex justify-content-between mt-4">
+              <button className="clr-fltrs-tab">Clear</button>
+              <button className="aply-fltrs-tab">Apply</button>
+            </div>
+          </form>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+};
+
+function BrandingFilters() {
+  return (
+    <>
+      {["bottom"].map((placement, idx) => (
+        <BrandFilterBox key={idx} placement={placement} name={placement} />
+      ))}
+    </>
+  );
+}
+
+const FilterCardBox = ({ name, ...props }) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <h6 onClick={handleShow} className="filter-tab">
+        Filter<i className="bi bi-chevron-down fltr-dwn-icn"></i>
+      </h6>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        {...props}
+        style={{ zIndex: "100000", height: "auto" }}
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title className="sort-fltr-mb">Filters</Offcanvas.Title>
+        </Offcanvas.Header>
+        <div className="sorting-bottomline"></div>
+        <Offcanvas.Body>
+        <div className="container">
+        <MainFiltersCard />
+        </div>
+        
+
+        <div className="fltrs-box-buttons-vw mt-4">
+              <button className="clr-fltrs-tab">Clear</button>
+              <button className="aply-fltrs-tab">Apply</button>
+            </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+};
+
+function FiltersTabs() {
+  return (
+    <>
+      {["bottom"].map((placement, idx) => (
+        <FilterCardBox key={idx} placement={placement} name={placement} />
+      ))}
+    </>
+  );
+}
+
+// const MainFiltersCard = () => {
+//   return(
+//     <>
+//       <h1>hello</h1>
+//     </>
+//   )
+// }
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
+
+function MainFiltersCard() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box
+      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
+    >
+      <Tabs
+        orientation="vertical"
+        value={value}
+        onChange={handleChange}
+        aria-label="Vertical tabs example"
+        sx={{ borderRight: 1, borderColor: 'divider' }}
+      >
+        <Tab label="Brand" {...a11yProps(0)} />
+        <Tab label="Discount" {...a11yProps(1)} />
+        <Tab label="Price" {...a11yProps(2)} />
+        <Tab label="Color" {...a11yProps(3)} />
+        <Tab label="Offers" {...a11yProps(4)} />
+        <Tab label="Category" {...a11yProps(5)} />
+        <Tab label="Material" {...a11yProps(6)} />
+      </Tabs>
+      <TabPanel value={value} index={0}>
+        <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+       <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+       <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+       <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+       <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <FilterCheckboxView />
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+       <FilterCheckboxView />
+      </TabPanel>
+    </Box>
+  );
+}
+
+const FilterCheckboxView = () => {
+  return (
+    <>
+      <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Sukhi
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Brado jewellery
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  SAIYONI
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Samridhi DC
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Atasi International
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  DC
+                </label>
+              </div>
+
+              <div className="mb-3 form-check ms-3">
+                <input
+                  type="checkbox"
+                  className="form-check-input checkbox-inpt-bxvw"
+                />
+                <label className="form-check-label check-lbl-box-vw" for="">
+                  Karishma Kreations
+                </label>
+              </div>
+    </>
+  )
+}

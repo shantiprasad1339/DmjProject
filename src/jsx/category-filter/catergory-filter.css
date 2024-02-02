@@ -100,13 +100,16 @@ transform: scale(1.02);
 .filter-tab{
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border:solid 1px rgb(0, 0, 0);
     border-radius: 15px;
     cursor: pointer;
     background-color: white;
     color: black;
+    margin-left:5px;
+
+
 }
 
 .filter-tab:hover{
@@ -130,9 +133,125 @@ transform: scale(1.02);
     cursor: pointer;
     letter-spacing: 0.75px;
 } */
+
+.fltr-dwn-icn{
+    font-size: 14px;
+}
+.filters-box-vw{
+    margin-left:25px
+}
+.srch-brnd-input{
+    border-radius: 5px;
+    border:solid 1px rgb(170, 170, 170);
+    font-size:15px;
+    font-weight: 500;
+    width:100%;
+    padding:8px;
+    position: relative;
+}
+.fltr-srch-icnvw{
+    position: absolute;
+    right:25px;
+    margin-top:6px;
+    font-size:18px;
+    color:rgb(66, 66, 66);
+    cursor: pointer;
+
+}
+.poplr-fltr-fnt{
+    font-size:17px;
+    font-weight: 600;
+    margin-top:20px
+}
+.clr-fltrs-tab{
+    background-color: rgb(95, 95, 95);
+    color:white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    border-radius: 5px;
+    border:solid 1px rgb(95, 95, 95);
+  
+}
+.aply-fltrs-tab{
+    background-color:black;
+    color:white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    border-radius: 5px;
+    border:solid 1px black;
+   
+   margin-left: 7px;
+}
+.check-lbl-box-vw{
+    font-size:16px;
+    font-weight: 600;
+    color:black
+}
+.checkbox-inpt-bxvw{
+    border:solid 2px rgb(170, 170, 170);
+    box-shadow: none !important;
+}
+input[type=checkbox]:before {
+    border:solid 2px rgb(73, 73, 73);
+    margin-top: -2px;
+    margin-left: -2px;
+}
+input[type=checkbox]:checked + label {
+    color: black;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    font-family:'Inria Sans', sans-serif !important;
+}
+
+.css-ahj2mt-MuiTypography-root {
+    font-family:'Inria Sans', sans-serif !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    color: #7e670f !important;
+}
+.css-10d9dml-MuiTabs-indicator {
+    background-color: #7e670f !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+    text-transform: none !important;
+
+}
+
+.fltrs-box-buttons-vw{
+  
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
 @media only screen and (max-width:767.99px){
     .filter-flow-view{
         overflow-x: scroll;
         flex-wrap: nowrap;
+    }
+    .filters-box-vw{
+        margin-left:0px
+    }
+
+    .filter-tab{
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-radius: 10px;
+        font-size:13px;
+    }
+    .clr-fltrs-tab{
+        width:100%
+    }
+    .aply-fltrs-tab{
+      width:100%
     }
 }
