@@ -23,8 +23,11 @@ function accessCity (e){
 setSelect(e.target.value);
 }
 function setUserCity (){
-  localStorage.setItem("userLocation",city)
-  console.log("city==>>",city);
+  if(city){
+
+    localStorage.setItem("userLocation",city)
+  }
+  // console.log("city==>>",city);
   handleModel()
 }
 // console.log(select);

@@ -243,13 +243,6 @@ function Navbar() {
     dispatch(addSearch(search));
   };
 
-<<<<<<< HEAD
-
-
- 
-
-=======
->>>>>>> 6f8eb1285149d68d33b472ed731eeb08c44e88de
   return (
     <>
       <div
@@ -631,11 +624,6 @@ function Navbar() {
             marginLeft="170px"
             handleNavMouseEnter={handleArtEnter}
             onMouseLeave={handleMouseLeave}
-<<<<<<< HEAD
-            
-
-=======
->>>>>>> 6f8eb1285149d68d33b472ed731eeb08c44e88de
           />
         ) : null}
         {isCarpet && cateData.length > 0 ? (

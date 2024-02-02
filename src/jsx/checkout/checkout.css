@@ -1,3 +1,5 @@
+
+
 .checkout-bg{
     background-color: rgb(233, 233, 233);
     padding:50px;
@@ -368,3 +370,33 @@ color:#b79d33
         flex-direction: column-reverse;
     }
 }
+
+
+
+
+
+.pos-center {
+    position: fixed;
+    top: calc(40% - 40px);
+    left: calc(50% - 40px);
+    
+  }
+ 
+  .loaderPage {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #d2ae19f0;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

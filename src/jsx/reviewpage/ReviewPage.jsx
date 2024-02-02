@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import './reviewpage.css'
+import { useParams } from 'react-router-dom';
 // import img1 from "../../assets/images/earring.jpg";
 import StarIcon from '@mui/icons-material/Star';
 import HeaderCon from "../header/HeaderCon";
@@ -19,6 +20,8 @@ const userId = localStorage.getItem("userId")
 
 
 const ReviewPage = () => {
+  const {prid} = useParams()
+  const userId = localStorage.getItem("userId")
   return (
     <>
       <HeaderCon />
@@ -33,7 +36,7 @@ const ReviewPage = () => {
               <ReviewComment />
             </div>
             <div className="col-md-8 mt-3">
-              <RatingForm />
+              <RatingForm uId={userId} pId={prid}/>
             </div>
           </div>
         </div>
@@ -77,7 +80,7 @@ const RateProduct = () => {
     }
 
     else {
-      navigate('/')
+      // navigate('/')
     }
 
   };
@@ -105,11 +108,10 @@ const RateProduct = () => {
 }
 
 
-const RatingForm = () => {
+const RatingForm = ({uId,pId}) => {
 
   const rating = 'api/v1/Rating'
 
-  const userId = '1';
   const updateRating = 'api/v1/Rating/particularUser/';
 
 
@@ -135,9 +137,9 @@ console.log("star ====>>>>",star);
 
     try {
       const res = await axios.post(url + rating, {
-        "userId": userId,
+        "userId": uId,
         "rating": star,
-        "productId": productId
+        "productId": pId
       })
       console.log(res.data)
     }
