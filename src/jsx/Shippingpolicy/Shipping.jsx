@@ -29,7 +29,7 @@ const Privacy = () => {
                         <p className="privacy-para">Shipping costs are calculated based on the weight and dimensions of the items in your order, as well as the destination. You can view the standard shipping rates at the checkout before finalizing your purchase.</p>
 
                         <h5 className="mt-4"><b>**3. Delivery Times:**</b></h5>
-                        <p className="privacy-para">Delivery times minimum handling and packaging or maximum handling will be 24 - 48 hours. Estimated delivery times will be 4 to 6 days, and possible to track via Tracking ID. Please note that these are estimates, and actual delivery times may vary.</p>
+                        <p className="privacy-para">Delivery times minimum handling and packaging or maximum handling will be 24 - 48 hours. Estimated delivery times will be 8 to 14 days, and possible to track via Tracking ID. Please note that these are estimates, and actual delivery times may vary.</p>
 
                         <h5 className="mt-4"><b>**4. International Shipping:**</b></h5>
                         <p className="privacy-para">We currently offer international shipping to select countries. International orders may be subject to customs fees, taxes, and duties, which are the responsibility of the recipient..</p>

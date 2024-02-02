@@ -117,7 +117,7 @@ const RatingForm = () => {
 
   // const [render, setRender] = useState(true)
 
-
+console.log("star ====>>>>",star);
   async function fetchRating() {
     try {
       const res = await axios.get(url + updateRating + productId + '/' + userId)
@@ -151,6 +151,24 @@ const RatingForm = () => {
     fetchRating()
   }, [])
 
+
+async function handleRating(){
+  upRating(e.target.value)
+  setStar(e.target.value)
+  try {
+    const res = await axios.post(url + rating, {
+      "userId": userId,
+      "rating": star,
+      "productId": productId
+    })
+    console.log(res.data)
+  }
+  catch (err) {
+    console.log(err)
+  }
+
+}
+
   return (
     <>
 
@@ -166,10 +184,9 @@ const RatingForm = () => {
                 name="half-rating"
                 value={parseInt(star)}
                 precision={1}
-                onChange={(e) => {
-                  upRating(e.target.value)
-                  setStar(e.target.value)
-                }}
+                onChange={(e) => handleRating(e)
+                 
+                }
               />
             </Stack>
             <label htmlFor="" className="form-label mt-2 cmt-rev-fnt">

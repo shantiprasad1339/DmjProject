@@ -180,7 +180,11 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
                 productShipping.map((item, index) => {
                   const imgUrl =
                     "https://images.diwamjewels.com/";
+<<<<<<< HEAD
                     console.log('fgjdsguj',item)
+=======
+                    console.log("item======>>>>>",item);
+>>>>>>> 6f8eb1285149d68d33b472ed731eeb08c44e88de
                   return (
                     <>
                       <ProductOrderDetails
@@ -202,13 +206,18 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
             <div className="col-md-3 mt-5">
             </div>
           </div>
-          <div className="item-dlry-fnt-sz">
+          {/* <div className="item-dlry-fnt-sz">
             <p>
-              {/* <WidgetsIcon /> Item was opened and verified at the time of */}
+              <WidgetsIcon /> Item was opened and verified at the time of
               delivery.
             </p>
+<<<<<<< HEAD
           </div>
 
+=======
+          </div> */}
+        
+>>>>>>> 6f8eb1285149d68d33b472ed731eeb08c44e88de
         </div>
       </div>
     </>
@@ -353,10 +362,16 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
 const RateHelpBox = () => {
   return (
     <>
-      <h6 className="tl-rate-help-clr">
-        <StarsIcon className="hprate-icon" /> Rate & Review Product
+     <NavLink to='/rating'> 
+      <h6 className="tl-rate-help-clr" style={{textDecoration:'none'}}>
+      <StarsIcon className="hprate-icon" /> Rate & Review Product
       </h6>
+<<<<<<< HEAD
       {/* <h6 className="tl-rate-help-clr">
+=======
+      </NavLink>
+      <h6 className="tl-rate-help-clr">
+>>>>>>> 6f8eb1285149d68d33b472ed731eeb08c44e88de
         <HelpIcon className="hprate-icon" /> Need help?
       </h6> */}
     </>

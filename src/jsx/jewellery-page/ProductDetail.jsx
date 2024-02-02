@@ -228,31 +228,27 @@ const [shareIconData , setSahreIconData] = useState({
     localStorage.setItem("wishList", JSON.stringify(existingCart));
   };
 
+
+
   const addToCart = (productId) => {
-    // Get the existing cart from localStorage or initialize an empty array if it doesn't exist
-
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Check if the product with the same ID already exists in the cart
-    const existingProduct = existingCart.find(
-      (item) => item.productId === productId
-    );
-
+    const existingProduct = existingCart.find((item) => item.productId === productId);
+  
     if (existingProduct) {
-      // If the product exists, update its quantity
-      existingProduct.quantity += quantity;
+      // Check if the quantity is explicitly increased, otherwise set it to 1
+      existingProduct.quantity = quantity > 1 ? quantity : 1;
     } else {
-      // If the product doesn't exist, add it to the cart as a new item
       const newItem = {
         productId: productId,
         quantity: quantity,
       };
       existingCart.push(newItem);
     }
-
-    // Save the updated cart back to localStorage
+  
     localStorage.setItem("cart", JSON.stringify(existingCart));
   };
+  
+  
 
   // const location = useLocation();
 
@@ -333,12 +329,14 @@ const [shareIconData , setSahreIconData] = useState({
             <div className="mob-vw-brdcrum">
               <p className="breadcrumb-fnt-sz">
                 
-                Home 
+              <NavLink to="/">  Home</NavLink> 
                 {breadcrumb.length>0&&breadcrumb.map(b=>{
                   // console.log('breadcrumb',b)
                   return(
                     <>
-                    / {b}
+                    {/* / {b} */}
+
+                    <NavLink to={`/c/${b}`} activeClassName="active">/{b}</NavLink>
                     </>
                   )
                 }) }
@@ -525,7 +523,7 @@ const [shareIconData , setSahreIconData] = useState({
                         className="add-to-cart-btn-sz w-100"
                         onClick={async () => {
                           await addToCart(itemInfo.id);
-                          navigate("/checkout");
+                          navigate("/addToCart");
                         }}
                       >
                         Buy Now
@@ -798,7 +796,7 @@ const ProductPrice = ({
       {/*---------------------------------------------------------------- */}
       <div className="row">
         <div className="col-md-6">
-          <p className="col-fnt-sz offer-heading-txt">MORE COLORS</p>
+          <p className="col-fnt-sz offer-heading-txt">MORE VARIATION</p>
           <div className="color-container">
             {variant.length > 0 &&
               variant.map((img, index) => {
