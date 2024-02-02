@@ -3,7 +3,6 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import Marquee from "react-fast-marquee";
 import CheckOrder from "./CheckOrder";
 import { NavLink } from 'react-router-dom';
-
 export default class HeaderCon extends React.Component {
 
   constructor(props) {
@@ -26,6 +25,8 @@ export default class HeaderCon extends React.Component {
 
   render() {
     const { isShow } = this.state;
+    const userLocation = localStorage.getItem('userLocation')
+
     return (
       <>
         <div className="header-deskvw">
@@ -36,7 +37,8 @@ export default class HeaderCon extends React.Component {
                 <p onClick={()=>{
                   this.setState({isShow:!isShow})
                 }}>
-                  Select your address
+                  {userLocation&& userLocation ?userLocation:
+                  'Select your address'}
                 </p>
               </div>
               <div>

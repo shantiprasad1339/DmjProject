@@ -821,6 +821,7 @@ const CheckoutItem = ({ addressId }) => {
         // navigate("/payment/" + orderId);
 
         window.location.href = 'https://lobster-app-d9ye4.ondigitalocean.app/#/pay/' + orderId;
+        localStorage.removeItem("cart")
       }
     } catch (err) {
       console.error("Error adding order details:", err);

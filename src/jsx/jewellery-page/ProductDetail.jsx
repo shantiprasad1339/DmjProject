@@ -314,12 +314,14 @@ const [color,setColor]= useState(null)
             <div className="mob-vw-brdcrum">
               <p className="breadcrumb-fnt-sz">
                 
-                Home 
+              <NavLink to="/">  Home</NavLink> 
                 {breadcrumb.length>0&&breadcrumb.map(b=>{
                   // console.log('breadcrumb',b)
                   return(
                     <>
-                    / {b}
+                    {/* / {b} */}
+
+                    <NavLink to={`/c/${b}`} activeClassName="active">/{b}</NavLink>
                     </>
                   )
                 }) }
