@@ -1338,3 +1338,12 @@ const AccordionTxt = ({ title, des }) => {
     </>
   );
 };
+
+
+function BuyNowLoader(){
+  return(
+    <>
+    please wait ...
+    </>
+  )
+}

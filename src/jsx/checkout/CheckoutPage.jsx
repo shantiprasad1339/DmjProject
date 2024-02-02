@@ -726,6 +726,8 @@ const CheckoutItem = ({ addressId }) => {
   const [quantity, setQuantity] = useState(null);
   const [checkOutProducts, setProducts] = useState();
   const [productDetails, setProductDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const { name, price } = useParams();
   const navigate = useNavigate();
 
@@ -846,6 +848,8 @@ const CheckoutItem = ({ addressId }) => {
   }
 
   const createNewOrder = async () => {
+    setLoading(true);
+
     const orderData = {
       userId: userId,
       price: totalPrice,
@@ -874,6 +878,9 @@ const CheckoutItem = ({ addressId }) => {
     } catch (error) {
       // Handle any exceptions
       console.error("Error:", error);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -970,7 +977,8 @@ const CheckoutItem = ({ addressId }) => {
         >
           BUY NOW
         </Button>
-
+        {loading && <BuyNowLoader />}
+        {/* <BuyNowLoader/> */}
         <p className="cond-font">
           By placing your order you agree to our{" "}
           <NavLink to="/terms">Terms & Conditions</NavLink>,
@@ -982,3 +990,19 @@ const CheckoutItem = ({ addressId }) => {
     </>
   );
 };
+
+
+function BuyNowLoader(){
+  
+    
+  
+  return(
+    <>
+    <div className="pos-center">
+    <div className="loaderPage"></div>
+  <h4>please wait ...</h4>  
+    </div>
+    
+    </>
+  )
+}

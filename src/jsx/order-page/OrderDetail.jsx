@@ -21,14 +21,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-
-
 const OrderDetail = () => {
   const [productDetails, setProductDetails] = useState();
   const [productShipping, setProductShipping] = useState([]);
   const [timeLineDate, setTimelineDate] = useState();
   const [isOrderShipped, setIsOrderShipped] = useState([]);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,9 +49,10 @@ const OrderDetail = () => {
     axios.get(url + "api/v1/order/status/orderId/" + order_Id).then((res) => {
       const latestStatus = res.data.data[3];
 
-      setIsOrderShipped(latestStatus && latestStatus.statusDetailsModel.status === "Delivered");
+      setIsOrderShipped(
+        latestStatus && latestStatus.statusDetailsModel.status === "Delivered"
+      );
     });
-
   }
   const originalDate = new Date(timeLineDate);
 
@@ -75,7 +73,11 @@ const OrderDetail = () => {
     <>
       <HeaderCon />
       <Navbar />
-      <OrderDelivery orderData={productDetails} ID={order_Id} isOrderShipped={isOrderShipped} />
+      <OrderDelivery
+        orderData={productDetails}
+        ID={order_Id}
+        isOrderShipped={isOrderShipped}
+      />
       <DeliveryTimeline
         productShipping={productShipping}
         order_Id={order_Id}
@@ -88,7 +90,6 @@ const OrderDetail = () => {
 export default OrderDetail;
 
 const OrderDelivery = ({ orderData, ID, isOrderShipped }) => {
-
   return (
     <>
       <div className="container">
@@ -102,21 +103,15 @@ const OrderDelivery = ({ orderData, ID, isOrderShipped }) => {
                 orderAddress={orderData && orderData.addressModel}
               />
             </div>
-            <div className="col-md-3">
-            </div>
+            <div className="col-md-3"></div>
             <div className="col-md-3">
               <div className="text-center mt-4">
-
-
                 {isOrderShipped ? (
                   <NavLink to={`/invoice/${ID}`}>
                     <button className="invce-btn-1"> Invoice</button>
                   </NavLink>
-
                 ) : (
-                  <>
-
-                  </>
+                  <></>
                 )}
               </div>
             </div>
@@ -178,9 +173,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
             <div className="col-md-5">
               {productShipping &&
                 productShipping.map((item, index) => {
-                  const imgUrl =
-                    "https://images.diwamjewels.com/";
-                    console.log("item======>>>>>",item);
+                  const imgUrl = "https://images.diwamjewels.com/";
                   return (
                     <>
                       <ProductOrderDetails
@@ -189,9 +182,8 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
                         price={item.amount}
                         color={item.color}
                       />
-                      <RateHelpBox />
+                      <RateHelpBox productId={item.productId}/>
                     </>
-
                   );
                 })}
             </div>
@@ -199,8 +191,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
               <TimelineView order_Id={order_Id} timeLineDate={timeLineDate} />
             </div>
 
-            <div className="col-md-3 mt-5">
-            </div>
+            <div className="col-md-3 mt-5"></div>
           </div>
           {/* <div className="item-dlry-fnt-sz">
             <p>
@@ -208,7 +199,6 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
               delivery.
             </p>
           </div> */}
-        
         </div>
       </div>
     </>
@@ -219,11 +209,7 @@ const ProductOrderDetails = (props) => {
   return (
     <>
       <div className="d-flex mb-4">
-        <img
-          src={props.image}
-          alt="product"
-          className="pro-color-img"
-        />
+        <img src={props.image} alt="product" className="pro-color-img" />
         <div className="ms-3">
           <h6 className="coin-hd-fnt-1">{props.name}</h6>
           <p className="coin-para-fnt-1">color: {props.color}</p>
@@ -245,7 +231,6 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
   const [timeLine, setTimeLine] = useState([]);
   const [orderDate, setOrderDate] = useState();
 
-
   function timeLineColor() {
     const url = "https://api.diwamjewels.com/DMJ/api/v1/order/status/orderId/";
     return axios.get(url + order_Id).then((res) => {
@@ -253,7 +238,6 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
       setTimeLine(res.data.data);
     });
   }
-
 
   useEffect(() => {
     timeLineColor();
@@ -277,11 +261,8 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
             day: "numeric",
             hour: "numeric",
             minute: "numeric",
-
-
           });
           return (
-
             <div className="tracking-item">
               <div className="tracking-icon status-intransit">
                 <svg
@@ -302,7 +283,6 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
               </div>
 
               <div className="tracking-content">
-
                 <h4 className="dlry-tel-hd-fnt">
                   {item.statusDetailsModel.status}
                 </h4>
@@ -322,15 +302,11 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
                 <p className="ord-dlry-tel-para">
                   Date: {formattedDate ? formattedDate : item.date}
                 </p>
-
               </div>
             </div>
           );
         })
       ) : (
-
-
-
         <Timeline>
           <TimelineItem>
             <TimelineSeparator>
@@ -350,17 +326,17 @@ const TimelineView = ({ order_Id, timeLineDate }) => {
   );
 };
 
-const RateHelpBox = () => {
+const RateHelpBox = ({productId}) => {
   return (
     <>
-     <NavLink to='/rating'> 
-      <h6 className="tl-rate-help-clr" style={{textDecoration:'none'}}>
-      <StarsIcon className="hprate-icon" /> Rate & Review Product
-      </h6>
+<NavLink to={`/rating/${productId}`}>
+        <h6 className="tl-rate-help-clr" style={{ textDecoration: "none" }}>
+          <StarsIcon className="hprate-icon" /> Rate & Review Product
+        </h6>
       </NavLink>
       <h6 className="tl-rate-help-clr">
         <HelpIcon className="hprate-icon" /> Need help?
-      </h6> 
+      </h6>
     </>
   );
 };
