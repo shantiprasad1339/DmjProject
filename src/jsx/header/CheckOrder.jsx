@@ -26,6 +26,8 @@ function setUserCity (){
   if(city){
 
     localStorage.setItem("userLocation",city)
+    localStorage.setItem("userLocationCode",code)
+
   }
   // console.log("city==>>",city);
   handleModel()
