@@ -327,16 +327,16 @@ const [shareIconData , setSahreIconData] = useState({
           </Helmet>
           <div className="container-fluid">
             <div className="mob-vw-brdcrum">
-              <p className="breadcrumb-fnt-sz">
+              <p className="breadcrumb-fnt-sz" >
                 
-              <NavLink to="/">  Home</NavLink> 
+              <NavLink to="/" style={{color:'black', textDecoration:'none' }}>  Home</NavLink> 
                 {breadcrumb.length>0&&breadcrumb.map(b=>{
                   // console.log('breadcrumb',b)
                   return(
                     <>
                     {/* / {b} */}
 
-                    <NavLink to={`/c/${b}`} activeClassName="active">/{b}</NavLink>
+                    <NavLink to={`/c/${b}`} activeClassName="active" style={{color:'black', textDecoration:'none' }}>/{b}</NavLink>
                     </>
                   )
                 }) }
@@ -1340,10 +1340,3 @@ const AccordionTxt = ({ title, des }) => {
 };
 
 
-function BuyNowLoader(){
-  return(
-    <>
-    please wait ...
-    </>
-  )
-}

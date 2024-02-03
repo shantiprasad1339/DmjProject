@@ -48,6 +48,7 @@ const CheckoutPage = () => {
   const [userGender, setUserGender] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [userAge, setUserAge] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSetAddress(val) {
     setAddressId(val);
@@ -76,17 +77,19 @@ const CheckoutPage = () => {
   useEffect(() => {
     fetchUserData();
     userDetailsAddress();
-    window.scrollTo(0, 0);    // console.log("cart", cart);
+    window.scrollTo(0, 0); // console.log("cart", cart);
   }, []);
 
   return (
     <>
       <HeaderCon />
       <Navbar />
+      {loading && <BuyNowLoader />}
 
       {userId ? (
-        <div className="checkout-bg">
-          <div className="container-fluid">
+        
+<div className={`checkout-bg ${loading ? 'blurChackoutPage' : ''}`}>
+            <div className="container-fluid">
             <div className="row fl-dirt-col">
               <div className="col-md-7 mt-3">
                 <DeliveryCountry />
@@ -104,6 +107,7 @@ const CheckoutPage = () => {
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
+
                 {/* <Accordion className="mt-2">
                 <Accordion.Item eventKey="1">
                   <Accordion.Header className="hd-tag-font">
@@ -122,7 +126,7 @@ const CheckoutPage = () => {
               </div>
 
               <div className="col-md-5 mt-3">
-                <CheckoutItem addressId={addressId} />
+                <CheckoutItem addressId={addressId} setLoading={setLoading}/>
               </div>
             </div>
           </div>
@@ -247,27 +251,25 @@ const DlryAddress = ({ handleSetAddress }) => {
       hometype: "",
     },
   ]);
-const [postalcode,setPostalcode] = useState()
+  const [postalcode, setPostalcode] = useState();
   const [isHomeChecked, setIsHomeChecked] = useState(false);
   const [isOfficeChecked, setIsOfficeChecked] = useState(false);
 
   function getUserLocation(postalCode) {
-    const zipodeApi = "https://shark-app-cnaaz.ondigitalocean.app/api/data/"
-    const pin = postalCode
+    const zipodeApi = "https://shark-app-cnaaz.ondigitalocean.app/api/data/";
+    const pin = postalCode;
 
     setDelivery({ ...delivery, postalCode: pin });
-    setPostalcode(pin)
-console.log("pin =====>>>",pin);
-    axios
-      .get(zipodeApi+postalCode)
-      .then((res) => {
-        console.log("userDetails ======>>>>", res.data);
-        setDelivery({
-          ...delivery,
-          city: res.data.data.District,
-          state: res.data.data.StateName
-        });
+    setPostalcode(pin);
+    console.log("pin =====>>>", pin);
+    axios.get(zipodeApi + postalCode).then((res) => {
+      console.log("userDetails ======>>>>", res.data);
+      setDelivery({
+        ...delivery,
+        city: res.data.data.District,
+        state: res.data.data.StateName,
       });
+    });
   }
 
   function userDetailsAddress() {
@@ -365,32 +367,32 @@ console.log("pin =====>>>",pin);
   return (
     <>
       <div className="del-ct-bg mt-2">
-      <RadioGroup
-  aria-labelledby="demo-radio-buttons-group-label"
-  defaultValue={deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined}
-  name="radio-buttons-group"
->
-  <div className="del-ct-bg mt-2">
-    <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
-    {deliveryOptions.length > 0 &&
-      deliveryOptions.map((option) => {
-        // console.log("option =====>>>>", option);
-        return (
-          <RateOptions
-            key={option.id}
-            rate={option.name}
-            dlryname={option.area}
-            required
-            date={option.mobile}
-            isSelected={option === selectedOption}
-            onOptionSelect={() => handleOptionSelect(option)}
-          />
-        );
-      })}
-  </div>
-</RadioGroup>
-
-
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue={
+            deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined
+          }
+          name="radio-buttons-group"
+        >
+          <div className="del-ct-bg mt-2">
+            <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
+            {deliveryOptions.length > 0 &&
+              deliveryOptions.map((option) => {
+                // console.log("option =====>>>>", option);
+                return (
+                  <RateOptions
+                    key={option.id}
+                    rate={option.name}
+                    dlryname={option.area}
+                    required
+                    date={option.mobile}
+                    isSelected={option === selectedOption}
+                    onOptionSelect={() => handleOptionSelect(option)}
+                  />
+                );
+              })}
+          </div>
+        </RadioGroup>
 
         <h3
           className="hd-tag-font"
@@ -714,7 +716,7 @@ const AccountCardType = (props) => {
   );
 };
 
-const CheckoutItem = ({ addressId }) => {
+const CheckoutItem = ({ addressId,setLoading }) => {
   // const [totalPrice, setTotal] = useState(0);
   const totalPrice = JSON.parse(localStorage.getItem("total"));
   // const [disTotal, setDisTotal] = useState(0);
@@ -726,7 +728,6 @@ const CheckoutItem = ({ addressId }) => {
   const [quantity, setQuantity] = useState(null);
   const [checkOutProducts, setProducts] = useState();
   const [productDetails, setProductDetails] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const { name, price } = useParams();
   const navigate = useNavigate();
@@ -822,8 +823,9 @@ const CheckoutItem = ({ addressId }) => {
         // alert("Order Added Successfully ")
         // navigate("/payment/" + orderId);
 
-        window.location.href = 'https://lobster-app-d9ye4.ondigitalocean.app/#/pay/' + orderId;
-        localStorage.removeItem("cart")
+        window.location.href =
+          "https://lobster-app-d9ye4.ondigitalocean.app/#/pay/" + orderId;
+        localStorage.removeItem("cart");
       }
     } catch (err) {
       console.error("Error adding order details:", err);
@@ -878,8 +880,7 @@ const CheckoutItem = ({ addressId }) => {
     } catch (error) {
       // Handle any exceptions
       console.error("Error:", error);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -977,8 +978,6 @@ const CheckoutItem = ({ addressId }) => {
         >
           BUY NOW
         </Button>
-        {loading && <BuyNowLoader />}
-        {/* <BuyNowLoader/> */}
         <p className="cond-font">
           By placing your order you agree to our{" "}
           <NavLink to="/terms">Terms & Conditions</NavLink>,
@@ -991,18 +990,13 @@ const CheckoutItem = ({ addressId }) => {
   );
 };
 
-
-function BuyNowLoader(){
-  
-    
-  
-  return(
+function BuyNowLoader() {
+  return (
     <>
-    <div className="pos-center">
-    <div className="loaderPage"></div>
-  <h4>please wait ...</h4>  
-    </div>
-    
+      <div className="pos-center">
+        <div className="loaderPage"></div>
+        <h4>please wait ...</h4>
+      </div>
     </>
-  )
+  );
 }

@@ -372,13 +372,17 @@ color:#b79d33
 }
 
 
-
+.blurChackoutPage {
+    filter: blur(2px); /* Adjust the blur intensity as needed */
+    transition: filter 0.3s ease-in-out; /* Add a smooth transition */
+  }
 
 
 .pos-center {
     position: fixed;
     top: calc(40% - 40px);
     left: calc(50% - 40px);
+    z-index: 55;
     
   }
  
