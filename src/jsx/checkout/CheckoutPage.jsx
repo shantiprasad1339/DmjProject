@@ -332,7 +332,7 @@ console.log("pin =====>>>",pin);
   }
 
   const [deliveryOptions, setDeliveryOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState();
   const [isDelveryNewAddress, setNewDelveryAddress] = useState(false);
 
   useEffect(() => {
@@ -344,6 +344,7 @@ console.log("pin =====>>>",pin);
         if (response.status === 200) {
           handleSetAddress(response.data.data[0].id);
           setDeliveryOptions(response.data.data);
+          setSelectedOption(response.data.data[response.data.data.length - 1])
           setNewDelveryAddress(false);
         } else {
           // Handle other response statuses if needed
@@ -368,14 +369,14 @@ console.log("pin =====>>>",pin);
       <RadioGroup
   aria-labelledby="demo-radio-buttons-group-label"
   defaultValue={deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined}
-  defaultChecked={deliveryOptions[0]}
   name="radio-buttons-group"
 >
   <div className="del-ct-bg mt-2">
     <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
     {deliveryOptions.length > 0 &&
       deliveryOptions.map((option) => {
-        // console.log("option =====>>>>", option);
+        {/* if(deliveryOptions(deliveryOptions - 1)) */}
+         console.log("option =====>>>>", option); 
         return (
           <RateOptions
             key={option.id}
@@ -383,7 +384,7 @@ console.log("pin =====>>>",pin);
             dlryname={option.area}
             required
             date={option.mobile}
-            isSelected={option === selectedOption}
+            isSelected={option?.name === selectedOption?.name}
             onOptionSelect={() => handleOptionSelect(option)}
           />
         );
