@@ -265,32 +265,19 @@ function Product() {
 
   async function handleShare() {
     const currentUrl = window.location.href;
-    const imageUrl = "https://images.diwamjewels.com/";
-  
-    const shareData = {
-      title: "Checkout This Awesome Website",
-      text: shareIconData.desc,
-      url: currentUrl,
-      image: imageUrl + shareIconData.image,
-    };
-  
-    console.log('Sharing data:', shareData);
-  
-    try {
-      const response = await fetch(shareData.image);
+    const imageUrl =  "https://images.diwamjewels.com/";
+    
+    
+    navigator.share({
       
-      if (response.ok) {
-        await navigator.share(shareData);
-        console.log('Share successful');
-      } else {
-        console.error('Image fetch failed with status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-    }
+      text: "Checkout This Awesome Website",
+      iamge:imageUrl+shareIconData.image,
+      url: currentUrl,
+      text: shareIconData.desc,
+    });
+    console.log('share ======>>>>>', navigator.share() );
+    
   }
-  
-  
   function deliveryCheck(e) {
     e.preventDefault(),
       axios.get('https://api.postalpincode.in/pincode/' + zipCode).then((res) => {
