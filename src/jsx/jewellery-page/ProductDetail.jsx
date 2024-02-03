@@ -268,21 +268,28 @@ function Product() {
     const imageUrl = "https://images.diwamjewels.com/";
   
     const shareData = {
-      text: "Checkout This Awesome Website",
-      image: imageUrl + shareIconData.image,
-      url: currentUrl,
+      title: "Checkout This Awesome Website",
       text: shareIconData.desc,
+      url: currentUrl,
+      image: imageUrl + shareIconData.image,
     };
   
     console.log('Sharing data:', shareData);
   
     try {
-      await navigator.share(shareData);
-      console.log('Share successful');
+      const response = await fetch(shareData.image);
+      
+      if (response.ok) {
+        await navigator.share(shareData);
+        console.log('Share successful');
+      } else {
+        console.error('Image fetch failed with status:', response.status);
+      }
     } catch (error) {
       console.error('Error sharing:', error);
     }
   }
+  
   
   function deliveryCheck(e) {
     e.preventDefault(),
