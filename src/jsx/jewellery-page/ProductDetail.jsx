@@ -140,15 +140,7 @@ function Product() {
   async function getProductId(skuNo) {
     try {
       const proRes = await axios.get(url + getProductEnd + skuNo);
-      console.log('vzdv', imgUrl + proRes.data.data.images[0].thumbImage);
-      // setSahreIconData(imgUrl + proRes.data.data.images[0].pictures)
-      setSahreIconData(
-        {
-          ...shareIconData,
-          image: proRes.data.data.images[0].pictures,
-          desc: proRes.data.data.description,
-        }
-      )
+      
       return proRes.data.data.id;
     } catch (err) {
       console.log(err);
@@ -178,10 +170,16 @@ function Product() {
         const res = await axios.get(url + endPoint + "/" + id);
 
         let parent = res.data.data.categoryId
-        console.log('dvmndakvmdsc', res.data.data)
+        
+        setSahreIconData(
+          {
+            ...shareIconData,
+            image: res.data.data.images[0].thumbImage,
+            desc:   res.data.data.name,
+          }
+        )
 
         if (parent) {
-          console.log('parent')
           const breadRes = await axios.get(url + 'api/v1/category/parenttype?parenttype=' + parent)
           // console.log(breadRes.data.data)
           setBreadcrumb(breadRes.data.data)
@@ -267,19 +265,25 @@ function Product() {
 
   async function handleShare() {
     const currentUrl = window.location.href;
-    console.log('davgbdsafv', shareIconData.image);
-    if (navigator.share) {
-      navigator.share({
-
-        text: "Checkout This Awesome Website",
-        iamge: shareIconData.image,
-        url: currentUrl,
-        text: shareIconData.desc,
-      });
-    } else {
-      navigator.clipboard.writeText(currentUrl);
+    const imageUrl = "https://images.diwamjewels.com/";
+  
+    const shareData = {
+      text: "Checkout This Awesome Website",
+      image: imageUrl + shareIconData.image,
+      url: currentUrl,
+      text: shareIconData.desc,
+    };
+  
+    console.log('Sharing data:', shareData);
+  
+    try {
+      await navigator.share(shareData);
+      console.log('Share successful');
+    } catch (error) {
+      console.error('Error sharing:', error);
     }
   }
+  
   function deliveryCheck(e) {
     e.preventDefault(),
       axios.get('https://api.postalpincode.in/pincode/' + zipCode).then((res) => {
@@ -669,18 +673,7 @@ const ProductPrice = ({
   async function handleVariantColor(color) {
     setSelectedSize(color);
   }
-  async function handleShare() {
-    const currentUrl = window.location.href;
-    if (navigator.share) {
-      navigator.share({
-        text: "Checkout This Awesome Website",
-
-        url: currentUrl,
-      });
-    } else {
-      navigator.clipboard.writeText(currentUrl);
-    }
-  }
+ 
   return (
     <>
       <div>
@@ -717,11 +710,11 @@ const ProductPrice = ({
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-          <ShareIcon
+          {/* <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
-          />
+          /> */}
 
           <SwitchCurrency
             // currencyValue={currencyValue}
