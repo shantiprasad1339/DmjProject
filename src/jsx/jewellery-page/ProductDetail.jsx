@@ -118,14 +118,14 @@ function Product() {
   const [isLoad, setIsLoad] = useState(true);
   const [quantity, setQuantity] = useState(2);
   const [rating, setRating] = useState("");
-  
-  const [zipCode,setZipCode]= useState()
-const [deleveryMsg,setDeliveryMsg] = useState(null)
-const [color,setColor]= useState(null)
-const [shareIconData , setSahreIconData] = useState({
-  image :null,
-  desc : ''
-})
+
+  const [zipCode, setZipCode] = useState()
+  const [deleveryMsg, setDeliveryMsg] = useState(null)
+  const [color, setColor] = useState(null)
+  const [shareIconData, setSahreIconData] = useState({
+    image: null,
+    desc: ''
+  })
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -140,7 +140,7 @@ const [shareIconData , setSahreIconData] = useState({
   async function getProductId(skuNo) {
     try {
       const proRes = await axios.get(url + getProductEnd + skuNo);
-      console.log('vzdv', imgUrl+proRes.data.data.images[0].thumbImage);
+      console.log('vzdv', imgUrl + proRes.data.data.images[0].thumbImage);
       // setSahreIconData(imgUrl + proRes.data.data.images[0].pictures)
       setSahreIconData(
         {
@@ -164,7 +164,7 @@ const [shareIconData , setSahreIconData] = useState({
     }
   }
 
-  const [breadcrumb,setBreadcrumb] = useState([])
+  const [breadcrumb, setBreadcrumb] = useState([])
 
   const fetchData = async () => {
     setIsLoad(true);
@@ -178,11 +178,11 @@ const [shareIconData , setSahreIconData] = useState({
         const res = await axios.get(url + endPoint + "/" + id);
 
         let parent = res.data.data.categoryId
-        console.log('dvmndakvmdsc',res.data.data)
-    
-        if(parent){
-          console.log('parent' )
-          const breadRes = await axios.get(url+'api/v1/category/parenttype?parenttype='+parent)
+        console.log('dvmndakvmdsc', res.data.data)
+
+        if (parent) {
+          console.log('parent')
+          const breadRes = await axios.get(url + 'api/v1/category/parenttype?parenttype=' + parent)
           // console.log(breadRes.data.data)
           setBreadcrumb(breadRes.data.data)
 
@@ -233,7 +233,7 @@ const [shareIconData , setSahreIconData] = useState({
   const addToCart = (productId) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProduct = existingCart.find((item) => item.productId === productId);
-  
+
     if (existingProduct) {
       // Check if the quantity is explicitly increased, otherwise set it to 1
       existingProduct.quantity = quantity > 1 ? quantity : 1;
@@ -244,11 +244,11 @@ const [shareIconData , setSahreIconData] = useState({
       };
       existingCart.push(newItem);
     }
-  
+
     localStorage.setItem("cart", JSON.stringify(existingCart));
   };
-  
-  
+
+
 
   // const location = useLocation();
 
@@ -267,12 +267,12 @@ const [shareIconData , setSahreIconData] = useState({
 
   async function handleShare() {
     const currentUrl = window.location.href;
-    console.log('davgbdsafv',shareIconData.image);
+    console.log('davgbdsafv', shareIconData.image);
     if (navigator.share) {
       navigator.share({
 
         text: "Checkout This Awesome Website",
-        iamge : shareIconData.image,
+        iamge: shareIconData.image,
         url: currentUrl,
         text: shareIconData.desc,
       });
@@ -280,24 +280,24 @@ const [shareIconData , setSahreIconData] = useState({
       navigator.clipboard.writeText(currentUrl);
     }
   }
-  function deliveryCheck (e){
+  function deliveryCheck(e) {
     e.preventDefault(),
-    axios.get('https://api.postalpincode.in/pincode/'+zipCode).then((res)=>{
-      console.log("zipCodeaPI",res);
-    if(res.data[0].Status == "Success"){
-      const today = new Date();
-      const deliveryDate = new Date(today);
-      deliveryDate.setDate(today.getDate() + 10);
-      // Format the delivery date
-      const options = { weekday: 'long', day: 'numeric', month: 'short' };
-      const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-US', options);
-      setDeliveryMsg('Delivery expected to'+ formattedDeliveryDate)
-      setColor('green')
-    }else{
-      setDeliveryMsg("sorry we cannot deliver to this address")
-      setColor('red')
-    }
-   })
+      axios.get('https://api.postalpincode.in/pincode/' + zipCode).then((res) => {
+        console.log("zipCodeaPI", res);
+        if (res.data[0].Status == "Success") {
+          const today = new Date();
+          const deliveryDate = new Date(today);
+          deliveryDate.setDate(today.getDate() + 10);
+          // Format the delivery date
+          const options = { weekday: 'long', day: 'numeric', month: 'short' };
+          const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-US', options);
+          setDeliveryMsg('Delivery expected to' + formattedDeliveryDate)
+          setColor('green')
+        } else {
+          setDeliveryMsg("sorry we cannot deliver to this address")
+          setColor('red')
+        }
+      })
   }
   const handleZipCodeChangeCondition = (e) => {
     const input = e.target.value;
@@ -328,18 +328,18 @@ const [shareIconData , setSahreIconData] = useState({
           <div className="container-fluid">
             <div className="mob-vw-brdcrum">
               <p className="breadcrumb-fnt-sz">
-                
-              <NavLink to="/">  Home</NavLink> 
-                {breadcrumb.length>0&&breadcrumb.map(b=>{
-                  // console.log('breadcrumb',b)
-                  return(
-                    <>
-                    {/* / {b} */}
 
-                    <NavLink to={`/c/${b}`} activeClassName="active">/{b}</NavLink>
+                <NavLink to="/" style={{ color: 'black', textDecoration: 'none' }}>  Home</NavLink>
+                {breadcrumb.length > 0 && breadcrumb.map(b => {
+                  // console.log('breadcrumb',b)
+                  return (
+                    <>
+                      {/* / {b} */}
+
+                      <NavLink to={`/c/${b}`} activeClassName="active" style={{ color: 'black', textDecoration: 'none' }}>/{b}</NavLink>
                     </>
                   )
-                }) }
+                })}
                 {/* /{itemInfo.name} */}
               </p>
             </div>
@@ -382,7 +382,7 @@ const [shareIconData , setSahreIconData] = useState({
 
 
 
-                            
+
                         </Swiper>
                       </div>
                     </div>
@@ -480,16 +480,16 @@ const [shareIconData , setSahreIconData] = useState({
                   <div className="mt-4">
                     <h4 className="chk-del-date">Check delivery options</h4>
                     <form className="d-flex">
-                    <input
-      className="form-control me-2 pin-box-int"
-      type="text" // Use type="text" to allow text input for validation
-      placeholder="Enter your zipcode"
-      maxLength={6}
-      value={zipCode}
-      onChange={handleZipCodeChangeCondition}
-    />
+                      <input
+                        className="form-control me-2 pin-box-int"
+                        type="text" // Use type="text" to allow text input for validation
+                        placeholder="Enter your zipcode"
+                        maxLength={6}
+                        value={zipCode}
+                        onChange={handleZipCodeChangeCondition}
+                      />
 
-                     <button className="check-btn-del"  onClick={deliveryCheck}>
+                      <button className="check-btn-del" onClick={deliveryCheck}>
                         Check
                       </button>
                     </form>
@@ -498,7 +498,8 @@ const [shareIconData , setSahreIconData] = useState({
                       Delivery Availability
                     </p>
                     <div>
-                    <DeliveryIcon
+
+                      <DeliveryIcon
                         icon={deliveryicon}
                         title={deleveryMsg}
                         color={color}
@@ -672,7 +673,7 @@ const ProductPrice = ({
     if (navigator.share) {
       navigator.share({
         text: "Checkout This Awesome Website",
-     
+
         url: currentUrl,
       });
     } else {
@@ -714,13 +715,13 @@ const ProductPrice = ({
           </span>
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
-        <div style={{display:'flex', gap:'10px',cursor:'pointer'}}>
-        <ShareIcon
-                      className="sh-wlst-icsz mt-1"
-                      onClick={() => handleShare()}
-                      
-                    />
-                    
+        <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
+          <ShareIcon
+            className="sh-wlst-icsz mt-1"
+            onClick={() => handleShare()}
+
+          />
+
           <SwitchCurrency
             // currencyValue={currencyValue}
             setCurrencyValue={setCurrencyValue}
@@ -1071,13 +1072,20 @@ const RatingComment = () => {
 };
 
 const DeliveryIcon = (props) => {
-  return (
+  if (props.title != null) {
+    return (
+      <>
+        <div className="d-flex">
+          <img src={props.icon} alt="icon" className="img-fluid pro-icn-sz-1" />
+          <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>{props.title}</p>      </div>
+      </>
+    );
+  } else {
     <>
       <div className="d-flex">
-        <img src={props.icon} alt="icon" className="img-fluid pro-icn-sz-1" />
-        <p className="pro-icn-para ms-2 mt-1" style={{color:props.color}}>{props.title}</p>      </div>
+        <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>{props.title}</p>      </div>
     </>
-  );
+  }
 };
 
 const OfferDetails = () => {
@@ -1159,11 +1167,11 @@ const RelatedProduct = ({ search }) => {
   async function fetchData() {
     const defaultSearchTerm = 'blue pottery';
     const searchQuery = search || defaultSearchTerm;
-  
+
     try {
       const res = await axios.get(url + typeEnd + searchQuery);
       console.log(res.data.data);
-  
+
       if (res.data.data) {
         setReletedProduct(res.data.data);
       }
@@ -1171,7 +1179,7 @@ const RelatedProduct = ({ search }) => {
       console.log(err);
     }
   }
-  
+
 
   useEffect(() => {
     fetchData();
@@ -1340,10 +1348,10 @@ const AccordionTxt = ({ title, des }) => {
 };
 
 
-function BuyNowLoader(){
-  return(
+function BuyNowLoader() {
+  return (
     <>
-    please wait ...
+      please wait ...
     </>
   )
 }

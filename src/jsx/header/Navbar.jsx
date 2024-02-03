@@ -243,6 +243,11 @@ function Navbar() {
     dispatch(addSearch(search));
   };
 
+
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div
@@ -322,6 +327,7 @@ function Navbar() {
                 className="nav-search"
                 value={search}
                 onChange={handleSearch}
+                o
               />
               <button
                 type="submit"
@@ -330,7 +336,9 @@ function Navbar() {
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
-                  onClick={handleProSearch}
+                  onClick={()=>{
+                    handleProSearch()
+                  }}
                 />
               </button>
             </div>
@@ -347,6 +355,7 @@ function Navbar() {
                   detail={result.name}
                   image={urlimg + result.image}
                   query={result.name}
+                  // onClick={handleRefreshClick()}
                 />
               ))}
             </div>
@@ -847,7 +856,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
                   title={cate.type}
                   subCateDate={cate.subCategory}
                   handleClose={handleClose}
-                  // onClick={handleRefreshClick}
+                  
                 />
               );
             })}
@@ -998,9 +1007,15 @@ const SearchDetails = (props) => {
 
 const ImageWithSearch = (props) => {
   const navigate = useNavigate();
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
 
   const handleButtonClick = (query) => {
     navigate(`/c/${query}`);
+    handleRefreshClick()
+    
   };
 
   return (
@@ -1010,7 +1025,7 @@ const ImageWithSearch = (props) => {
         onClick={() => handleButtonClick(props.query)}
       >
         <img src={props.image} alt="icon" className="search-img-dtl1" />
-        <p className="srch-ipt-detail-ptag mt-2">{props.detail}</p>
+        <p className="srch-ipt-detail-ptag mt-2" >{props.detail}</p>
       </div>
     </>
   );
