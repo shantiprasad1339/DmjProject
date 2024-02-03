@@ -368,6 +368,7 @@ console.log("pin =====>>>",pin);
       <RadioGroup
   aria-labelledby="demo-radio-buttons-group-label"
   defaultValue={deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined}
+  defaultChecked={deliveryOptions[0]}
   name="radio-buttons-group"
 >
   <div className="del-ct-bg mt-2">
@@ -573,7 +574,7 @@ const RateOptions = (props) => {
           checked={props.isSelected}
           onChange={props.onOptionSelect}
           className="check-radio"
-          required
+          
         />
         <div>
           <div className="d-flex">

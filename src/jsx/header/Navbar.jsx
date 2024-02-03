@@ -243,11 +243,6 @@ function Navbar() {
     dispatch(addSearch(search));
   };
 
-
-  const handleRefreshClick = () => {
-    // Reload the web page
-    window.location.reload();
-  };
   return (
     <>
       <div
@@ -266,7 +261,6 @@ function Navbar() {
                 className="dropdown1 mt-2"
                 onClick={() => handleJewelEnter()}
                 onMouseEnter={handleMouseEnter}
-                // onMouseLeave={() => handleLeaveMouse()}
               >
                 <NavLink
                   className="nav-box-product"
@@ -285,7 +279,7 @@ function Navbar() {
                 className="dropdown1 mt-2"
                 onClick={() => handleArtEnter()}
                 onMouseEnter={handleMouseEnter1}
-                // onMouseLeave={() => handleLeaveMouse()}
+                
               >
                 <NavLink
                   className="nav-box-product"
@@ -355,7 +349,7 @@ function Navbar() {
                   detail={result.name}
                   image={urlimg + result.image}
                   query={result.name}
-                  // onClick={handleRefreshClick()}
+                
                 />
               ))}
             </div>
@@ -1015,7 +1009,6 @@ const ImageWithSearch = (props) => {
   const handleButtonClick = (query) => {
     navigate(`/c/${query}`);
     handleRefreshClick()
-    
   };
 
   return (
