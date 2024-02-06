@@ -739,11 +739,11 @@ const ProductPrice = ({
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-           <ShareIcon
+           {/* <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
-          /> 
+          />  */}
 
           <SwitchCurrency
             // currencyValue={currencyValue}
