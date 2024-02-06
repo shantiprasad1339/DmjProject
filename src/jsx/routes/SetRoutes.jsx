@@ -11,7 +11,7 @@ import Faq from "../faq/Faq";
 import TrackOrder from "../track-order/TrackOrder";
 import Home from "../home/Home";
 // import Login from '../login/Login';
-import WishList from "../wishlist/WishList";
+import Favorites from "../wishlist/WishList";
 import AddToCart from "../addtocart/AddToCart";
 
 import Billing from "../paymentMode/Billing";
@@ -73,7 +73,7 @@ export default class SetRoutes extends React.Component {
           <Route path="/trackOrder" element={<TrackOrder />} />
           <Route path="/" element={<Home />} />
 
-          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/Favorites" element={<Favorites />} />
           <Route path="/addToCart" element={<AddToCart />} />
 
           <Route path="/billing" element={<Billing />} />

@@ -22,7 +22,7 @@ const proto = 'https://api.diwamjewels.com/DMJ'
 const endPoint = '/api/v1/category';
 
 import img1 from '../../assets/images/banner/img2.png'
-import img2 from '../../assets/images/banner/img3.png'
+import  img2 from '../../assets/images/banner/img3.png'
 import img3 from '../../assets/images/banner/img1.png'
 
 
@@ -37,6 +37,7 @@ const ProductWrapper = () => {
             const res = await axios.get(proto + endPoint)
             // console.log(res.data.data)
             setCateData(res.data.data)
+            console.log(res.data.data)
         }
         catch (err) {
             console.log(err)
@@ -54,11 +55,12 @@ const ProductWrapper = () => {
             {
                 cateData && cateData.map((category, index) => {
                     // console.log(category)
-
+                    if(index == 0){
+                        
                     return (
                         <ItemCard
-                            key={index}
-                            category={category}
+                            key={index+1}
+                            category={cateData[1]}
                             bgImg={index === 0 ? img1
                                 : index === 1 ? img2
                                     : img3
@@ -66,10 +68,34 @@ const ProductWrapper = () => {
                         />
                     )
 
+                    }else
+                     if(index == 1){
+                        return (
+                            <ItemCard
+                            key={0}
+                            category={cateData[0]}
+                            bgImg={index === 0 ? img1
+                                : index === 1 ? img2
+                                    : img3
+                            }
+                        />
+                        )
+                    }else {
+                        return (
+                            <ItemCard
+                            key={2}
+                            category={cateData[2]}
+                            bgImg={index === 0 ? img1
+                                : index === 1 ? img2
+                                    : img3
+                            }
+                        />
+                        )
+                    }
+
                 })
             }
-            {/* // }{ //     cateData.length > 0 && <Footer />
-            // } */}
+            
 
         </>
     )

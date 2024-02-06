@@ -414,7 +414,7 @@ function Navbar() {
               </Modal.Body>
             </Modal>
             <div className="nav-box ms-4">
-              <NavLink to="/wishlist">
+              <NavLink to="/favorites">
                 {" "}
                 <div className="show-numbericn">
                   <i className="bi bi-suit-heart-fill nav-icon-item "></i>

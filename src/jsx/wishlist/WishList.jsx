@@ -114,7 +114,7 @@ export default class WishList extends React.Component {
                             Continue shopping</h6></NavLink>
                     <div className="wish-bg">
                         <div className="d-flex justify-content-between">
-                            <h5><b>Wishlist</b></h5>
+                            <h5><b>Favrouts</b></h5>
                           { prodetails.length>0&& <p className="clear-text" onClick={() => this.clearItem()}>Clear items <i className="bi bi-trash3-fill"></i></p>}
                         </div>
 

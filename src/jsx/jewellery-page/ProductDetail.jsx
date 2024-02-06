@@ -407,14 +407,14 @@ function Product() {
                     <img src={imgUrl + selectedImage} className="" />
                   </div>
                   <div className="share-wlst-icon">
-                    <NavLink to="/wishlist">
+                    <NavLink to="/favorites">
                       <FavoriteBorderIcon className="sh-wlst-icsz" />
                     </NavLink>
                     <br />
-                    <ShareIcon
+                    {/* <ShareIcon
                       className="sh-wlst-icsz mt-1"
                       onClick={() => handleShare()}
-                    />
+                    /> */}
                   </div>
 
                   <div className="varient-img-box">
@@ -474,11 +474,11 @@ function Product() {
                       className="wishlist-btn-sz"
                       onClick={async () => {
                         await wishList(itemInfo.id);
-                        navigate("/wishlist");
+                        navigate("/favorites");
                         window.location.reload();
                       }}
                     >
-                      <FavoriteBorderIcon className="prodtl-icon-sz" /> WISHLIST
+                      <FavoriteBorderIcon className="prodtl-icon-sz" /> Favorites
                     </button>
                   </div>
 
@@ -674,6 +674,34 @@ const ProductPrice = ({
     setSelectedSize(color);
   }
  
+  const [shareIconData, setSahreIconData] = useState({
+    image: null,
+    desc: ''
+  })
+
+
+  async function handleShare() {
+    const currentUrl = window.location.href;
+    const imageUrl = "https://images.diwamjewels.com/";
+  
+    const shareData = {
+      text: "Checkout This Awesome Website",
+      image: imageUrl + shareIconData.image,
+      url: currentUrl,
+      text: shareIconData.desc,
+    };
+  
+    console.log('Sharing data:', shareData);
+  
+    try {
+      await navigator.share(shareData);
+      console.log('Share successful');
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  }
+
+
   return (
     <>
       <div>
@@ -687,7 +715,8 @@ const ProductPrice = ({
           <p>
             <b>4.5</b> <i className="bi bi-star-fill rate-icon-col"></i> |{" "}
             {rating} Ratings
-            {/* <ShareIcon/> */}
+          
+           
           </p>
         </div>
       </div>
@@ -704,17 +733,18 @@ const ProductPrice = ({
               color: "#7a7a7a",
             }}
           >
+           
             {currencyValue === "Rupee" ? "₹ " : "$ "}
             {price.price}
           </span>
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-          {/* <ShareIcon
+          <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
-          /> */}
+          />
 
           <SwitchCurrency
             // currencyValue={currencyValue}
