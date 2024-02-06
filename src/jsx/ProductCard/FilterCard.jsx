@@ -8,9 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../loader/Loader";
 import { addSearch } from "../redux/dmjSlice";
-import ShareIcon from '@mui/icons-material/Share';
-
-
+import ShareIcon from "@mui/icons-material/Share";
 
 const proto = "https://api.diwamjewels.com/DMJ/";
 const imgUrl = "https://images.diwamjewels.com/";
@@ -38,7 +36,6 @@ const FilterCard = () => {
       const res = await axios.get(
         `${proto}${endPoint}${searchSelctor}&pageSize=0`
       );
-      // console.log(res.data.data)
       setSearchData(res.data.data.order);
       setLoad(false);
     } catch (error) {
@@ -50,8 +47,7 @@ const FilterCard = () => {
     if (searchSelctor !== q) {
       if (searchSelctor) {
         navigate(`/search/${searchSelctor}`);
-      }
-      else {
+      } else {
         dispatch(addSearch(q));
       }
     }
@@ -59,8 +55,7 @@ const FilterCard = () => {
     window.scrollTo(0, 0);
   }, [searchSelctor, q]);
 
-
-  
+  console.log("searchData", searchData);
   return (
     <>
       <div className="container-fluid contain-grid">
@@ -68,8 +63,6 @@ const FilterCard = () => {
           {!isLoad ? (
             searchData.length > 0 &&
             searchData.map((sItem) => {
-              // console.log(sItem.images[0].thumbImage);
-
               return (
                 <ProductItemCard
                   img={
@@ -91,16 +84,15 @@ const FilterCard = () => {
           )}
         </div>
       </div>
-      
     </>
   );
 };
 
 export default FilterCard;
 
-const ProductItemCard = ({ img, item, price }) => {
+const ProductItemCard = ({ img, item, price, key }) => {
+  const wishlistId = localStorage.getItem("wishList");
   const navigate = useNavigate();
-
   const addToCart = (productId) => {
     // Get the existing cart from localStorage or initialize an empty array if it doesn't exist
     let quantity = 2;
@@ -135,11 +127,42 @@ const ProductItemCard = ({ img, item, price }) => {
     dispatch(addSearch(val));
     localStorage.setItem("productId", id);
   }
- 
+  const wishList = (id) => {
+    let existingCart = JSON.parse(localStorage.getItem("wishList")) || [];
+    let userCheck = localStorage.getItem("mobileNo");
+  
+    // Check if userCheck is available
+    if (!userCheck) {
+      // Navigate to "/popup" route
+      navigate("/login");
+      return; // Stop execution if userCheck is not available
+    }
+  
+    // Check if id already exists in existingCart
+    const index = existingCart.indexOf(id);
+  
+    if (index !== -1) {
+      // If id exists, remove it from existingCart
+      existingCart.splice(index, 1);
+    } else {
+      // If id doesn't exist, add it to existingCart
+      existingCart.push(id);
+    }
+  
+    // Update localStorage with modified existingCart
+    localStorage.setItem("wishList", JSON.stringify(existingCart));
+  };
+  
   return (
     <>
       <div className="grid-column mt-3">
-        <div className="filtr-new-box-1" onClick={() => RedirectDetailsPage(item.id, `/p/` + item.slug + '/' + item.sku)} style={{ cursor: 'pointer' }}>
+        <div
+          className="filtr-new-box-1"
+          onClick={() =>
+            RedirectDetailsPage(item.id, `/p/` + item.slug + "/" + item.sku)
+          }
+          style={{ cursor: "pointer" }}
+        >
           <div className="pro-img-card">
             <img src={img} alt="product" />
           </div>
@@ -153,9 +176,25 @@ const ProductItemCard = ({ img, item, price }) => {
                 : item.name.replace(/"/g, "").slice(0, 15) + "..."}
             </p>
             <div className="icon_box">
+              {/* <ShareIcon className="ShareIcon_share"  onClick={() => handleShare()}/> */}
 
-            {/* <ShareIcon className="ShareIcon_share"  onClick={() => handleShare()}/> */}
-            <FavoriteBorderIcon className="hm-crd-posticon" />
+              <FavoriteBorderIcon
+  className="hm-crd-posticon"
+  style={{
+    background:
+      wishlistId &&
+      Array.isArray(JSON.parse(wishlistId)) &&
+      JSON.parse(wishlistId).some((id) => id === item.id)
+        ? "red"
+        : "black",
+  }}
+  onClick={async (e) => {
+    e.stopPropagation();
+    await wishList(item.id);
+    window.location.reload();
+  }}
+/>
+
             </div>
           </div>
 
@@ -184,14 +223,14 @@ const ProductItemCard = ({ img, item, price }) => {
             <p className="off-font">
               ({" "}
               {item.images.length > 0 &&
-                item.images[0].productVariantEntities.length > 0
+              item.images[0].productVariantEntities.length > 0
                 ? item.images[0].productVariantEntities[0].discount
                 : 0}
               % OFF )
             </p>
           </div>
 
-          <div className="d-flex ms-2" style={{ marginTop: '-10px' }}>
+          <div className="d-flex ms-2" style={{ marginTop: "-10px" }}>
             <p className="trend-rt-box1">
               <b>
                 4.5 <i className="bi bi-star-fill trend-rt-icon"></i>
@@ -205,7 +244,4 @@ const ProductItemCard = ({ img, item, price }) => {
   );
 };
 
-
-export {ProductItemCard}
-
-
+export { ProductItemCard };

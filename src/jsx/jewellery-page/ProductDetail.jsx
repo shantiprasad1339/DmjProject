@@ -312,7 +312,7 @@ function Product() {
     }
   };
 
-
+console.log("itemInfo====>>>",itemInfo);
   
   return (
     <>
