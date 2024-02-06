@@ -682,25 +682,6 @@ const ProductPrice = ({
     desc: ''
   })
 
-<<<<<<< HEAD
-
-  async function handleShare() {
-    const currentUrl = window.location.href;
-    const imageUrl = "https://images.diwamjewels.com/";
-  
-    const shareData = {
-      text: "Checkout This Awesome Website",
-      image: imageUrl + shareIconData.image,
-      url: currentUrl,
-      text: shareIconData.desc,
-    };
-  
-    console.log('Sharing data:', shareData);
-  
-    try {
-      await navigator.share(shareData);
-      console.log('Share successful');
-=======
   async function handleShare() {
     try {
       const currentUrl = window.location.href;
@@ -717,17 +698,11 @@ const ProductPrice = ({
       await navigator.share(shareContent);
   
       console.log('Share completed successfully');
->>>>>>> e2f46b85e75eaf685caf7cba2bb7f970c08eb35f
     } catch (error) {
       console.error('Error sharing:', error);
     }
   }
-<<<<<<< HEAD
-
-
-=======
   
->>>>>>> e2f46b85e75eaf685caf7cba2bb7f970c08eb35f
   return (
     <>
       <div>
@@ -741,12 +716,7 @@ const ProductPrice = ({
           <p>
             <b>4.5</b> <i className="bi bi-star-fill rate-icon-col"></i> |{" "}
             {rating} Ratings
-<<<<<<< HEAD
-          
-           
-=======
             {/* <ShareIcon/>/ */}
->>>>>>> e2f46b85e75eaf685caf7cba2bb7f970c08eb35f
           </p>
         </div>
       </div>
@@ -770,19 +740,11 @@ const ProductPrice = ({
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-<<<<<<< HEAD
-          <ShareIcon
-            className="sh-wlst-icsz mt-1"
-            onClick={() => handleShare()}
-
-          />
-=======
            {/* <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
           />  */}
->>>>>>> e2f46b85e75eaf685caf7cba2bb7f970c08eb35f
 
           <SwitchCurrency
             // currencyValue={currencyValue}
