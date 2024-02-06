@@ -334,7 +334,7 @@ const DlryAddress = ({ handleSetAddress }) => {
   }
 
   const [deliveryOptions, setDeliveryOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState();
   const [isDelveryNewAddress, setNewDelveryAddress] = useState(false);
 
   useEffect(() => {
@@ -346,6 +346,7 @@ const DlryAddress = ({ handleSetAddress }) => {
         if (response.status === 200) {
           handleSetAddress(response.data.data[0].id);
           setDeliveryOptions(response.data.data);
+          setSelectedOption(response.data.data[response.data.data.length - 1])
           setNewDelveryAddress(false);
         } else {
           // Handle other response statuses if needed
@@ -367,32 +368,33 @@ const DlryAddress = ({ handleSetAddress }) => {
   return (
     <>
       <div className="del-ct-bg mt-2">
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={
-            deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined
-          }
-          name="radio-buttons-group"
-        >
-          <div className="del-ct-bg mt-2">
-            <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
-            {deliveryOptions.length > 0 &&
-              deliveryOptions.map((option) => {
-                // console.log("option =====>>>>", option);
-                return (
-                  <RateOptions
-                    key={option.id}
-                    rate={option.name}
-                    dlryname={option.area}
-                    required
-                    date={option.mobile}
-                    isSelected={option === selectedOption}
-                    onOptionSelect={() => handleOptionSelect(option)}
-                  />
-                );
-              })}
-          </div>
-        </RadioGroup>
+      <RadioGroup
+  aria-labelledby="demo-radio-buttons-group-label"
+  defaultValue={deliveryOptions.length > 0 ? deliveryOptions[0].id : undefined}
+  name="radio-buttons-group"
+>
+  <div className="del-ct-bg mt-2">
+    <h3 className="hd-tag-font">DELIVERY OPTIONS</h3>
+    {deliveryOptions.length > 0 &&
+      deliveryOptions.map((option) => {
+        {/* if(deliveryOptions(deliveryOptions - 1)) */}
+         console.log("option =====>>>>", option); 
+        return (
+          <RateOptions
+            key={option.id}
+            rate={option.name}
+            dlryname={option.area}
+            required
+            date={option.mobile}
+            isSelected={option?.name === selectedOption?.name}
+            onOptionSelect={() => handleOptionSelect(option)}
+          />
+        );
+      })}
+  </div>
+</RadioGroup>
+
+
 
         <h3
           className="hd-tag-font"
@@ -575,7 +577,7 @@ const RateOptions = (props) => {
           checked={props.isSelected}
           onChange={props.onOptionSelect}
           className="check-radio"
-          required
+          
         />
         <div>
           <div className="d-flex">

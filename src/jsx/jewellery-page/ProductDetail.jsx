@@ -264,20 +264,26 @@ function Product() {
   };
 
   async function handleShare() {
-    const currentUrl = window.location.href;
-    const imageUrl =  "https://images.diwamjewels.com/";
-    
-    
-    navigator.share({
-      
-      text: "Checkout This Awesome Website",
-      iamge:imageUrl+shareIconData.image,
-      url: currentUrl,
-      text: shareIconData.desc,
-    });
-    console.log('share ======>>>>>', navigator.share() );
-    
+    try {
+      const currentUrl = window.location.href;
+      const imageUrl = "https://images.diwamjewels.com/";
+  
+      const shareContent = {
+        title: "Checkout This Awesome Website",
+        text: shareIconData.desc + " " + imageUrl + shareIconData.image,
+        url: currentUrl
+      };
+  
+      console.log('Content being shared:', shareContent);
+  
+      await navigator.share(shareContent);
+  
+      console.log('Share completed successfully');
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
   }
+  
   function deliveryCheck(e) {
     e.preventDefault(),
       axios.get('https://api.postalpincode.in/pincode/' + zipCode).then((res) => {
@@ -305,6 +311,8 @@ function Product() {
       setZipCode(input);
     }
   };
+
+
   
   return (
     <>
@@ -458,7 +466,8 @@ function Product() {
                       className="add-to-cart-btn-sz"
                       onClick={async () => {
                         await addToCart(itemInfo.id);
-                        navigate("/addtocart");
+                        // navigate("/addtocart");
+                        window.location.reload()
                       }}
                     >
                       <LocalMallIcon className="prodtl-icon-sz" /> +TO CART
@@ -668,6 +677,32 @@ const ProductPrice = ({
     setSelectedSize(color);
   }
  
+  const [shareIconData, setSahreIconData] = useState({
+    image: null,
+    desc: ''
+  })
+
+  async function handleShare() {
+    try {
+      const currentUrl = window.location.href;
+      const imageUrl = "https://images.diwamjewels.com/";
+  
+      const shareContent = {
+        title: "Checkout This Awesome Website",
+        text: shareIconData.desc + " " + imageUrl + shareIconData.image,
+        url: currentUrl
+      };
+  
+      console.log('Content being shared:', shareContent);
+  
+      await navigator.share(shareContent);
+  
+      console.log('Share completed successfully');
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  }
+  
   return (
     <>
       <div>
@@ -681,7 +716,7 @@ const ProductPrice = ({
           <p>
             <b>4.5</b> <i className="bi bi-star-fill rate-icon-col"></i> |{" "}
             {rating} Ratings
-            {/* <ShareIcon/> */}
+            {/* <ShareIcon/>/ */}
           </p>
         </div>
       </div>
@@ -704,11 +739,11 @@ const ProductPrice = ({
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-          {/* <ShareIcon
+           <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
-          /> */}
+          /> 
 
           <SwitchCurrency
             // currencyValue={currencyValue}
