@@ -58,7 +58,7 @@ import Payment from "../payment/payment";
 import OrderDetail from "../order-page/OrderDetail";
 import LogIn3 from "../LoginForAddToCart/Login3"
 import Signup2 from "../LoginForAddToCart/LoginPage2"
-
+import Popup from "../popup/PopUp"
 export default class SetRoutes extends React.Component {
   render() {
     return (
@@ -125,6 +125,7 @@ export default class SetRoutes extends React.Component {
           <Route path="/shippingpolicy" element={<Shipping />} />
           <Route path="/newlogin" element={<LogIn3 />} />
           <Route path="/Signup2" element={<Signup2 />} />
+          <Route path="/popup" element={<Popup />} />
 
         </Routes>
       </>

@@ -124,7 +124,6 @@ const CategoryComponent = (props) => {
 };
 
 const FilterCategoryCard = ({ query }) => {
-  console.log("query", query);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState("0");
@@ -166,6 +165,7 @@ const FilterCategoryCard = ({ query }) => {
           {!isLoad ? (
             searchData.length > 0 &&
             searchData.map((sItem) => {
+              
               return (
                 <ProductItemCard
                   img={

@@ -279,7 +279,6 @@ function Navbar() {
                 className="dropdown1 mt-2"
                 onClick={() => handleArtEnter()}
                 onMouseEnter={handleMouseEnter1}
-                
               >
                 <NavLink
                   className="nav-box-product"
@@ -330,8 +329,8 @@ function Navbar() {
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
-                  onClick={()=>{
-                    handleProSearch()
+                  onClick={() => {
+                    handleProSearch();
                   }}
                 />
               </button>
@@ -349,7 +348,6 @@ function Navbar() {
                   detail={result.name}
                   image={urlimg + result.image}
                   query={result.name}
-                
                 />
               ))}
             </div>
@@ -617,7 +615,6 @@ function Navbar() {
             marginLeft="140px"
             handleNavMouseEnter={handleJewelEnter}
             onMouseLeave={handleMouseLeave}
-            
           />
         ) : null}
         {isArtOpen && cateData.length > 0 ? (
@@ -636,7 +633,6 @@ function Navbar() {
             marginLeft="200px"
             handleNavMouseEnter={handleCraft}
             onMouseLeave={handleMouseLeave}
-            
           />
         ) : null}
       </div>
@@ -757,19 +753,20 @@ function MobileMenuBar({ cateData, sch, ...props }) {
   const searchTxt = useSelector((state) => state.product.search.payload);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   async function handleSearch(e) {
     e.preventDefault();
     const searchText = e.target.value.trim(); // Trim leading and trailing whitespaces
-  
+
     setSearch(searchText);
     dispatch(addSearch(searchText));
-  
+
     try {
-      if (searchText !== '') {
+      if (searchText !== "") {
         const response = await axios.get(
-          "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + searchText
+          "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" +
+            searchText
         );
         setSearchResults(response.data.data);
         setIsResultsOpen(true);
@@ -783,7 +780,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
       setIsResultsOpen(false);
     }
   }
-  
+
   useEffect(() => {
     // console.log(searchTxt)
     setSearch(searchTxt);
@@ -794,7 +791,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
     dispatch(addSearch(e.target.value));
     // toggleBoxVisibility()
   }
-  const urlimg =  "https://images.diwamjewels.com/";
+  const urlimg = "https://images.diwamjewels.com/";
 
   return (
     <>
@@ -830,16 +827,16 @@ function MobileMenuBar({ cateData, sch, ...props }) {
           )}
           {isResultsOpen === true
             ? searchResults.map((result) => {
-               return(
-                <>
-                <ImageWithSearch
-                  key={result.name}
-                  detail={result.name}
-                  image={urlimg + result.image}
-                  query={result.name}
-                />
-                </>
-               )
+                return (
+                  <>
+                    <ImageWithSearch
+                      key={result.name}
+                      detail={result.name}
+                      image={urlimg + result.image}
+                      query={result.name}
+                    />
+                  </>
+                );
               })
             : ""}
           {cateData.length > 0 &&
@@ -850,7 +847,6 @@ function MobileMenuBar({ cateData, sch, ...props }) {
                   title={cate.type}
                   subCateDate={cate.subCategory}
                   handleClose={handleClose}
-                  
                 />
               );
             })}
@@ -1008,7 +1004,7 @@ const ImageWithSearch = (props) => {
 
   const handleButtonClick = (query) => {
     navigate(`/c/${query}`);
-    handleRefreshClick()
+    handleRefreshClick();
   };
 
   return (
@@ -1018,7 +1014,7 @@ const ImageWithSearch = (props) => {
         onClick={() => handleButtonClick(props.query)}
       >
         <img src={props.image} alt="icon" className="search-img-dtl1" />
-        <p className="srch-ipt-detail-ptag mt-2" >{props.detail}</p>
+        <p className="srch-ipt-detail-ptag mt-2">{props.detail}</p>
       </div>
     </>
   );
