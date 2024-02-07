@@ -1190,11 +1190,23 @@ const OfferDetails = () => {
 const RelatedProduct = ({ search }) => {
   const [relatedProduct, setReletedProduct] = useState([]);
   async function fetchData() {
-    const defaultSearchTerm = 'blue pottery';
-    const searchQuery = search || defaultSearchTerm;
+    const oldUrl = url + typeEnd + search
+    const newUrl = "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true"
+
+
+
+    let apiUrl;
+    if (search) {
+      apiUrl = url + typeEnd + search
+    } else {
+      apiUrl = "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true"
+    }
+
+
+
 
     try {
-      const res = await axios.get(url + typeEnd + searchQuery);
+      const res = await axios.get(apiUrl);
       console.log(res.data.data);
 
       if (res.data.data) {
