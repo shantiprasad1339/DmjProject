@@ -227,9 +227,9 @@ function Navbar() {
         "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query
       )
       .then((response) => {
-        // console.log(response.data.data)
+        console.log(response.data.data)
         setSearchResults(response.data.data);
-        setIsResultsOpen(true); // Show results when there are results
+        setIsResultsOpen(true);
       })
       .catch((err) => {
         setError(err);
@@ -242,7 +242,6 @@ function Navbar() {
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
   };
-
   return (
     <>
       <div
@@ -342,12 +341,15 @@ function Navbar() {
               <h6 className="mt-2">
                 <b>Search Results</b>
               </h6>
+              { searchResults.length == 0 ?<p>No Products Found</p>:''}
+              
               {searchResults.map((result) => (
                 <ImageWithSearch
                   key={result.name}
-                  detail={result.name}
+                  detail={result.name  }
                   image={urlimg + result.image}
                   query={result.name}
+                  length={ searchResults.length }
                 />
               ))}
             </div>
@@ -1009,7 +1011,7 @@ const ImageWithSearch = (props) => {
 
   return (
     <>
-      <div
+         <div
         className="d-flex mt-2"
         onClick={() => handleButtonClick(props.query)}
       >
@@ -1019,3 +1021,4 @@ const ImageWithSearch = (props) => {
     </>
   );
 };
+

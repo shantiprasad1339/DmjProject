@@ -96,10 +96,10 @@ const RateProduct = () => {
           <h5 className="mt-3 rate-hd-h5-tag"><b>Ratings & Reviews</b></h5>
           <div className="" style={{ display: 'flex' }}>
             <div>
-              <h6 className="revw-hd-fnt-bx"><b>{product.seo_title}</b></h6>
-              <p className="rt-user-fnt-sz"><span className="rt-bg-view">4.5<StarIcon className="str-rate-icon" /></span> 700 users</p>
+              {/* <h6 className="revw-hd-fnt-bx"><b>{product.seo_title}</b></h6> */}
+              {/* <p className="rt-user-fnt-sz"><span className="rt-bg-view">4.5<StarIcon className="str-rate-icon" /></span> 700 users</p> */}
             </div>
-            <img src={url} alt="image" className="rate-prod-img-1 ms-3" />
+            {/* <img src={url} alt="image" className="rate-prod-img-1 ms-3" /> */}
           </div>
         </div>
       </div>
@@ -109,7 +109,9 @@ const RateProduct = () => {
 
 
 const RatingForm = ({uId,pId}) => {
-
+const [ratingTitle,setRatingTitle] = useState("")
+const [ratingDesc,setRatingDesc] = useState("")
+const [ratingFile,setRatingFile] = useState("")
   const rating = 'api/v1/Rating'
 
   const updateRating = 'api/v1/Rating/particularUser/';
@@ -119,7 +121,6 @@ const RatingForm = ({uId,pId}) => {
 
   // const [render, setRender] = useState(true)
 
-console.log("star ====>>>>",star);
   async function fetchRating() {
     try {
       const res = await axios.get(url + updateRating + productId + '/' + userId)
@@ -133,20 +134,7 @@ console.log("star ====>>>>",star);
 
   }
 
-  async function upRating(star) {
-
-    try {
-      const res = await axios.post(url + rating, {
-        "userId": uId,
-        "rating": star,
-        "productId": pId
-      })
-      console.log(res.data)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
+  
 
 
   useEffect(() => {
@@ -154,16 +142,28 @@ console.log("star ====>>>>",star);
   }, [])
 
 
-async function handleRating(){
-  upRating(e.target.value)
+async function handleRating(e){
+  e.preventDefault();
+  
   setStar(e.target.value)
   try {
     const res = await axios.post(url + rating, {
-      "userId": userId,
-      "rating": star,
-      "productId": productId
+      "userId":uId,
+      "rating":star,
+        "orderId":pId,
+        "title":ratingTitle,
+        "description":ratingTitle,
+        "pictures":ratingTitle
     })
-    console.log(res.data)
+    if(res.data.message == "Thank you for your Rating "){
+      console.log(res.data)
+      setRatingTitle("")
+      setRatingDesc("")
+      setRatingFile(null)
+      setStar("")
+      alert(res.data.message)
+    }
+    
   }
   catch (err) {
     console.log(err)
@@ -186,9 +186,7 @@ async function handleRating(){
                 name="half-rating"
                 value={parseInt(star)}
                 precision={1}
-                onChange={(e) => handleRating(e)
-                 
-                }
+               onChange={(e)=>setStar(e.target.value)}
               />
             </Stack>
             <label htmlFor="" className="form-label mt-2 cmt-rev-fnt">
@@ -198,9 +196,11 @@ async function handleRating(){
               name=""
               id=""
               cols="10"
+              value={ratingDesc}
               rows="4"
               className="form-control cmt-rev-input"
               placeholder='Description'
+              onChange={(e)=>setRatingDesc(e.target.value)}
             ></textarea>
             <label htmlFor="" className="form-label mt-2 cmt-rev-fnt">
               Title (optional)
@@ -208,17 +208,23 @@ async function handleRating(){
             <textarea
               name=""
               id=""
+              value={ratingTitle}
               cols="10"
               rows="1"
               className="form-control cmt-rev-input"
               placeholder='Review title...'
+              onChange={(e)=>setRatingTitle(e.target.value)}
+
             ></textarea>
             <label htmlFor="" className="form-label mt-2 cmt-rev-fnt">
               Product Image
             </label>
-            <input type="file" className="form-control cmt-rev-input" />
+            <input type="file" className="form-control cmt-rev-input" 
+                        onChange={(e)=>setRatingFile (e.target.files[0])}
+
+            />
             <div>
-              <button className="cmt-rev-box-smt">Submit</button>
+              <button className="cmt-rev-box-smt" onClick={ handleRating}>Submit</button>
             </div>
           </form>
         </div>

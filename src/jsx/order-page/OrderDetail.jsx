@@ -43,7 +43,7 @@ const OrderDetail = () => {
       setProductDetails(res.data.data);
     });
     axios.get(url + "api/v1/orderdetails/getOrders/" + order_Id).then((res) => {
-      // console.log(res.data.data);
+      console.log(res.data.data);
       setProductShipping(res.data.data);
     });
     axios.get(url + "api/v1/order/status/orderId/" + order_Id).then((res) => {
@@ -174,6 +174,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
               {productShipping &&
                 productShipping.map((item, index) => {
                   const imgUrl = "https://images.diwamjewels.com/";
+                  // console.log("item",item.id);
                   return (
                     <>
                       <ProductOrderDetails
@@ -182,7 +183,7 @@ const DeliveryTimeline = ({ productShipping, order_Id, timeLineDate }) => {
                         price={item.amount}
                         color={item.color}
                       />
-                      <RateHelpBox productId={item.productId}/>
+                      <RateHelpBox productId={item.id}/>
                     </>
                   );
                 })}
@@ -335,8 +336,9 @@ const RateHelpBox = ({productId}) => {
         </h6>
       </NavLink>
       <h6 className="tl-rate-help-clr">
-        <HelpIcon className="hprate-icon" /> Need help?
+        {/* <HelpIcon className="hprate-icon" /> Need help? */}
       </h6>
     </>
   );
 };
+

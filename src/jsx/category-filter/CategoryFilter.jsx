@@ -183,7 +183,15 @@ const FilterCategoryCard = ({ query }) => {
               );
             })
           ) : (
-            <Loader />
+            // <Loader />
+          <>
+            {/* <div style={{textAlign:'center'}}>
+
+                 <h4 style={{fontSize:'50px', fontWeight:'600', color:'#e9b530', textAlign:'center' }} className='text-center'>No Product Found</h4>
+             </div> */}
+
+             <div><h4 className="text-center" style={{fontSize:'50px', fontWeight:'600', color:'#e9b530', textAlign:'center' }}>This Product Not Listed Yet</h4></div>
+          </>
           )}
         </div>
       </div>
