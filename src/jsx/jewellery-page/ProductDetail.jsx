@@ -409,14 +409,14 @@ console.log("itemInfo====>>>",itemInfo);
                     <img src={imgUrl + selectedImage} className="" />
                   </div>
                   <div className="share-wlst-icon">
-                    <NavLink to="/favorites">
+                    <NavLink to="/favorite">
                       <FavoriteBorderIcon className="sh-wlst-icsz" />
                     </NavLink>
                     <br />
-                    <ShareIcon
+                    {/* <ShareIcon
                       className="sh-wlst-icsz mt-1"
                       onClick={() => handleShare()}
-                    />
+                    /> */}
                   </div>
 
                   <div className="varient-img-box">
@@ -477,7 +477,7 @@ console.log("itemInfo====>>>",itemInfo);
                       className="wishlist-btn-sz"
                       onClick={async () => {
                         await wishList(itemInfo.id);
-                        navigate("/favorites");
+                        navigate("/favorite");
                         window.location.reload();
                       }}
                     >
@@ -740,12 +740,11 @@ const ProductPrice = ({
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
         <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-           <ShareIcon
+           {/* <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
 
-          /> 
-           
+          />  */}
 
           <SwitchCurrency
             // currencyValue={currencyValue}

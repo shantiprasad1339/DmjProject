@@ -241,6 +241,11 @@ function Navbar() {
     e.preventDefault();
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
+    window.location.reload();z
+  };
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
   };
   return (
     <>
@@ -319,17 +324,20 @@ function Navbar() {
                 className="nav-search"
                 value={search}
                 onChange={handleSearch}
-                o
+                
+                
               />
               <button
                 type="submit"
                 style={{ background: "transparent", border: "none" }}
+                // onClick={}
               >
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
                   onClick={() => {
-                    handleProSearch();
+                    handleProSearch()
+                    
                   }}
                 />
               </button>
@@ -533,7 +541,10 @@ function Navbar() {
                     <img
                       src={searchIcon}
                       className="nav-search-icon"
-                      onClick={handleProSearch}
+                      onClick={() => {
+                    handleProSearch();
+                    handleRefreshClick();
+                  }}
                     />
                   </button>
                 </form>
@@ -960,11 +971,15 @@ const SearchInputContent = () => {
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div className="nav-box-search mt-2 mb-3" onClick={toggleOpen}>
         <input type="text" className="nav-search" />
-        <img src={searchIcon} className="nav-search-icon" />
+        <img src={searchIcon} className="nav-search-icon" onClick={handleRefreshClick}/>
       </div>
 
       {isOpen && (
