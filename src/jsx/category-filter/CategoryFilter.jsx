@@ -185,12 +185,12 @@ const FilterCategoryCard = ({ query }) => {
           ) : (
             // <Loader />
           <>
-            {/* <div style={{textAlign:'center'}}>
+           
 
-                 <h4 style={{fontSize:'50px', fontWeight:'600', color:'#e9b530', textAlign:'center' }} className='text-center'>No Product Found</h4>
-             </div> */}
-
-             <div><h4 className="text-center" style={{fontSize:'50px', fontWeight:'600', color:'#e9b530', textAlign:'center' }}>This Product Not Listed Yet</h4></div>
+             <div style={{textAlign:'center'}}>
+              <img src="https://www.sealwatertech.co.za/error.png" alt="" />
+              <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
+              </div>
           </>
           )}
         </div>
