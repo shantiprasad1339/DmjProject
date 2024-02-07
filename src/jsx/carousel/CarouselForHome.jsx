@@ -160,6 +160,7 @@ const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
   
     // Update localStorage with modified existingCart
     localStorage.setItem("wishList", JSON.stringify(existingCart));
+    window.location.reload()
   };
   
   
@@ -191,13 +192,7 @@ const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
             </p>
             <div>
               {/* <ShareIcon style={{marginRight:'10px', cursor:'pointer'}}/> */}
-              {/* <FavoriteBorderIcon
-                className="hm-crd-posticon"
-                onClick={async () => {
-                  await wishList(id);
-                  window.location.reload()
-                }}
-              /> */}
+              
 
 
 
@@ -213,7 +208,7 @@ const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
   }}
   onClick={async () => {
     await wishList(id);
-    window.location.reload()
+   
   }}
 />
 

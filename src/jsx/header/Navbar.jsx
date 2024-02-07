@@ -227,9 +227,9 @@ function Navbar() {
         "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query
       )
       .then((response) => {
-        // console.log(response.data.data)
+        console.log(response.data.data)
         setSearchResults(response.data.data);
-        setIsResultsOpen(true); // Show results when there are results
+        setIsResultsOpen(true);
       })
       .catch((err) => {
         setError(err);
@@ -241,8 +241,12 @@ function Navbar() {
     e.preventDefault();
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
+    window.location.reload();z
   };
-
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div
@@ -320,17 +324,20 @@ function Navbar() {
                 className="nav-search"
                 value={search}
                 onChange={handleSearch}
-                o
+                
+                
               />
               <button
                 type="submit"
                 style={{ background: "transparent", border: "none" }}
+                // onClick={}
               >
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
                   onClick={() => {
-                    handleProSearch();
+                    handleProSearch()
+                    
                   }}
                 />
               </button>
@@ -342,12 +349,15 @@ function Navbar() {
               <h6 className="mt-2">
                 <b>Search Results</b>
               </h6>
+              { searchResults.length == 0 ?<p>No Products Found</p>:''}
+              
               {searchResults.map((result) => (
                 <ImageWithSearch
                   key={result.name}
-                  detail={result.name}
+                  detail={result.name  }
                   image={urlimg + result.image}
                   query={result.name}
+                  length={ searchResults.length }
                 />
               ))}
             </div>
@@ -531,7 +541,10 @@ function Navbar() {
                     <img
                       src={searchIcon}
                       className="nav-search-icon"
-                      onClick={handleProSearch}
+                      onClick={() => {
+                    handleProSearch();
+                    handleRefreshClick();
+                  }}
                     />
                   </button>
                 </form>
@@ -958,11 +971,15 @@ const SearchInputContent = () => {
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
+  const handleRefreshClick = () => {
+    // Reload the web page
+    window.location.reload();
+  };
   return (
     <>
       <div className="nav-box-search mt-2 mb-3" onClick={toggleOpen}>
         <input type="text" className="nav-search" />
-        <img src={searchIcon} className="nav-search-icon" />
+        <img src={searchIcon} className="nav-search-icon" onClick={handleRefreshClick}/>
       </div>
 
       {isOpen && (
@@ -1009,7 +1026,7 @@ const ImageWithSearch = (props) => {
 
   return (
     <>
-      <div
+         <div
         className="d-flex mt-2"
         onClick={() => handleButtonClick(props.query)}
       >
@@ -1019,3 +1036,4 @@ const ImageWithSearch = (props) => {
     </>
   );
 };
+

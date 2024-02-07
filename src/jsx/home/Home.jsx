@@ -16,11 +16,13 @@ import banner2 from '../BannerImg/banner2.webp'
 
 import { RelatedProduct } from "../jewellery-page/ProductDetail";
 import { Helmet } from "react-helmet";
+import TrandingProduct from '../TrandingProduct/TrandingProduct'
 
 const proto = "https://api.diwamjewels.com/DMJ/";
 const endPoint = "api/v1/banner";
 const searchEndPoint = "api/v1/products";
 const imgUrl = "https://images.diwamjewels.com/";
+
 
 const Home = () => {
   const [bannerData, setBanner] = useState([]);
@@ -70,6 +72,8 @@ const Home = () => {
               <b>Trending Products</b>
             </h3>
             <RelatedProduct />
+            {/* <TrandingProduct /> */}
+            
             
           </div>
           <ProductWrapper />

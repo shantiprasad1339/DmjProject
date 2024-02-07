@@ -157,6 +157,7 @@
   display: -ms-flexbox;
   flex-wrap: wrap;
   width:100%;
+  justify-content: center;
 
 }
 .rating-sec{

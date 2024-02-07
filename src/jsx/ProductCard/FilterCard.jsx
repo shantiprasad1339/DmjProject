@@ -151,6 +151,8 @@ const ProductItemCard = ({ img, item, price, key }) => {
   
     // Update localStorage with modified existingCart
     localStorage.setItem("wishList", JSON.stringify(existingCart));
+    window.location.reload();
+
   };
   
   return (
@@ -191,7 +193,6 @@ const ProductItemCard = ({ img, item, price, key }) => {
   onClick={async (e) => {
     e.stopPropagation();
     await wishList(item.id);
-    window.location.reload();
   }}
 />
 
