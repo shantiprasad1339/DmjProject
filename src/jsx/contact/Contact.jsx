@@ -10,6 +10,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 export default class Contact extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -109,7 +110,7 @@ export default class Contact extends React.Component {
 
     return errors;
   };
-
+  
   render() {
     const {
       name,

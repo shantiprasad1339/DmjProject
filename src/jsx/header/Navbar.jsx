@@ -23,6 +23,8 @@ import image1 from "../../assets/images/earring.jpg";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import LoginWithMobileNo from "../login/LoginPage";
+import Swal from "sweetalert2";
+
 
 const urlimg = "https://images.diwamjewels.com/";
 const url = "https://api.diwamjewels.com/DMJ/";
@@ -238,28 +240,29 @@ function Navbar() {
   };
 
   const handleProSearch = (e) => {
-    e.preventDefault();
+    // Ensure that the event object is defined
+    // if (!e || !e.preventDefault) {
+    //   console.error("Invalid event object");
+    //   return;
+    // }
   
-    // Check if searchResults is empty, indicating no results were found
+    e.preventDefault();
+    setIsResultsOpen(false);
     if (searchResults.length === 0) {
-      // Display error message for non-existing route
-      alert("Route does not exist");
+      // Assuming 'Swal' is properly imported and available
+      Swal.fire("This product is not added yet!");
 
-  //     <>
-           
-
-  //     <div style={{textAlign:'center'}}>
-  //      <img src="https://www.sealwatertech.co.za/error.png" alt="" />
-  //      <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
-  //      </div>
-  //  </>
+   
       return;
 
-
     }
+
   
+    // Assuming 'navigate', 'dispatch', 'addSearch', and 'search' are defined
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
+    // Note: Reloading the entire page might not be necessary in some cases
+    // Consider using React state or other techniques to update the UI instead
     window.location.reload();
   };
   const handleRefreshClick = () => {
@@ -319,7 +322,7 @@ function Navbar() {
                 className="mt-2 dropdown1"
                 onClick={() => handleCraft()}
                 onMouseEnter={handleMouseEnter2}
-                // onMouseLeave={() => handleLeaveMouse()}
+              // onMouseLeave={() => handleLeaveMouse()}
               >
                 <NavLink
                   className="nav-box-product"
@@ -343,20 +346,19 @@ function Navbar() {
                 className="nav-search"
                 value={search}
                 onChange={handleSearch}
-                
-                
+
+
               />
               <button
                 type="submit"
                 style={{ background: "transparent", border: "none" }}
-                // onClick={}
+              // onClick={}
               >
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
                   onClick={() => {
                     handleProSearch()
-                    
                   }}
                 />
               </button>
@@ -368,15 +370,15 @@ function Navbar() {
               <h6 className="mt-2">
                 <b>Search Results</b>
               </h6>
-              { searchResults.length == 0 ?<p>No Products Found</p>:''}
-              
+              {searchResults.length == 0 ? <p>No Products Found</p> : ''}
+
               {searchResults.map((result) => (
                 <ImageWithSearch
                   key={result.name}
-                  detail={result.name  }
+                  detail={result.name}
                   image={urlimg + result.image}
                   query={result.name}
-                  length={ searchResults.length }
+                  length={searchResults.length}
                 />
               ))}
             </div>
@@ -561,9 +563,9 @@ function Navbar() {
                       src={searchIcon}
                       className="nav-search-icon"
                       onClick={() => {
-                    handleProSearch();
-                    handleRefreshClick();
-                  }}
+                        handleProSearch();
+                        handleRefreshClick();
+                      }}
                     />
                   </button>
                 </form>
@@ -798,7 +800,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
       if (searchText !== "") {
         const response = await axios.get(
           "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" +
-            searchText
+          searchText
         );
         setSearchResults(response.data.data);
         setIsResultsOpen(true);
@@ -859,17 +861,17 @@ function MobileMenuBar({ cateData, sch, ...props }) {
           )}
           {isResultsOpen === true
             ? searchResults.map((result) => {
-                return (
-                  <>
-                    <ImageWithSearch
-                      key={result.name}
-                      detail={result.name}
-                      image={urlimg + result.image}
-                      query={result.name}
-                    />
-                  </>
-                );
-              })
+              return (
+                <>
+                  <ImageWithSearch
+                    key={result.name}
+                    detail={result.name}
+                    image={urlimg + result.image}
+                    query={result.name}
+                  />
+                </>
+              );
+            })
             : ""}
           {cateData.length > 0 &&
             cateData.map((cate) => {
@@ -998,7 +1000,7 @@ const SearchInputContent = () => {
     <>
       <div className="nav-box-search mt-2 mb-3" onClick={toggleOpen}>
         <input type="text" className="nav-search" />
-        <img src={searchIcon} className="nav-search-icon" onClick={handleRefreshClick}/>
+        <img src={searchIcon} className="nav-search-icon" onClick={handleRefreshClick} />
       </div>
 
       {isOpen && (
@@ -1045,7 +1047,7 @@ const ImageWithSearch = (props) => {
 
   return (
     <>
-         <div
+      <div
         className="d-flex mt-2"
         onClick={() => handleButtonClick(props.query)}
       >
@@ -1056,3 +1058,36 @@ const ImageWithSearch = (props) => {
   );
 };
 
+
+
+
+
+
+
+
+
+function StaticModal() {
+  return (
+    <div
+      className="modal show"
+      style={{ display: 'block', position: 'initial' }}
+    >
+      <Modal.Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Modal body text goes here.</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary">Close</Button>
+          <Button variant="primary">Save changes</Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+}
+
+export { StaticModal };

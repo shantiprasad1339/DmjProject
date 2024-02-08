@@ -5,9 +5,35 @@ import Footer from "../footer/Footer";
 import { useEffect } from "react";
 
 const Refund = () => {
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const handlePostRequest = async () => {
+    try {
+      const response = await fetch('https://www.diwamjewels.com/sitemap-create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed
+        },
+        body: JSON.stringify({url:'https://www.diwamjewels.com'+window.location.pathname}),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      setError(error);
+    }
+  };
+  useEffect(()=>{
+    handlePostRequest()
+
+  },[])
 
   return (
     <>
