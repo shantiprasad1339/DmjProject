@@ -16,7 +16,6 @@ import banner2 from '../BannerImg/banner2.webp'
 
 import { RelatedProduct } from "../jewellery-page/ProductDetail";
 import { Helmet } from "react-helmet";
-import TrandingProduct from '../TrandingProduct/TrandingProduct'
 
 const proto = "https://api.diwamjewels.com/DMJ/";
 const endPoint = "api/v1/banner";
@@ -63,18 +62,12 @@ const Home = () => {
           <Navbar />
           <MainCarousel bannerData={bannerData} />
 
-          {/* <CarouselForHome
-                        productData={productInfo}
-                    /> */}
-          {/* <TrendingProducts /> */}
           <div className="" style={{overflowX:'hidden !hidden'}}>
             <h3 className="text-center mt-4">
               <b>Trending Products</b>
             </h3>
             <RelatedProduct />
-            {/* <TrandingProduct /> */}
-            
-            
+       
           </div>
           <ProductWrapper />
 
