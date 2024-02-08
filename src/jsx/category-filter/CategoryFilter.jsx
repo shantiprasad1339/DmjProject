@@ -65,7 +65,31 @@ const CategoryFilter = () => {
         setLoading(false);
       });
   };
+  const handlePostRequest = async () => {
+    try {
+      const response = await fetch('https://www.diwamjewels.com/sitemap-create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed
+        },
+        body: JSON.stringify({url:'https://www.diwamjewels.com'+window.location.pathname}),
+      });
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      setError(error);
+    }
+  };
+  useState(()=>{
+    handlePostRequest()
+
+  },[])
   useEffect(() => {
     fetchData();
   }, [searchTxt]);
@@ -186,14 +210,7 @@ const FilterCategoryCard = ({ query }) => {
             <Loader />
         
 
-        //     <>
-           
-
-        //     <div style={{textAlign:'center'}}>
-        //      <img src="https://www.sealwatertech.co.za/error.png" alt="" />
-        //      <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
-        //      </div>
-        //  </>
+       
 
 
 
