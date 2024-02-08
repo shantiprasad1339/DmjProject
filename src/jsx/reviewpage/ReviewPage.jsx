@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import './reviewpage.css'
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 // import img1 from "../../assets/images/earring.jpg";
 import StarIcon from '@mui/icons-material/Star';
 import HeaderCon from "../header/HeaderCon";
@@ -11,6 +11,7 @@ import Footer from "../footer/Footer";
 import { useEffect } from 'react';
 import axios from 'axios';
 // import { fetchData } from '../jewellery-page/ProductDetail';
+import { Navigate } from 'react-router-dom';
 
 
 const url = 'https://api.diwamjewels.com/DMJ/'
@@ -140,7 +141,7 @@ const [ratingFile,setRatingFile] = useState("")
   useEffect(() => {
     fetchRating()
   }, [])
-
+const Navigate = useNavigate()
 
 async function handleRating(e){
   e.preventDefault();
@@ -162,6 +163,7 @@ async function handleRating(e){
       setRatingFile(null)
       setStar("")
       alert(res.data.message)
+      Navigate('/')
     }
     
   }

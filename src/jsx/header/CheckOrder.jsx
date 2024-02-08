@@ -45,7 +45,7 @@ function setUserCity (){
         <Modal.Body>
           Delivery options and delivery speed may very for different location!
         </Modal.Body>
-        <Button className="btn-1">Sign in to see your address</Button>
+        {/* <Button className="btn-1">Sign in to see your address</Button> */}
         <hr />
 
         <div className="box">
