@@ -29,7 +29,7 @@ const AddToCart = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [proQuantity, setQuantity] = useState([]);
   const [newProductDetails, setNewProductDetails] = useState([])
-
+const [directToProduct,setDirect] = useState('/')
 
 
 
@@ -38,6 +38,8 @@ const AddToCart = () => {
     try {
       const res = await axios.get(url + productEndPoint + id);
       const product = res.data.data;
+      console.log("add to cart products =====>>>>>",res.data.data)
+      setDirect( `/c/${res.data.data.parentType}`   )
       setProDetails((prevDetails) => [...prevDetails, product]);
     } catch (err) {
       console.log(err);
@@ -66,7 +68,6 @@ const AddToCart = () => {
   
 
   useEffect(() => {
-    // Proceed with processing cart items only when product details are available
     if (proDetails.length > 0) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -133,7 +134,7 @@ useEffect(() => {
         <meta name="keywords" content="DmJ Add to cart" />
       </Helmet>
       <div className="container-fluid">
-        <NavLink to="/" className="text-decoration-none">
+      <NavLink to={directToProduct} className="text-decoration-none">
           <h6 className="mt-4 cont-shp">
             <i className="bi bi-chevron-left"></i>
             Continue shopping

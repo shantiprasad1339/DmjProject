@@ -244,13 +244,13 @@ const ReviewComment = () => {
         </div>
         <div className="rate-rev-frm shadow-sm mt-1">
           <h6 className="revw-hd-fnt-bx"><b>Have you used this product?</b></h6>
-          <p className="revw-fnt-bx-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus, numquam. Quaerat eaque sequi dicta consequuntur.</p>
+          <p className="revw-fnt-bx-1">If you have used our products then you can respond with something like "I have used blue pottery plates and loved them."</p>
           <hr />
           <h6 className="revw-hd-fnt-bx"><b>Why review a product?</b></h6>
-          <p className="revw-fnt-bx-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nam.</p>
+          <p className="revw-fnt-bx-1">If you review products then it will help others decide if it's good for them and matches their standards or not. It also can save someone else time and money.</p>
           <hr />
           <h6 className="revw-hd-fnt-bx"><b>How to review a product?</b></h6>
-          <p className="revw-fnt-bx-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, perspiciatis.</p>
+          <p className="revw-fnt-bx-1">Just share your thoughts. Start with what the product is, talk about its in the same condition and looks like this, and mention anything really good or not so good.</p>
         </div>
       </div>
     </>

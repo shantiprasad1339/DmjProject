@@ -62,7 +62,7 @@ function Navbar() {
   const [cartLength, setCartLength] = useState(0);
 
   const [userName, setUserName] = useState("");
-
+const [inputLength,SetInputLength] = useState()
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -216,9 +216,9 @@ function Navbar() {
       setIsResultsOpen(false);
     }
   };
-
   const handleSearch = (e) => {
     const query = e.target.value;
+    SetInputLength(query.length)
     setSearch(query);
 
     // Make an API request when the user types in the search input
@@ -227,7 +227,6 @@ function Navbar() {
         "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query
       )
       .then((response) => {
-        console.log(response.data.data)
         setSearchResults(response.data.data);
         setIsResultsOpen(true);
       })
@@ -240,9 +239,8 @@ function Navbar() {
   const handleProSearch = (e) => {
     e.preventDefault();
   
-    // Check if searchResults is empty, indicating no results were found
+    
     if (searchResults.length === 0) {
-      // Display error message for non-existing route
       alert("Route does not exist");
 
   //     <>
@@ -263,9 +261,10 @@ function Navbar() {
     window.location.reload();
   };
   const handleRefreshClick = () => {
-    // Reload the web page
+    
     window.location.reload();
   };
+  console.log(inputLength);
   return (
     <>
       <div
@@ -345,12 +344,13 @@ function Navbar() {
                 onChange={handleSearch}
                 
                 
-              />
+                />
               <button
                 type="submit"
                 style={{ background: "transparent", border: "none" }}
-                // onClick={}
-              >
+                
+                >
+                {inputLength && inputLength >= 1 ?
                 <img
                   src={searchIcon}
                   className="nav-search-icon"
@@ -359,6 +359,7 @@ function Navbar() {
                     
                   }}
                 />
+                :''}
               </button>
             </div>
           </form>
