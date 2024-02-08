@@ -239,9 +239,28 @@ function Navbar() {
 
   const handleProSearch = (e) => {
     e.preventDefault();
+  
+    // Check if searchResults is empty, indicating no results were found
+    if (searchResults.length === 0) {
+      // Display error message for non-existing route
+      alert("Route does not exist");
+
+  //     <>
+           
+
+  //     <div style={{textAlign:'center'}}>
+  //      <img src="https://www.sealwatertech.co.za/error.png" alt="" />
+  //      <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
+  //      </div>
+  //  </>
+      return;
+
+
+    }
+  
     navigate(`/c/${search}`);
     dispatch(addSearch(search));
-    window.location.reload();z
+    window.location.reload();
   };
   const handleRefreshClick = () => {
     // Reload the web page
@@ -422,7 +441,7 @@ function Navbar() {
               </Modal.Body>
             </Modal>
             <div className="nav-box ms-4">
-              <NavLink to="/favorites">
+              <NavLink to="/favorite">
                 {" "}
                 <div className="show-numbericn">
                   <i className="bi bi-suit-heart-fill nav-icon-item "></i>

@@ -183,15 +183,20 @@ const FilterCategoryCard = ({ query }) => {
               );
             })
           ) : (
-            // <Loader />
-          <>
+            <Loader />
+        
+
+        //     <>
            
 
-             <div style={{textAlign:'center'}}>
-              <img src="https://www.sealwatertech.co.za/error.png" alt="" />
-              <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
-              </div>
-          </>
+        //     <div style={{textAlign:'center'}}>
+        //      <img src="https://www.sealwatertech.co.za/error.png" alt="" />
+        //      <h4 style={{fontSize:'30px', fontWeight:'500', color:'#A2A2A2', textAlign:'center', marginTop:'20px' }}>This Product is Not Listed Yet</h4>
+        //      </div>
+        //  </>
+
+
+
           )}
         </div>
       </div>
