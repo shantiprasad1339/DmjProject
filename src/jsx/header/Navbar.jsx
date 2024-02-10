@@ -231,6 +231,7 @@ const [inputLength,SetInputLength] = useState()
       .then((response) => {
         setSearchResults(response.data.data);
         setIsResultsOpen(true);
+        console.log(response);
       })
       .catch((err) => {
         setError(err);
@@ -268,7 +269,6 @@ const [inputLength,SetInputLength] = useState()
     
     window.location.reload();
   };
-  console.log(inputLength);
   return (
     <>
       <div

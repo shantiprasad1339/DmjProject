@@ -112,7 +112,7 @@ const RateProduct = () => {
 const RatingForm = ({uId,pId}) => {
 const [ratingTitle,setRatingTitle] = useState("")
 const [ratingDesc,setRatingDesc] = useState("")
-const [ratingFile,setRatingFile] = useState("")
+const [ratingFile,setRatingFile] = useState([])
   const rating = 'api/v1/Rating'
 
   const updateRating = 'api/v1/Rating/particularUser/';
@@ -145,8 +145,9 @@ const Navigate = useNavigate()
 
 async function handleRating(e){
   e.preventDefault();
-  
   setStar(e.target.value)
+  const resImg = await singleImage(ratingFile)
+  console.log(resImg);
   try {
     const res = await axios.post(url + rating, {
       "userId":uId,
@@ -154,7 +155,7 @@ async function handleRating(e){
         "orderId":pId,
         "title":ratingTitle,
         "description":ratingTitle,
-        "pictures":ratingTitle
+        "pictures":resImg
     })
     if(res.data.message == "Thank you for your Rating "){
       console.log(res.data)
@@ -171,6 +172,26 @@ async function handleRating(e){
     console.log(err)
   }
 
+}
+async function singleImage(img) {
+  // console.log(img)
+  const sigleImageUrl = 'https://goldfish-app-qynu4.ondigitalocean.app/upload/ '
+
+  const formData = new FormData()
+  formData.append('images', img)
+  const headers = {
+    'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+};
+
+  try {
+      const res = await axios.post(sigleImageUrl, formData, { headers })
+      console.log("singleImage",res.data)
+
+      return res.data.data
+  }
+  catch (err) {
+      console.log(err)
+  }
 }
 
   return (

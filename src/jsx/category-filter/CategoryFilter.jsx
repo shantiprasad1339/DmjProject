@@ -23,6 +23,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Swal from "sweetalert2";
 
 
 const proto = "https://api.diwamjewels.com/DMJ/";
@@ -36,7 +37,7 @@ const CategoryFilter = () => {
   const [categoryDes, setCategoryDes] = useState();
   const params = useParams();
   const query = params.page;
-  console.log("useParams", params.page);
+ 
   const fetchData = () => {
     setLoading(true);
     const apiUrl = `https://api.diwamjewels.com/DMJ/api/v1/category/type?type=${query}`;
@@ -44,6 +45,7 @@ const CategoryFilter = () => {
       .get(apiUrl)
       .then((response) => {
         if (response.data && response.data.data) {
+          console.log("cateoryFilterData====>>>>",response.data);
           setCategoryDes(response.data.data.categoryDescription);
           const categoryDescription = response.data.data.categoryDescription;
           if (categoryDescription !== null) {
@@ -161,13 +163,14 @@ const FilterCategoryCard = ({ query }) => {
       const res = await axios.get(
         `${proto}${endPoint}${query}&pageSize=${pageSize}`
       );
-      // console.log(res.data,'cgbfg');
+      console.log("category filterpage Products=====>>>>",res.data);
       setElement(res.data.data.totalPage);
       setSearchData(res.data.data.order);
       setLoad(false);
     } catch (error) {
       console.log(error);
-      setLoad(true);
+      setLoad(false);
+      Swal.fire("This product is not added yet!");
     }
   };
   useEffect(() => {
@@ -242,7 +245,6 @@ const ProductContentFilter = (props) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("props", props);
   const fetchData = () => {
     setLoading(true);
     const apiUrl = `https://api.diwamjewels.com/DMJ/api/v1/category/type?type=${searchTxt}`;
@@ -271,7 +273,6 @@ const ProductContentFilter = (props) => {
         setLoading(false);
       });
   };
-  console.log(data);
   useEffect(() => {
     fetchData();
   }, [searchTxt]);

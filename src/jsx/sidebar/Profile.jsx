@@ -11,7 +11,6 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import VerifiedIcon from '@mui/icons-material/Verified';
-
 const url = "https://api.diwamjewels.com/DMJ/";
 const endPoint = "api/v1/user/";
 
@@ -19,26 +18,53 @@ const userId = localStorage.getItem("userId");
 
 const Profileinfo = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    Name:'',
+    MobileNo:'',
+    dOB:'',
+    Email:'',
+    gender:''
+    
+    
+  });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   async function fetchUserData() {
     try {
-      const res = await axios.get(url + endPoint + userId);
+      const res = await axios.get(url + endPoint+userId );
       // console.log(res.data.data)
-      setUserInfo(res.data.data);
+      setUserInfo({
+        ...userInfo,
+        Name:res.data.data.userName,
+        MobileNo:res.data.data.phoneNumber,
+        dOB:res.data.data.age,
+     Email:res.data.data.email,
+     gender:res.data.data.gender
+      });
     } catch (err) {
       console.log(err);
     }
   }
-
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  
+  function saveUserInfo (e){
+    e.preventDefault()
+    axios.put(url + endPoint+userId,{
+
+      "userName":userInfo.Name,
+      "email":userInfo.Email,
+      "phoneNumber":userInfo.MobileNo,
+    
+    "gender":userInfo.gender,
+   "age":userInfo.dOB,
+   
+    } ).then((res)=>console.log(res))
+    window.location.reload()
+  }
   return (
     <>
       <div className="sidebar-content">
@@ -100,40 +126,57 @@ const Profileinfo = () => {
           <TextField fullWidth
                         id="fullname"
                         label="Full Name"
-                        defaultValue="Ankit Samant" margin="normal" />
+                        value={userInfo.Name}
+                        margin="normal" 
+                        onChange={(e) => setUserInfo(prevState => ({ ...prevState, Name: e.target.value }))}
+                        />
 
                     <TextField fullWidth
                         id="email"
                         label="Email"
-                        defaultValue="ankit.samant.ank@gmail.com" margin="normal" />
+                        value={userInfo.Email}
+                        margin="normal" 
+                        onChange={(e) => setUserInfo(prevState => ({ ...prevState, Email: e.target.value }))}
+
+                        />
 
                         
                     <TextField fullWidth
                         id="birthday"
-                        label="Birthday (dd/mm/yyyy)"
-                        defaultValue="16/06/1999" margin="normal" />
+                        label="Age"
+                        value={userInfo.dOB}
+                        margin="normal" 
+                        onChange={(e) => setUserInfo(prevState => ({ ...prevState, dOB: e.target.value }))}
+
+                        />
 
                     <TextField fullWidth
-                        id="location"
-                        label="Location"
-                        defaultValue="Jaipur" margin="normal" />
+                        id="Gender"
+                        label="Gender"
+                        value={userInfo.gender}
+                         margin="normal" />
+
 
                     <TextField fullWidth
                         id="fullname"
                         label="Mobile"
-                        defaultValue="8005779031" margin="normal" />
+                        value={userInfo.MobileNo}
+                        margin="normal"
+                        onChange={(e) => setUserInfo(prevState => ({ ...prevState, MobileNo: e.target.value }))}
+
+                        />
 
 
-                    <h6 className="mt-3 mb-3">Alternate mobile details</h6>
+                    {/* <h6 className="mt-3 mb-3">Alternate mobile details</h6>
                     <FormControl fullWidth sx={{ m: 0 }} variant="standard" className="mb-2">
                         <InputLabel htmlFor="standard-adornment-amount">Mobile Number</InputLabel>
                         <Input
                             id="standard-adornment-amount"
                             startAdornment={<InputAdornment position="start">+91</InputAdornment>}
                         />
-                    </FormControl>
+                    </FormControl> */}
                    
-                    <button className='text-white bg-dark px-5 py-2 rounded w-100 shadow-sm border-0 mt-4'>Save details</button>
+                    <button className='text-white bg-dark px-5 py-2 rounded w-100 shadow-sm border-0 mt-4 ' onClick={saveUserInfo}>Save details</button>
           </form>
         </Modal.Body>
         

@@ -118,7 +118,7 @@ function Product() {
   const [isLoad, setIsLoad] = useState(true);
   const [quantity, setQuantity] = useState(2);
   const [rating, setRating] = useState("");
-
+const [userRatingData,setUserRatingdata] = useState()
   const [zipCode, setZipCode] = useState(userDefaultLocation)
   const [deleveryMsg, setDeliveryMsg] = useState(null)
   const [color, setColor] = useState(null)
@@ -229,7 +229,7 @@ function Product() {
   };
   useState(()=>{
     handlePostRequest()
-
+    getRating()
   },[])
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -336,8 +336,14 @@ function Product() {
     }
   };
 
-console.log("itemInfo====>>>",itemInfo);
-  
+function getRating(){
+  let ratingUrl = "https://api.diwamjewels.com/DMJ/api/v1/Rating/productRating/"
+  let productId = 257
+  axios.get(ratingUrl+productId).then((res)=>{
+    console.log("rating =====>>>>",res.data.data);
+    setUserRatingdata(res.data.data)
+  })
+}  
   return (
     <>
       {!isLoad ? (
@@ -566,8 +572,16 @@ console.log("itemInfo====>>>",itemInfo);
                     <RatingBox />
 
                     <p className="tagline-line"></p>
-
-                    <RatingComment />
+{userRatingData && userRatingData.map((item,index)=>{
+  console.log(item);
+  return(
+    <>
+    
+    <RatingComment image={item.pictures} title={item.title} desc={item.description} name={item.userName} rating={item.rating} date={item.created_at}/>
+    
+    </>
+  )
+})}
 
                     <p className="tagline-line"></p>
                     <h6 className="text-primary">
@@ -1007,6 +1021,9 @@ const DetailsBox = ({ des }) => {
 function RatingBox() {
   return (
     <>
+
+
+
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h5 className="mt-3 offer-heading-txt">
           <b>Ratings</b> <StarsIcon />
@@ -1084,23 +1101,25 @@ function RatingBox() {
   );
 }
 
-const RatingComment = () => {
+const RatingComment = ({image,title,desc,name,rating}) => {
+  const userImgUrl = "https://images.diwamjewels.com/";
+  console.log(Image);
   return (
     <>
       <div className="d-flex">
         <p className="rating-box-1">
-          4.5 <i className="bi bi-star-fill rating-icon-sz"></i>
+          {rating} <i className="bi bi-star-fill rating-icon-sz"></i>
         </p>
-        <p className="pro-dtl-ft-sz ms-2 mt-1">Perfect Product</p>
+        <p className="pro-dtl-ft-sz ms-2 mt-1">{title}</p>
       </div>
-      <p className="pro-dtl-ft-sz">This is an amazing Product to begin with.</p>
+      <p className="pro-dtl-ft-sz">{desc}</p>
       <div>
-        <img src={img1} alt="Product" className="pro-color-img" />
+        <img src={userImgUrl+image} alt="Product" className="pro-color-img" />
       </div>
       <div className="user-cmt-bx mt-3">
         <div className="d-flex">
           <p className="pro-dtl-ft-sz">
-            Tina Singh <i className="bi bi-check-circle-fill text-muted"></i>
+           {name} <i className="bi bi-check-circle-fill text-muted"></i>
           </p>
           <p className="pro-dtl-ft-sz ms-1">
             Certified Buyer, Mysore 10 months ago
@@ -1230,7 +1249,7 @@ const RelatedProduct = ({ search }) => {
 
     try {
       const res = await axios.get(apiUrl);
-      console.log(res.data.data);
+      // console.log(res.data.data);
 
       if (res.data.data) {
         setReletedProduct(res.data.data);
