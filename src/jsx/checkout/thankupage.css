@@ -1,0 +1,37 @@
+.thank-box{
+    background-color: rgb(229, 232, 238);
+    box-shadow:2px 2px 30px 1px rgb(243, 243, 243);
+    border-radius: 5px;
+    width:100%;
+    max-width:750px;
+    margin:auto;
+    padding:30px;
+    text-align: center;
+    margin-top: 300px;
+}
+
+.thk-info-para{
+    font-size:17px;
+    font-weight: 600;
+    margin-top:15px;
+    color:rgb(56, 56, 56);
+}
+
+.cnt-shp-btn-vw{
+    background-color: black;
+    border:solid 1px black;
+    color:white;
+    margin-top:15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    box-shadow:2px 2px 40px 4px rgb(179, 179, 179);
+   
+}
+
+.thk-heading{
+    font-size:48px;
+    font-weight: 600;
+}

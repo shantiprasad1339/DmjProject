@@ -257,12 +257,14 @@ const [userRatingData,setUserRatingdata] = useState()
     const existingProduct = existingCart.find((item) => item.productId === productId);
 
     if (existingProduct) {
-      // Check if the quantity is explicitly increased, otherwise set it to 1
-      existingProduct.quantity = quantity > 1 ? quantity : 1;
-    } else {
+       
+      existingProduct.quantity = Math.min(existingProduct.quantity + quantity-1, 6);
+    }
+   
+    else {
       const newItem = {
         productId: productId,
-        quantity: quantity,
+        quantity: Math.min(quantity, 6)
       };
       existingCart.push(newItem);
     }
@@ -507,7 +509,7 @@ function getRating(){
                       className="wishlist-btn-sz"
                       onClick={async () => {
                         await wishList(itemInfo.id);
-                        navigate("/favorite");
+                        // navigate("/favorite");
                         window.location.reload();
                       }}
                     >
@@ -861,7 +863,7 @@ const ProductPrice = ({
         <div className="col-md-6">
           <p className="col-fnt-sz offer-heading-txt">MORE VARIATION</p>
           <div className="color-container">
-            {variant.length > 0 &&
+            {variant.length > 1 &&
               variant.map((img, index) => {
                 return (
                   <div

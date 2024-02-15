@@ -22,7 +22,6 @@ import firebaseConfig from "../firebaseConfig";
 const url = "https://api.diwamjewels.com/DMJ/api/v1/user/";
 const verifyEndPoint = "verify/otp";
 const endPoint = "send/otp/signin";
-const signIn = "signin/withEmailOrPhoneNumber";
 const dataBaseUrl = 'signin/emailOrPhoneNumbe'
 export default class LoginPage2 extends React.Component {
   render() {
@@ -110,68 +109,6 @@ const LoginWithMobileNo = () => {
     setLoading(false);
   }
   
-  const auth = getAuth(initializeApp(firebaseConfig));
-  // let confirmationResult = null;
-  function CheckUser (){
-    // console.log("DataNumber",mobileNo);
-    const formdata = new FormData();
-    formdata.append('emailOrPhone' , mobileNo);
-    axios.post(url+dataBaseUrl,formdata).then((res)=>{
-      localStorage.setItem("userId", res.data.data.id);
-      sentOtp()
-      // console.log(res.data.data.id);
-      
-    }).catch((err)=>{ 
-    localStorage.removeItem("userId"); 
-    alert("You have'nt regestered yet, please signup first!")
-    console.log(err);
-  })
-}
-
-  const handleSendCode = async () => {
-    const recaptcha = new RecaptchaVerifier(
-      "recaptcha",
-      {
-        size: "normal",
-        callback: (response) => {
-          console.log("reCAPTCHA solved:");
-        },
-        "expired-callback": () => {
-          console.log("reCAPTCHA expired");
-        },
-      },
-      auth
-    );
-
-    try {
-      let confirmationResult = await signInWithPhoneNumber(
-        auth,
-        mobileNo,
-        recaptcha
-      );
-      setConfirmationResult(confirmationResult);
-      setOtp(true);
-      console.log("Confirmation result:", confirmationResult);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  const handleVerifyCode = async () => {
-    try {
-      if (confirmationResultOtp) {
-        const user = await confirmationResultOtp.confirm(otp);
-        // console.log("User:", user);
-        navigate("/");
-        window.location.reload();
-      } else {
-        console.error("Confirmation result is null.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Invalid Otp");
-    }
-  };
  
   function checkPhoneNoAvailable() {
 
@@ -184,7 +121,7 @@ const LoginWithMobileNo = () => {
         localStorage.setItem("userId", res.data.data.id);
 
         // console.log(res);
-        handleSendCode()
+     
       })
       .catch((err) => {
    

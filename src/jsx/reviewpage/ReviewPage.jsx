@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 // import { fetchData } from '../jewellery-page/ProductDetail';
 import { Navigate } from 'react-router-dom';
-
+import { Logger } from 'sass';
 
 const url = 'https://api.diwamjewels.com/DMJ/'
 const productEnd = 'api/v1/products';
@@ -110,89 +110,95 @@ const RateProduct = () => {
 
 
 const RatingForm = ({uId,pId}) => {
-const [ratingTitle,setRatingTitle] = useState("")
-const [ratingDesc,setRatingDesc] = useState("")
-const [ratingFile,setRatingFile] = useState([])
-  const rating = 'api/v1/Rating'
-
-  const updateRating = 'api/v1/Rating/particularUser/';
-
-
-  const [star, setStar] = useState('')
-
-  // const [render, setRender] = useState(true)
-
-  async function fetchRating() {
-    try {
-      const res = await axios.get(url + updateRating + productId + '/' + userId)
-      // console.log(res.data.data.rating)
-      setStar(res.data.data.rating)
-      // setRender(false)
-    }
-    catch (err) {
-      console.log(err)
-    }
-
-  }
-
+  const [ratingTitle,setRatingTitle] = useState("")
+  const [ratingDesc,setRatingDesc] = useState("")
+  const [ratingFile,setRatingFile] = useState([])
+    const rating = 'api/v1/Rating'
   
-
-
-  useEffect(() => {
-    fetchRating()
-  }, [])
-const Navigate = useNavigate()
-
-async function handleRating(e){
-  e.preventDefault();
-  setStar(e.target.value)
-  const resImg = await singleImage(ratingFile)
-  console.log(resImg);
-  try {
-    const res = await axios.post(url + rating, {
-      "userId":uId,
-      "rating":star,
-        "orderId":pId,
-        "title":ratingTitle,
-        "description":ratingTitle,
-        "pictures":resImg
-    })
-    if(res.data.message == "Thank you for your Rating "){
-      console.log(res.data)
-      setRatingTitle("")
-      setRatingDesc("")
-      setRatingFile(null)
-      setStar("")
-      alert(res.data.message)
-      Navigate('/')
+    const updateRating = 'api/v1/Rating/particularUser/';
+  const[chooseRating,setChooseRating] = useState(false)
+  
+    const [star, setStar] = useState('')
+  
+    // const [render, setRender] = useState(true)
+  
+    async function fetchRating() {
+      try {
+        const res = await axios.get(url + updateRating + productId + '/' + userId)
+        // console.log(res.data.data.rating)
+        setStar(res.data.data.rating)
+        // setRender(false)
+      }
+      catch (err) {
+        console.log(err)
+      }
+  
     }
+  
+    function handleRatingCount (e){
+      setStar(e.target.value)
+      setChooseRating(true)
+    }
+  
+  
+    useEffect(() => {
+      fetchRating()
+    }, [])
+
+    async function singleImage(img) {
+      const sigleImageUrl = 'https://goldfish-app-qynu4.ondigitalocean.app/upload/'
     
-  }
-  catch (err) {
-    console.log(err)
-  }
+      const formData = new FormData()
+      formData.append('images', img)
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+    };
+    
+      try {
+          const res = await axios.post(sigleImageUrl, formData, { headers })
+          console.log("singleImage",res.data)
+    
+          return res.data.data
+      }
+      catch (err) {
+          console.log(err)
+      }
+    }
 
+  const Navigate = useNavigate()
+  
+  async function handleRating(e) {
+    e.preventDefault();
+    if (chooseRating === true) {
+        setStar(e.target.value);
+        const resImg = await singleImage(ratingFile);
+        console.log(resImg);
+        try {
+            const res = await axios.post(url + rating, {
+                "userId": uId,
+                "rating": star,
+                "orderId": pId,
+                "title": ratingTitle,
+                "description": ratingTitle,
+                "pictures": resImg
+            });
+            if (res.data.message === "Thank you for your Rating ") {
+                console.log(res.data);
+                setRatingTitle("");
+                setRatingDesc("");
+                setRatingFile(null);
+                setStar("");
+                alert(res.data.message);
+                Navigate('/');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        alert("Please choose a rating.");
+    }
 }
-async function singleImage(img) {
-  // console.log(img)
-  const sigleImageUrl = 'https://goldfish-app-qynu4.ondigitalocean.app/upload/ '
 
-  const formData = new FormData()
-  formData.append('images', img)
-  const headers = {
-    'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-};
-
-  try {
-      const res = await axios.post(sigleImageUrl, formData, { headers })
-      console.log("singleImage",res.data)
-
-      return res.data.data
-  }
-  catch (err) {
-      console.log(err)
-  }
-}
 
   return (
     <>
@@ -209,7 +215,9 @@ async function singleImage(img) {
                 name="half-rating"
                 value={parseInt(star)}
                 precision={1}
-               onChange={(e)=>setStar(e.target.value)}
+               onChange={
+                handleRatingCount
+              }
               />
             </Stack>
             <label htmlFor="" className="form-label mt-2 cmt-rev-fnt">

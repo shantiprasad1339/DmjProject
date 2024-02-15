@@ -153,7 +153,7 @@ const LoginWithMobileNo = () => {
                   e.preventDefault();
                 }}
               >
-                {/* <p className='tele-code'>+91</p> */}
+               
 
                 {!isOtp ? (
                   <>

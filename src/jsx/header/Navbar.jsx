@@ -223,7 +223,6 @@ const [inputLength,SetInputLength] = useState()
     SetInputLength(query.length)
     setSearch(query);
 
-    // Make an API request when the user types in the search input
     axios
       .get(
         "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query

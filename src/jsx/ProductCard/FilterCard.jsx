@@ -130,17 +130,17 @@ const ProductItemCard = ({ img, item, price, key }) => {
   const wishList = (id) => {
     let existingCart = JSON.parse(localStorage.getItem("wishList")) || [];
     let userCheck = localStorage.getItem("mobileNo");
-  
+
     // Check if userCheck is available
     if (!userCheck) {
       // Navigate to "/popup" route
       navigate("/login");
       return; // Stop execution if userCheck is not available
     }
-  
+
     // Check if id already exists in existingCart
     const index = existingCart.indexOf(id);
-  
+
     if (index !== -1) {
       // If id exists, remove it from existingCart
       existingCart.splice(index, 1);
@@ -148,13 +148,12 @@ const ProductItemCard = ({ img, item, price, key }) => {
       // If id doesn't exist, add it to existingCart
       existingCart.push(id);
     }
-  
+
     // Update localStorage with modified existingCart
     localStorage.setItem("wishList", JSON.stringify(existingCart));
     window.location.reload();
-
   };
-  
+
   return (
     <>
       <div className="grid-column mt-3">
@@ -181,21 +180,20 @@ const ProductItemCard = ({ img, item, price, key }) => {
               {/* <ShareIcon className="ShareIcon_share"  onClick={() => handleShare()}/> */}
 
               <FavoriteBorderIcon
-  className="hm-crd-posticon"
-  style={{
-    background:
-      wishlistId &&
-      Array.isArray(JSON.parse(wishlistId)) &&
-      JSON.parse(wishlistId).some((id) => id === item.id)
-        ? "red"
-        : "black",
-  }}
-  onClick={async (e) => {
-    e.stopPropagation();
-    await wishList(item.id);
-  }}
-/>
-
+                className="hm-crd-posticon"
+                style={{
+                  background:
+                    wishlistId &&
+                    Array.isArray(JSON.parse(wishlistId)) &&
+                    JSON.parse(wishlistId).some((id) => id === item.id)
+                      ? "red"
+                      : "black",
+                }}
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  await wishList(item.id);
+                }}
+              />
             </div>
           </div>
 

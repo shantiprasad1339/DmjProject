@@ -34,7 +34,7 @@ const Profileinfo = () => {
   async function fetchUserData() {
     try {
       const res = await axios.get(url + endPoint+userId );
-      // console.log(res.data.data)
+      console.log("res=======>>>>",res.data.data.email)
       setUserInfo({
         ...userInfo,
         Name:res.data.data.userName,
@@ -62,7 +62,7 @@ const Profileinfo = () => {
     "gender":userInfo.gender,
    "age":userInfo.dOB,
    
-    } ).then((res)=>console.log(res))
+    } ).then((res)=>console.log("response ======>>>>>",res))
     window.location.reload()
   }
   return (
@@ -81,16 +81,16 @@ const Profileinfo = () => {
                 <hr></hr>
                 <div className="user-add-info">
                   <p className="profile-info-text">Full Name</p>
-                  <p className="profile-info-text">{userInfo.userName}</p>
+                  <p className="profile-info-text">{userInfo.Name}</p>
                 </div>
                 <div className="user-add-info">
                   <p className="profile-info-text">Mobile Number</p>
-                  <p className="profile-info-text">{userInfo.phoneNumber}</p>
+                  <p className="profile-info-text">{userInfo.MobileNo}</p>
                 </div>
 
                 <div className="user-add-info">
                   <p className="profile-info-text">Email ID</p>
-                  <p className="profile-info-text">{userInfo.email}</p>
+                  <p className="profile-info-text">{userInfo.Email}</p>
                 </div>
                 <div className="user-add-info">
                   <p className="profile-info-text">Gender</p>
@@ -98,7 +98,7 @@ const Profileinfo = () => {
                 </div>
                 <div className="user-add-info">
                   <p className="profile-info-text">Age</p>
-                  <p className="profile-info-text">{userInfo.age}</p>
+                  <p className="profile-info-text">{userInfo.dOB}</p>
                 </div>
           
                 <button

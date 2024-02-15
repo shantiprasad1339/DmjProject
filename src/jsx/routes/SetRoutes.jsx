@@ -59,6 +59,7 @@ import OrderDetail from "../order-page/OrderDetail";
 import LogIn3 from "../LoginForAddToCart/Login3"
 import Signup2 from "../LoginForAddToCart/LoginPage2"
 import Popup from "../popup/PopUp"
+import Thankyou from "../checkout/ThankuPage"
 export default class SetRoutes extends React.Component {
   render() {
     return (
@@ -126,6 +127,7 @@ export default class SetRoutes extends React.Component {
           <Route path="/newlogin" element={<LogIn3 />} />
           <Route path="/Signup2" element={<Signup2 />} />
           <Route path="/popup" element={<Popup />} />
+          <Route path="/thankYou" element={<Thankyou />} />
 
         </Routes>
       </>

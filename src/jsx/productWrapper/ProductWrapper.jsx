@@ -449,7 +449,11 @@ const CarouselCard = ({ img, title, category, discount, sku, slug }) => {
                     <div></div>
                     <p className="mt-3 product-font">{title.length < 20 ? title : title.slice(0, 20) + '...'}</p>
                     <p className="sale-offer">Price :{'₹ '}{discount}</p>
-                    <div><h6 className='addtocart-btn-sldr'>Add to cart <i className="bi bi-box-arrow-right"></i></h6></div>
+                    <div className='d-flex'>
+                        <h6 className='addtocart-btn-sldr'>Add to cart <i className="bi bi-box-arrow-right"></i></h6>
+                        <FavoriteBorderIcon
+                        className="hm-crd-posticon " />
+                    </div>
                 </div>
             </div>
             </div>

@@ -50,25 +50,25 @@ const LoginWithMobileNo = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleSubmit = async () => {
-    // e.preventDefault();
-    await localStorage.setItem("mobileNo", mobileNo);
-    setOtp(true);
-  };
+ 
 
   async function verifyOtp(e) {
     setLoading(true);
+    const cleanMobileNo = mobileNo.replace(/\s/g, '');
+    console.log(otp,cleanMobileNo);
     e.preventDefault();
     const otpValue = {
-      userName: mobileNo,
+      userName: cleanMobileNo,
       otp:otp
     };
 
     try {
       const otpRes = await axios.post(url + verifyEndPoint, otpValue);
-      
+      console.log(otpRes);
       if(otpRes.data.message === "OTP verified"){
-        handleSubmit()
+                localStorage.setItem("userId", otpRes.data.data);
+                localStorage.setItem("mobileNo", cleanMobileNo);
+      
         navigate('/')
         window.location.reload()
       }else(
@@ -110,88 +110,30 @@ const LoginWithMobileNo = () => {
     setLoading(false);
   }
   
-  const auth = getAuth(initializeApp(firebaseConfig));
-  // let confirmationResult = null;
-  function CheckUser (){
-    // console.log("DataNumber",mobileNo);
-    const formdata = new FormData();
-    formdata.append('emailOrPhone' , mobileNo);
-    axios.post(url+dataBaseUrl,formdata).then((res)=>{
-      localStorage.setItem("userId", res.data.data.id);
-      sentOtp()
-      // console.log(res.data.data.id);
-      
-    }).catch((err)=>{ 
-    localStorage.removeItem("userId"); 
-    alert("You have'nt regestered yet, please signup first!")
-    console.log(err);
-  })
-}
-
-  const handleSendCode = async () => {
-    const recaptcha = new RecaptchaVerifier(
-      "recaptcha",
-      {
-        size: "normal",
-        callback: (response) => {
-          console.log("reCAPTCHA solved:");
-        },
-        "expired-callback": () => {
-          console.log("reCAPTCHA expired");
-        },
-      },
-      auth
-    );
-
-    try {
-      let confirmationResult = await signInWithPhoneNumber(
-        auth,
-        mobileNo,
-        recaptcha
-      );
-      setConfirmationResult(confirmationResult);
-      setOtp(true);
-      console.log("Confirmation result:", confirmationResult);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  const handleVerifyCode = async () => {
-    try {
-      if (confirmationResultOtp) {
-        const user = await confirmationResultOtp.confirm(otp);
-        // console.log("User:", user);
-        navigate("/");
-        window.location.reload();
-      } else {
-        console.error("Confirmation result is null.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Invalid Otp");
-    }
-  };
  
   function checkPhoneNoAvailable() {
 
     const cleanMobileNo = mobileNo.replace(/\s/g, '');
     const formData = new FormData();
     formData.append('emailOrPhone', cleanMobileNo);
-  
+  console.log(cleanMobileNo);
     axios.post(url + dataBaseUrl, formData)
       .then((res) => {
-        localStorage.setItem("userId", res.data.data.id);
-
-        // console.log(res);
-        handleSendCode()
+        if (res.data.message === "OTP send successfully") {
+          setOtp(true);
+        }
+        
+        
       })
       .catch((err) => {
    
-        alert("You haven't registered yet, please sign up first!");
+        if (err.response.data.status == "NOT_FOUND") {
+          alert("Invalid Email Or Password");
+        }
         console.log(err);
       });
   }
+ 
   
   return (
     <>
@@ -226,13 +168,11 @@ const LoginWithMobileNo = () => {
                    autoFocus: true,
                  }}
                  onChange={(value) => {
-                   // Check if the value is not empty
+                   
                    if (value && !value.startsWith("+")) {
-                     // If the value is not empty and doesn't start with +, add the + sign
                      value = "+" + value;
                    }
                
-                   // Update the state with the modified value
                    setMobileNo(value);
                  }}
                />
@@ -253,21 +193,7 @@ const LoginWithMobileNo = () => {
                   )}
 
                   <div className="pas-eicon-box">
-                    {/* <input
-                      type= {showPassword ? 'text' : 'password'} 
-                      className="login-input"
-
-                      placeholder="Enter the Password*"
-                      value={password}
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      required
-                    />
-                    <VisibilityIcon
-                      className="password-icon"
-                      onClick={togglePasswordVisibility}
-                    /> */}
+                  
                   </div>
 
                   {isOtp && (
@@ -292,15 +218,10 @@ const LoginWithMobileNo = () => {
                         }}
                         required
                       />
-                      {/* <button className="btn btn-primary mt-2" onClick={handleVerifyCode}>otp verify</button> */}
                     </>
                   )}
                   <br />
-                  {/* <NavLink to="/forgetpassword">
-                    <p className="for-pass-fnt">
-                      <b>Forget Password ?</b>
-                    </p>
-                  </NavLink> */}
+                  
                   <p className="tp-text">
                     By Continuing, I agree to the{" "}
                     <span className="tp-color">
@@ -315,15 +236,12 @@ const LoginWithMobileNo = () => {
                       type="button"
                       className="continue-btn"
                       onClick={(e) => {
-                        if (
-                          mobileNo &&
-                          (mobileNo[0] === "+" || !isNaN(mobileNo[0]))
-                        ) {
-                          handleVerifyCode(e);
-                        } else {
+                      
+                          // handleVerifyCode(e);
+                        
                           verifyOtp(e);
-                        }
-                      }}
+                        }}
+                     
                     >
                       Verify and Log In
                     </button>
@@ -332,14 +250,9 @@ const LoginWithMobileNo = () => {
                       type="button"
                       className="continue-btn"
                       onClick={(e) => {
-                        if (
-                          mobileNo &&
-                          (mobileNo[0] === "+" || !isNaN(mobileNo[0]))
-                        ) {
+                        
                           checkPhoneNoAvailable(e);
-                        } else {
-                          CheckUser(e);
-                        }
+                        
                       }}
                     >
                       Request OTP
