@@ -35,9 +35,9 @@ const ProductWrapper = () => {
     const fetchData = async () => {
         try {
             const res = await axios.get(proto + endPoint)
-            // console.log(res.data.data)
+          
             setCateData(res.data.data)
-            console.log(res.data.data)
+           
         }
         catch (err) {
             console.log(err)
@@ -54,7 +54,6 @@ const ProductWrapper = () => {
 
             {
                 cateData && cateData.map((category, index) => {
-                    // console.log(category)
                     if(index == 0){
                         
                     return (
@@ -112,7 +111,7 @@ class ItemCard extends React.Component {
 
     render() {
         const { category, bgImg } = this.props;
-        // console.log(category)
+     
 
 
         return (
@@ -161,12 +160,7 @@ class ItemCard extends React.Component {
 
 
 
-                            {/* <div className="pb-5"></div> */}
-                            {/* <div className="text-center">
-                            <NavLink href="/carpet">
-                                <button className="px-4 py-2 view-btn mt-3">View More</button>
-                            </NavLink>
-                        </div> */}
+                           
                         </div>
                     </div>
                 }
@@ -183,7 +177,6 @@ const ItemImageCard = ({ img, title, category }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    // console.log(img)
     async function handleNavigate(val) {
         navigate(`/c/${val}`);
     }
@@ -198,9 +191,7 @@ const ItemImageCard = ({ img, title, category }) => {
                     <div className="contain">
                         {img ? <img src={img} className="img-fluid arrival-img new" alt="design" /> : <ImageLoader />}
 
-                        <div className="text-block text-center">
-                            {/* <h6 className="mt-2 perfect-text-sz"><b>{title}</b></h6> */}
-                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -248,7 +239,6 @@ const SmallImageCard = ({ img, name, category }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    // console.log(img)
     async function handleNavigate(val) {
         navigate(`/c/${val}`);
     }
@@ -266,7 +256,6 @@ const SmallImageCard = ({ img, name, category }) => {
                         />
                        
                         <p className="mt-3 perfect-text">{name.length < 10 ? name : name.slice(0, 15) + '...'}</p>
-                        {/* <p className="sale-offer">Up to 50%</p> */}
 
                     </div>
                 </div>
@@ -283,7 +272,7 @@ const SmallImageCard = ({ img, name, category }) => {
 
 
 
-// carousel for product 
+
 
 
 
@@ -311,15 +300,13 @@ const responsive = {
 
 const CarouselForProduct = ({ productData, category, item }) => {
 
-    // console.log(category)
 
     const [subCategory1, setSubCategory] = useState([])
 
     async function fetchProductDetails() {
         try {
             const res = await axios.get(`${url}${searchEnd}${category}`);
-            // console.log(`${url}${searchEnd}${category}`)
-            // console.log(res.data.data)
+           
             if (res.data.data.length > 0) {
                 setSubCategory(res.data.data)
             }
@@ -334,26 +321,19 @@ const CarouselForProduct = ({ productData, category, item }) => {
     useEffect(() => {
         fetchProductDetails()
     }, [category])
-    // console.log(productData)
-
-
-
-    return (
+        return (
         <div className="IndicatorCarousel">
-            {/* <div className="IndicatorCarouselText">
-            Select your preferred stock indicators
-        </div> */}
+           
 
             <br></br>
 
             {item === 'img' ?
-                // If item is 'img', render a CarouselCard for each image
                 <Carousel
                     swipeable={true}
                     draggable={true}
                     showDots={false}
                     responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
+                    ssr={true} 
                     infinite={true}
                     autoPlay={true}
                     autoPlaySpeed={4000}
@@ -362,7 +342,6 @@ const CarouselForProduct = ({ productData, category, item }) => {
                     customTransition="all .5s"
                     transitionDuration={500}
                     containerClass="carousel-container"
-                    // removeArrowOnDeviceType={["desktop", "tablet"]}
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-10-px"
 
@@ -378,6 +357,7 @@ const CarouselForProduct = ({ productData, category, item }) => {
                             category={category}
                             sku={product.sku}
                             slug={product.slug}
+                            id={product.id}
                             discount={product.images.length > 0 && product.images[0].productVariantEntities.length > 0 && product.images[0].productVariantEntities[0].manualPrice}
                         />
                         )
@@ -398,7 +378,6 @@ const CarouselForProduct = ({ productData, category, item }) => {
                     customTransition="all .5s"
                     transitionDuration={500}
                     containerClass="carousel-container"
-                    // removeArrowOnDeviceType={["desktop", "tablet"]}
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
 
@@ -429,16 +408,37 @@ const CarouselForProduct = ({ productData, category, item }) => {
 
 
 
-const CarouselCard = ({ img, title, category, discount, sku, slug }) => {
+const CarouselCard = ({ img, title, category, discount, sku, slug,id }) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    // console.log(img)
     async function handleNavigate(val) {
         await dispatch(addSearch(val));
         navigate(`/p/` + slug + '/' + sku)
     }
+    const wishList = (id) => {
+        let existingCart = JSON.parse(localStorage.getItem("wishList")) || [];
+        let userCheck = localStorage.getItem("mobileNo");
+    
+        if (!userCheck) {
+          navigate("/login");
+          return; 
+        }
+    
+        const index = existingCart.indexOf(id);
+    
+        if (index !== -1) {
+          existingCart.splice(index, 1);
+        } else {
+          existingCart.push(id);
+        }
+    
+        localStorage.setItem("wishList", JSON.stringify(existingCart));
+        window.location.reload();
+      };
+      const wishlistId = localStorage.getItem("wishList");
+
     return (
         <>
             <div onClick={() => handleNavigate(category)} style={{ cursor: "pointer" }} className="text-decoration-none"><div className="product-card-box">
@@ -449,10 +449,25 @@ const CarouselCard = ({ img, title, category, discount, sku, slug }) => {
                     <div></div>
                     <p className="mt-3 product-font">{title.length < 20 ? title : title.slice(0, 20) + '...'}</p>
                     <p className="sale-offer">Price :{'₹ '}{discount}</p>
-                    <div className='d-flex'>
+                    <div className='d-flex justify-content-between'>
                         <h6 className='addtocart-btn-sldr'>Add to cart <i className="bi bi-box-arrow-right"></i></h6>
-                        <FavoriteBorderIcon
-                        className="hm-crd-posticon " />
+                        <FavoriteBorderIcon className="hm-crd-posticon "  
+                         style={{
+                            background:
+                              wishlistId &&
+                              Array.isArray(JSON.parse(wishlistId)) &&
+                              JSON.parse(wishlistId).some((id1) => id1 === id)
+                                ? "red"
+                                : "black",
+                          }}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            await wishList(id);
+                            window.location.reload();
+                          }}
+                        
+                        
+                        />
                     </div>
                 </div>
             </div>
@@ -466,9 +481,7 @@ const ProductCard = ({ img, name, cate, category }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    // console.log(img)
     async function handleNavigate(val) {
-        // await dispatch(addSearch(val));
         navigate(`/c/${val}`);
     }
 
@@ -482,7 +495,6 @@ const ProductCard = ({ img, name, cate, category }) => {
                         <img src={img} className="img-fluid sliderImg" alt="Image" />
                     </div>
                     <p className="mt-3 product-font text-center">{name.slice(0, 13)}</p>
-                    {/* <p className="sale-offer text-center">Up to 50%</p> */}
                 </div>
             </div>
             </div>

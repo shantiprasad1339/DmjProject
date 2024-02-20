@@ -145,25 +145,81 @@ const RatingForm = ({uId,pId}) => {
       fetchRating()
     }, [])
 
-    async function singleImage(img) {
-      const sigleImageUrl = 'https://goldfish-app-qynu4.ondigitalocean.app/upload/'
-    
-      const formData = new FormData()
-      formData.append('images', img)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    async function multipleImages(imgArray) {
+      if (!imgArray || imgArray.length === 0) {
+        
+          return '';
+      }
+  
+      const uploadUrl = 'https://goldfish-app-qynu4.ondigitalocean.app/multiple/with/bucketname';
       const headers = {
-        'Content-Type': 'multipart/form-data',
-    };
-    
-      try {
-          const res = await axios.post(sigleImageUrl, formData, { headers })
-          console.log("singleImage",res.data)
-    
-          return res.data.data
+          'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+      };
+      const responses = [];
+  
+      // Convert imgArray to an array if it's not already
+      const images = Array.isArray(imgArray) ? imgArray : [imgArray];
+  
+      for (const img of images) {
+          const formData = new FormData();
+          formData.append('images', img); 
+          formData.append('bucketName', 'review'); 
+
+  
+          try {
+              const res = await axios.post(uploadUrl, formData, { headers });
+              responses.push(res.data.data);
+          } catch (err) {
+              console.log(err);
+          }
       }
-      catch (err) {
-          console.log(err)
-      }
-    }
+  
+      // Flatten the array of arrays and join image paths with comma
+      return responses.flat().join(', ');
+  }
+  
+  
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  
 
   const Navigate = useNavigate()
   
@@ -171,15 +227,18 @@ const RatingForm = ({uId,pId}) => {
     e.preventDefault();
     if (chooseRating === true) {
         setStar(e.target.value);
-        const resImg = await singleImage(ratingFile);
-        console.log(resImg);
+      
+        console.log(ratingFile);
+          const resImg = await multipleImages(ratingFile);
+      
+      console.log("image response=====>>>>>",resImg,uId,pId);
         try {
             const res = await axios.post(url + rating, {
                 "userId": uId,
                 "rating": star,
                 "orderId": pId,
                 "title": ratingTitle,
-                "description": ratingTitle,
+                "description": ratingDesc,
                 "pictures": resImg
             });
             if (res.data.message === "Thank you for your Rating ") {
@@ -198,6 +257,7 @@ const RatingForm = ({uId,pId}) => {
         alert("Please choose a rating.");
     }
 }
+
 
 
   return (
@@ -251,7 +311,8 @@ const RatingForm = ({uId,pId}) => {
               Product Image
             </label>
             <input type="file" className="form-control cmt-rev-input" 
-                        onChange={(e)=>setRatingFile (e.target.files[0])}
+                        onChange={(e) => setRatingFile([...ratingFile, ...e.target.files])} 
+                        multiple
 
             />
             <div>

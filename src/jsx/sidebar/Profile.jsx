@@ -51,20 +51,27 @@ const Profileinfo = () => {
     fetchUserData();
   }, []);
 
-  function saveUserInfo (e){
-    e.preventDefault()
-    axios.put(url + endPoint+userId,{
+  function saveUserInfo(e) {
+    e.preventDefault();
+    let mobileNo = userInfo.MobileNo;
+  
+    if (!mobileNo.startsWith("+91")) {
+        
+        mobileNo = "+91" + mobileNo;
+    }
+console.log("mobileNo=====>>>>");
+    axios.put(url + endPointt + userId, {
+        "userName": userInfo.Name,
+        "email": userInfo.Email,
+        "phoneNumber": mobileNo,
+        "gender": userInfo.gender,
+        "age": userInfo.dOB
+    }).then((res) => {
+        console.log("response ======>>>>>", res);
+        window.location.reload();
+    });
+}
 
-      "userName":userInfo.Name,
-      "email":userInfo.Email,
-      "phoneNumber":userInfo.MobileNo,
-    
-    "gender":userInfo.gender,
-   "age":userInfo.dOB,
-   
-    } ).then((res)=>console.log("response ======>>>>>",res))
-    window.location.reload()
-  }
   return (
     <>
       <div className="sidebar-content">

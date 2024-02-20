@@ -200,7 +200,7 @@ const [inputLength,SetInputLength] = useState()
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(null);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
-
+const[dataQuery,setQuery] = useState()
   const searchBoxRef = useRef(null);
 
   useEffect(() => {
@@ -220,23 +220,28 @@ const [inputLength,SetInputLength] = useState()
   };
   const handleSearch = (e) => {
     const query = e.target.value;
+    setQuery(query);
     SetInputLength(query.length)
     setSearch(query);
 
-    axios
-      .get(
-        "https://api.diwamjewels.com/DMJ/api/v1/category/search?query=" + query
-      )
-      .then((response) => {
-        setSearchResults(response.data.data);
-        setIsResultsOpen(true);
-        console.log(response);
-      })
-      .catch((err) => {
-        setError(err);
+    if (query.length >= 2) {
+        axios
+            .get("https://api.diwamjewels.com/DMJ/api/v1/products/searchKeyword?searchKeyword=" + query)
+            .then((response) => {
+                setSearchResults(response.data.data);
+                setIsResultsOpen(true);
+                // console.log("navbar searchInput======>>>>>>", response.data.data);
+            })
+            .catch((err) => {
+                setError(err);
+                setIsResultsOpen(false);
+            });
+    } else {
         setIsResultsOpen(false);
-      });
-  };
+        setSearchResults('');
+    }
+};
+
 
   const handleProSearch = (e) => {
     // Ensure that the event object is defined
@@ -371,13 +376,13 @@ const [inputLength,SetInputLength] = useState()
               <h6 className="mt-2">
                 <b>Search Results</b>
               </h6>
-              {searchResults.length == 0 ? <p>No Products Found</p> : ''}
+              {searchResults && searchResults.length == 0 ? <p>No Products Found</p> : ''}
 
-              {searchResults.map((result) => (
+              {searchResults && searchResults.map((result) => (
                 <ImageWithSearch
                   key={result.name}
-                  detail={result.name}
-                  image={urlimg + result.image}
+                  detail={result.uniqueWords[0]}
+                  image={urlimg + result.imagePath}
                   query={result.name}
                   length={searchResults.length}
                 />
@@ -792,8 +797,7 @@ function MobileMenuBar({ cateData, sch, ...props }) {
 
   async function handleSearch(e) {
     e.preventDefault();
-    const searchText = e.target.value.trim(); // Trim leading and trailing whitespaces
-
+    const searchText = e.target.value.trim(); 
     setSearch(searchText);
     dispatch(addSearch(searchText));
 
@@ -806,14 +810,13 @@ function MobileMenuBar({ cateData, sch, ...props }) {
         setSearchResults(response.data.data);
         setIsResultsOpen(true);
       } else {
-        // Clear the results and close the results panel when there is no search text
         setSearchResults([]);
         setIsResultsOpen(false);
       }
     } catch (err) {
       console.error(err);
       setIsResultsOpen(false);
-    }
+    } 
   }
 
   useEffect(() => {
@@ -1037,7 +1040,6 @@ const SearchDetails = (props) => {
 const ImageWithSearch = (props) => {
   const navigate = useNavigate();
   const handleRefreshClick = () => {
-    // Reload the web page
     window.location.reload();
   };
 
@@ -1050,7 +1052,7 @@ const ImageWithSearch = (props) => {
     <>
       <div
         className="d-flex mt-2"
-        onClick={() => handleButtonClick(props.query)}
+        onClick={() => handleButtonClick(props.detail)}
       >
         <img src={props.image} alt="icon" className="search-img-dtl1" />
         <p className="srch-ipt-detail-ptag mt-2">{props.detail}</p>

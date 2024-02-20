@@ -55,7 +55,7 @@ import { updateProduct } from "../redux/dmjSlice";
 // import Stack from '@mui/material/Stack';
 // import Typography from '@mui/material/Typography';
 // import InnerImageZoom from "https://cdn.skypack.dev/react-inner-image-zoom@3.0.0";
-import Banner from './../Banner/Banner';
+import Banner from "./../Banner/Banner";
 
 const url = "https://api.diwamjewels.com/DMJ/";
 const endPoint = "api/v1/products";
@@ -65,14 +65,12 @@ const getProductEnd = "api/v1/products/sku/";
 const imgUrl = "https://images.diwamjewels.com/";
 const typeEnd = "api/v1/products/type?type=";
 
-
-
 // const slug = 'this is slug'
 // const skuid = 'dmj@123'
 // const id = localStorage.getItem("productId");
 
 // const productEndPoint = "api/v1/products";/
-var userDefaultLocation = localStorage.getItem("userLocationCode")
+var userDefaultLocation = localStorage.getItem("userLocationCode");
 const ProductDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,14 +116,16 @@ function Product() {
   const [isLoad, setIsLoad] = useState(true);
   const [quantity, setQuantity] = useState(2);
   const [rating, setRating] = useState("");
-const [userRatingData,setUserRatingdata] = useState()
-  const [zipCode, setZipCode] = useState(userDefaultLocation)
-  const [deleveryMsg, setDeliveryMsg] = useState(null)
-  const [color, setColor] = useState(null)
+  const [userRatingData, setUserRatingdata] = useState();
+  const [zipCode, setZipCode] = useState(userDefaultLocation);
+  const [deleveryMsg, setDeliveryMsg] = useState(null);
+  const [color, setColor] = useState(null);
+  const [PrId, setPrId] = useState();
+
   const [shareIconData, setSahreIconData] = useState({
     image: null,
-    desc: ''
-  })
+    desc: "",
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -140,8 +140,9 @@ const [userRatingData,setUserRatingdata] = useState()
   async function getProductId(skuNo) {
     try {
       const proRes = await axios.get(url + getProductEnd + skuNo);
-      
       return proRes.data.data.id;
+
+      console.log("proRes=====>>>>", proRes);
     } catch (err) {
       console.log(err);
     }
@@ -150,13 +151,14 @@ const [userRatingData,setUserRatingdata] = useState()
   async function fetchRating(id) {
     try {
       const ratingRes = await axios.get(url + ratingEnd + "/" + id);
+
       setRating(ratingRes.data.data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  const [breadcrumb, setBreadcrumb] = useState([])
+  const [breadcrumb, setBreadcrumb] = useState([]);
 
   const fetchData = async () => {
     setIsLoad(true);
@@ -168,26 +170,25 @@ const [userRatingData,setUserRatingdata] = useState()
 
       try {
         const res = await axios.get(url + endPoint + "/" + id);
+        let parent = res.data.data.categoryId;
 
-        let parent = res.data.data.categoryId
-        
-        setSahreIconData(
-          {
-            ...shareIconData,
-            image: res.data.data.images[0].thumbImage,
-            desc:   res.data.data.name,
-          }
-        )
+        setPrId(res.data.data.id);
+        setSahreIconData({
+          ...shareIconData,
+          image: res.data.data.images[0].thumbImage,
+          desc: res.data.data.name,
+        });
 
         if (parent) {
-          const breadRes = await axios.get(url + 'api/v1/category/parenttype?parenttype=' + parent)
-          // console.log(breadRes.data.data)
-          setBreadcrumb(breadRes.data.data)
-
+          const breadRes = await axios.get(
+            url + "api/v1/category/parenttype?parenttype=" + parent
+          );
+          console.log(breadRes.data.data);
+          setBreadcrumb(breadRes.data.data);
         }
         // setSelectedImage(res.data.data.images[0]);
         // console.log(variantRes.data.data)
-        // setVariant(variantRes.data.data)pae 
+        // setVariant(variantRes.data.data)pae
 
         dispatch(updateProduct(res.data.data.images[itemId]));
         const commaSeparatedString = await res.data.data.images[itemId]
@@ -197,7 +198,7 @@ const [userRatingData,setUserRatingdata] = useState()
         setImages(imgArray);
 
         setItemInfo(res.data.data);
-        // console.log(res.data.data)
+        console.log(res.data.data);
         setIsLoad(false);
         // setApiCheck(false)
       } catch (err) {
@@ -208,17 +209,22 @@ const [userRatingData,setUserRatingdata] = useState()
   };
   const handlePostRequest = async () => {
     try {
-      const response = await fetch('https://www.diwamjewels.com/sitemap-create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add any other headers as needed
-        },
-        body: JSON.stringify({url:'https://www.diwamjewels.com'+window.location.pathname}),
-      });
+      const response = await fetch(
+        "https://www.diwamjewels.com/sitemap-create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Add any other headers as needed
+          },
+          body: JSON.stringify({
+            url: "https://www.diwamjewels.com" + window.location.pathname,
+          }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const result = await response.json();
@@ -227,52 +233,50 @@ const [userRatingData,setUserRatingdata] = useState()
       setError(error);
     }
   };
-  useState(()=>{
-    handlePostRequest()
-    getRating()
-  },[])
+  useEffect(() => {
+    handlePostRequest();
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
   }, [skuid, itemId]);
 
   const selectPictures = useSelector((state) => state.product.product.payload);
-  // console.log(selectPictures)
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
 
   const wishList = (id) => {
+    id.stopPropagation();
     const existingCart = JSON.parse(localStorage.getItem("wishList")) || [];
     existingCart.push(id);
 
     localStorage.setItem("wishList", JSON.stringify(existingCart));
   };
 
-
-
   const addToCart = (productId) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingProduct = existingCart.find((item) => item.productId === productId);
+    const existingProduct = existingCart.find(
+      (item) => item.productId === productId
+    );
 
     if (existingProduct) {
-       
-      existingProduct.quantity = Math.min(existingProduct.quantity + quantity-1, 6);
-    }
-   
-    else {
+      existingProduct.quantity = Math.min(
+        existingProduct.quantity + quantity - 1,
+        6
+      );
+    } else {
       const newItem = {
         productId: productId,
-        quantity: Math.min(quantity, 6)
+        quantity: Math.min(quantity, 6),
       };
       existingCart.push(newItem);
     }
 
     localStorage.setItem("cart", JSON.stringify(existingCart));
   };
-
-
 
   // const location = useLocation();
 
@@ -293,41 +297,46 @@ const [userRatingData,setUserRatingdata] = useState()
     try {
       const currentUrl = window.location.href;
       const imageUrl = "https://images.diwamjewels.com/";
-  
+
       const shareContent = {
         title: "Checkout This Awesome Website",
         text: shareIconData.desc + " " + imageUrl + shareIconData.image,
-        url: currentUrl
+        url: currentUrl,
       };
-  
-      console.log('Content being shared:', shareContent);
-  
+
+      console.log("Content being shared:", shareContent);
+
       await navigator.share(shareContent);
-  
-      console.log('Share completed successfully');
+
+      console.log("Share completed successfully");
     } catch (error) {
-      console.error('Error sharing:', error);
+      console.error("Error sharing:", error);
     }
   }
-  
+
   function deliveryCheck(e) {
     e.preventDefault(),
-      axios.get('https://api.postalpincode.in/pincode/' + zipCode).then((res) => {
-        console.log("zipCodeaPI", res);
-        if (res.data[0].Status == "Success") {
-          const today = new Date();
-          const deliveryDate = new Date(today);
-          deliveryDate.setDate(today.getDate() + 10);
-          // Format the delivery date
-          const options = { weekday: 'long', day: 'numeric', month: 'short' };
-          const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-US', options);
-          setDeliveryMsg('Delivery expected to' + formattedDeliveryDate)
-          setColor('green')
-        } else {
-          setDeliveryMsg("sorry we cannot deliver to this address")
-          setColor('red')
-        }
-      })
+      axios
+        .get("https://api.postalpincode.in/pincode/" + zipCode)
+        .then((res) => {
+          console.log("zipCodeaPI", res);
+          if (res.data[0].Status == "Success") {
+            const today = new Date();
+            const deliveryDate = new Date(today);
+            deliveryDate.setDate(today.getDate() + 10);
+            // Format the delivery date
+            const options = { weekday: "long", day: "numeric", month: "short" };
+            const formattedDeliveryDate = deliveryDate.toLocaleDateString(
+              "en-US",
+              options
+            );
+            setDeliveryMsg("Delivery expected to" + formattedDeliveryDate);
+            setColor("green");
+          } else {
+            setDeliveryMsg("sorry we cannot deliver to this address");
+            setColor("red");
+          }
+        });
   }
   const handleZipCodeChangeCondition = (e) => {
     const input = e.target.value;
@@ -338,14 +347,25 @@ const [userRatingData,setUserRatingdata] = useState()
     }
   };
 
-function getRating(){
-  let ratingUrl = "https://api.diwamjewels.com/DMJ/api/v1/Rating/productRating/"
-  let productId = 257
-  axios.get(ratingUrl+productId).then((res)=>{
-    console.log("rating =====>>>>",res.data.data);
-    setUserRatingdata(res.data.data)
-  })
-}  
+  function getRating() {
+    let ratingUrl =
+      "https://api.diwamjewels.com/DMJ/api/v1/Rating/productRating/";
+    let productId = 331;
+    setUserRatingdata("");
+    // Check if PrId is available
+    if (PrId) {
+      axios.get(ratingUrl + PrId).then((res) => {
+        console.log("rating =====>>>>", res.data.data);
+        setUserRatingdata(res.data.data);
+      });
+    } else {
+    }
+  }
+
+  useEffect(() => {
+    getRating();
+  }, [PrId]);
+
   return (
     <>
       {!isLoad ? (
@@ -367,18 +387,30 @@ function getRating(){
           <div className="container-fluid">
             <div className="mob-vw-brdcrum">
               <p className="breadcrumb-fnt-sz">
+                <NavLink
+                  to="/"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  {" "}
+                  Home
+                </NavLink>
+                {breadcrumb.length > 0 &&
+                  breadcrumb.map((b) => {
+                    // console.log('breadcrumb',b)
+                    return (
+                      <>
+                        {/* / {b} */}
 
-                <NavLink to="/" style={{ color: 'black', textDecoration: 'none' }}>  Home</NavLink>
-                {breadcrumb.length > 0 && breadcrumb.map(b => {
-                  // console.log('breadcrumb',b)
-                  return (
-                    <>
-                      {/* / {b} */}
-
-                      <NavLink to={`/c/${b}`} activeClassName="active" style={{ color: 'black', textDecoration: 'none' }}>/{b}</NavLink>
-                    </>
-                  )
-                })}
+                        <NavLink
+                          to={`/c/${b}`}
+                          activeClassName="active"
+                          style={{ color: "black", textDecoration: "none" }}
+                        >
+                          /{b}
+                        </NavLink>
+                      </>
+                    );
+                  })}
                 {/* /{itemInfo.name} */}
               </p>
             </div>
@@ -418,10 +450,6 @@ function getRating(){
                                 </>
                               );
                             })}
-
-
-
-
                         </Swiper>
                       </div>
                     </div>
@@ -499,7 +527,7 @@ function getRating(){
                       onClick={async () => {
                         await addToCart(itemInfo.id);
                         // navigate("/addtocart");
-                        window.location.reload()
+                        window.location.reload();
                       }}
                     >
                       <LocalMallIcon className="prodtl-icon-sz" /> +TO CART
@@ -513,7 +541,8 @@ function getRating(){
                         window.location.reload();
                       }}
                     >
-                      <FavoriteBorderIcon className="prodtl-icon-sz" /> Favorites
+                      <FavoriteBorderIcon className="prodtl-icon-sz" />{" "}
+                      Favorites
                     </button>
                   </div>
 
@@ -538,7 +567,6 @@ function getRating(){
                       Delivery Availability
                     </p>
                     <div>
-
                       <DeliveryIcon
                         icon={deliveryicon}
                         title={deleveryMsg}
@@ -574,16 +602,21 @@ function getRating(){
                     <RatingBox />
 
                     <p className="tagline-line"></p>
-{userRatingData && userRatingData.map((item,index)=>{
-  console.log(item);
-  return(
-    <>
-    
-    <RatingComment image={item.pictures} title={item.title} desc={item.description} name={item.userName} rating={item.rating} date={item.created_at}/>
-    
-    </>
-  )
-})}
+                    {userRatingData &&
+                      userRatingData.map((item, index) => {
+                        console.log("Review====>>>>>", item);
+
+                        return (
+                          <RatingComment
+                            image={item.pictures}
+                            title={item.title}
+                            desc={item.description}
+                            name={item.userName}
+                            rating={item.rating}
+                            date={item.created_at}
+                          />
+                        );
+                      })}
 
                     <p className="tagline-line"></p>
                     <h6 className="text-primary">
@@ -716,33 +749,33 @@ const ProductPrice = ({
   async function handleVariantColor(color) {
     setSelectedSize(color);
   }
- 
+
   const [shareIconData, setSahreIconData] = useState({
     image: null,
-    desc: ''
-  })
+    desc: "",
+  });
 
   async function handleShare() {
     try {
       const currentUrl = window.location.href;
       const imageUrl = "https://images.diwamjewels.com/";
-  
+
       const shareContent = {
         title: "Checkout This Awesome Website",
         text: shareIconData.desc + " " + imageUrl + shareIconData.image,
-        url: currentUrl
+        url: currentUrl,
       };
-  
-      console.log('Content being shared:', shareContent);
-  
+
+      console.log("Content being shared:", shareContent);
+
       await navigator.share(shareContent);
-  
-      console.log('Share completed successfully');
+
+      console.log("Share completed successfully");
     } catch (error) {
-      console.error('Error sharing:', error);
+      console.error("Error sharing:", error);
     }
   }
-  
+
   return (
     <>
       <div>
@@ -773,18 +806,16 @@ const ProductPrice = ({
               color: "#7a7a7a",
             }}
           >
-           
             {currencyValue === "Rupee" ? "₹ " : "$ "}
             {price.price}
           </span>
           <span className="off-font">( {price.discount}% OFF )</span>
         </h4>
-        <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
-           <ShareIcon
+        <div style={{ display: "flex", gap: "10px", cursor: "pointer" }}>
+          <ShareIcon
             className="sh-wlst-icsz mt-1"
             onClick={() => handleShare()}
-
-          /> 
+          />
 
           <SwitchCurrency
             // currencyValue={currencyValue}
@@ -1023,9 +1054,6 @@ const DetailsBox = ({ des }) => {
 function RatingBox() {
   return (
     <>
-
-
-
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h5 className="mt-3 offer-heading-txt">
           <b>Ratings</b> <StarsIcon />
@@ -1103,9 +1131,11 @@ function RatingBox() {
   );
 }
 
-const RatingComment = ({image,title,desc,name,rating}) => {
+const RatingComment = ({ image, title, desc, name, rating }) => {
   const userImgUrl = "https://images.diwamjewels.com/";
-  console.log(Image);
+  const pictureArray = image.split(", ");
+
+ 
   return (
     <>
       <div className="d-flex">
@@ -1116,12 +1146,19 @@ const RatingComment = ({image,title,desc,name,rating}) => {
       </div>
       <p className="pro-dtl-ft-sz">{desc}</p>
       <div>
-        <img src={userImgUrl+image} alt="Product" className="pro-color-img" />
+        {pictureArray && pictureArray.map((item,index)=>{
+          return(
+            <>
+
+<img src={userImgUrl + item} alt="Product" className="pro-color-img" />
+            </>
+          )
+        })}
       </div>
       <div className="user-cmt-bx mt-3">
         <div className="d-flex">
           <p className="pro-dtl-ft-sz">
-           {name} <i className="bi bi-check-circle-fill text-muted"></i>
+            {name} <i className="bi bi-check-circle-fill text-muted"></i>
           </p>
           <p className="pro-dtl-ft-sz ms-1">
             Certified Buyer, Mysore 10 months ago
@@ -1146,14 +1183,20 @@ const DeliveryIcon = (props) => {
       <>
         <div className="d-flex">
           <img src={props.icon} alt="icon" className="img-fluid pro-icn-sz-1" />
-          <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>{props.title}</p>      </div>
+          <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>
+            {props.title}
+          </p>{" "}
+        </div>
       </>
     );
   } else {
     <>
       <div className="d-flex">
-        <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>{props.title}</p>      </div>
-    </>
+        <p className="pro-icn-para ms-2 mt-1" style={{ color: props.color }}>
+          {props.title}
+        </p>{" "}
+      </div>
+    </>;
   }
 };
 
@@ -1234,24 +1277,20 @@ const OfferDetails = () => {
 const RelatedProduct = ({ search }) => {
   const [relatedProduct, setReletedProduct] = useState([]);
   async function fetchData() {
-    const oldUrl = url + typeEnd + search
-    const newUrl = "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true"
-
-
+    const oldUrl = url + typeEnd + search;
+    const newUrl =
+      "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true";
 
     let apiUrl;
     if (search) {
-      apiUrl = url + typeEnd + search
+      apiUrl = url + typeEnd + search;
     } else {
-      apiUrl = "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true"
+      apiUrl =
+        "https://api.diwamjewels.com/DMJ/api/v1/products/trendingProduct/true";
     }
-
-
-
 
     try {
       const res = await axios.get(apiUrl);
-      // console.log(res.data.data);
 
       if (res.data.data) {
         setReletedProduct(res.data.data);
@@ -1261,7 +1300,6 @@ const RelatedProduct = ({ search }) => {
     }
   }
 
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -1270,7 +1308,6 @@ const RelatedProduct = ({ search }) => {
     <>
       {relatedProduct ? (
         <Carousel
-          // swipeable={true}
           draggable={true}
           showDots={false}
           responsive={responsive1}
@@ -1282,15 +1319,11 @@ const RelatedProduct = ({ search }) => {
           customTransition="all .5s"
           transitionDuration={500}
           containerClass="carousel-container productcard-home-sldr"
-          // removeArrowOnDeviceType={["desktop", "tablet", "mobile"]}
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-10-px productcard-home-sldr"
           arrows={true}
         >
           {relatedProduct.map((item) => {
-            {
-              /* console.log(item.images.length>0&&item.images[0].productVariantEntities.length>0&&item.images[0].productVariantEntities[0].price) */
-            }
             return (
               <ProductCard
                 key={item.id}
@@ -1320,7 +1353,6 @@ const RelatedProduct = ({ search }) => {
 
 export { RelatedProduct };
 
-
 const SwitchCurrency = ({ setCurrencyValue }) => {
   // async function fetchCurrancy() {
   //   try {
@@ -1339,18 +1371,14 @@ const SwitchCurrency = ({ setCurrencyValue }) => {
 
   // const [currencyRate, setRate] = useState('')
 
-  // Initialize the currency state with a default value
   const [selectedCurrency, setSelectedCurrency] = useState("Rupee");
 
-  // Function to handle radio button change
   const handleCurrencyChange = (event) => {
     setSelectedCurrency(event.target.value);
     setCurrencyValue(event.target.value);
   };
 
-  // Function to perform an action when the currency is switched
   const handleCurrencySwitch = () => {
-    // You can perform any action here based on the selectedCurrency state
     console.log(`Selected Currency: ${selectedCurrency}`);
   };
 
@@ -1427,6 +1455,3 @@ const AccordionTxt = ({ title, des }) => {
     </>
   );
 };
-
-
-

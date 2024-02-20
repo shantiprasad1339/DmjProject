@@ -87,7 +87,6 @@ const CarouselForHome = (props) => {
         >
           {productData &&
             productData.map((item) => {
-              console.log(item);
               return (
                 <ProductCard
                   key={item.id}
@@ -129,7 +128,6 @@ class CarouselCard extends React.Component {
 
 const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
   const navigate = useNavigate();
-  // console.log(sku,slug)
 
   function RedirectDetailsPage(id, sku, slug) {
     navigate(`/p/` + slug + "/" + sku, { state: { id: id } });
@@ -139,46 +137,35 @@ const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
   const wishList = (id) => {
     let existingCart = JSON.parse(localStorage.getItem("wishList")) || [];
     let userCheck = localStorage.getItem("mobileNo");
-  
-    // Check if userCheck is available
+
     if (!userCheck) {
-      // Navigate to "/popup" route
       navigate("/login");
-      return; // Stop execution if userCheck is not available
+      return;
     }
-  
-    // Check if id already exists in existingCart
+
     const index = existingCart.indexOf(id);
-  
+
     if (index !== -1) {
-      // If id exists, remove it from existingCart
       existingCart.splice(index, 1);
     } else {
-      // If id doesn't exist, add it to existingCart
       existingCart.push(id);
     }
-  
-    // Update localStorage with modified existingCart
+
     localStorage.setItem("wishList", JSON.stringify(existingCart));
-    window.location.reload()
+    window.location.reload();
   };
-  
-  
+
   return (
     <>
-      <div
-        className="card home-card-box mt-4 mb-4"
-        >
-        <div className="home-card-icnpost"
-        
-        onClick={() => RedirectDetailsPage(id, sku, slug)}
+      <div className="card home-card-box mt-4 mb-4">
+        <div
+          className="home-card-icnpost"
+          onClick={() => RedirectDetailsPage(id, sku, slug)}
         >
           <img src={img} alt="product" className="home-card-img" />
         </div>
 
-        <div className="card-body" 
-        
-        >
+        <div className="card-body">
           <h5 className="home-card-heading">
             {category.length > 10 ? category.slice(0, 17) + "..." : category}
           </h5>
@@ -191,27 +178,20 @@ const ProductCard = ({ img, name, category, id, price, sku, slug }) => {
               <span className="hm-span-fnsz"></span>
             </p>
             <div>
-              {/* <ShareIcon style={{marginRight:'10px', cursor:'pointer'}}/> */}
-              
-
-
-
-<FavoriteBorderIcon
-  className="hm-crd-posticon"
-  style={{
-    background:
-      wishlistId &&
-      Array.isArray(JSON.parse(wishlistId)) &&
-      JSON.parse(wishlistId).some((ids) => ids === id)
-        ? "red"
-        : "black",
-  }}
-  onClick={async () => {
-    await wishList(id);
-   
-  }}
-/>
-
+              <FavoriteBorderIcon
+                className="hm-crd-posticon"
+                style={{
+                  background:
+                    wishlistId &&
+                    Array.isArray(JSON.parse(wishlistId)) &&
+                    JSON.parse(wishlistId).some((ids) => ids === id)
+                      ? "red"
+                      : "black",
+                }}
+                onClick={async () => {
+                  await wishList(id);
+                }}
+              />
             </div>
           </div>
 
