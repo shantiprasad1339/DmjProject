@@ -141,6 +141,7 @@ const FilterCategoryCard = ({ query }) => {
   const [filterNames, setFilterName] = useState([]);
   const [cateId, setCateId] = useState();
   const [show1, setShow1] = useState(false);
+  const [maxPr, setMaxPr] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleClose1 = () => setShow1(false);
@@ -154,18 +155,20 @@ const FilterCategoryCard = ({ query }) => {
 
   const fetData = async () => {
     setLoad(true);
-    try {
-      const res = await axios.get(
-        `${proto}${endPoint}${query}&pageSize=${pageSize}`
-      );
-      setElement(res.data.data.totalPage);
-      setSearchData(res.data.data.order);
-      setCateId(res.data.data.order[0].categoryId);
-      setLoad(false);
-    } catch (error) {
-      console.log(error);
-      setLoad(false);
-      Swal.fire("This product is not added yet!");
+    if (searchData.length == 0) {
+      try {
+        const res = await axios.get(
+          `${proto}${endPoint}${query}&pageSize=${pageSize}`
+        );
+        setElement(res.data.data.totalPage);
+        setSearchData(res.data.data.order);
+        setCateId(res.data.data.order[0].categoryId);
+        setLoad(false);
+      } catch (error) {
+        console.log(error);
+        setLoad(false);
+        Swal.fire("This product is not added yet!");
+      }
     }
   };
   useEffect(() => {
@@ -174,6 +177,9 @@ const FilterCategoryCard = ({ query }) => {
 
   useEffect(() => {
     fetData();
+    runFallbackApi()
+    window.scrollTo(0, 0);
+
   }, [pageSize]);
   const handlePagination = (e, page) => {
     setPageSize(page - 1);
@@ -185,7 +191,7 @@ const FilterCategoryCard = ({ query }) => {
 
     if (searchData) {
       axios.get(filterUrl + cateId).then((res) => {
-        
+        setMaxPr(res.data.data.maxPrice);
         setColor(res.data.data.categoryColors);
         setSize(res.data.data.categorySizes);
         const minPrice = 0;
@@ -225,6 +231,9 @@ const FilterCategoryCard = ({ query }) => {
         handleClose5();
 
         handleClose1();
+      })
+      .catch((error) => {
+        runFallbackApi();
       });
     let maxPrice = "";
     if (prices) {
@@ -249,48 +258,78 @@ const FilterCategoryCard = ({ query }) => {
     setFilterName(Array.from(uniqueFilterNames));
   }
 
-  const deleteArray = (indexToRemove,item) => {
+  const deleteArray = (indexToRemove, item) => {
     const filterItem = filterNames[indexToRemove];
     setFilterName((prevItems) =>
       prevItems.filter((item, index) => index !== indexToRemove)
     );
-console.log(colors.includes(filterItem));
+
     if (colors.includes(filterItem)) {
-      setSearchData('')
+      setSearchData("");
+      setColors("");
       axios
-      .get(
-        `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=&size=${sizeName}&pageNumber=1`
-      ).then((res)=>{
-        console.log(res);
-        setSearchData(res.data.data);
-        setElement(1);
-      })
-    
+        .get(
+          `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=&size=${sizeName}&pageNumber=1`
+        )
+        .then((res) => {
+          console.log(res);
+          setSearchData(res.data.data);
+          setElement(1);
+        })
+        .catch((error) => {
+          console.error("Error occurred in colors API:", error);
+          runFallbackApi();
+        });
     } else if (prices.includes(filterItem)) {
-      setSearchData('')
+      setSearchData("");
+      setPrices("");
       axios
-      .get(
-        `https://api.diwamjewels.com/DMJ/api/v1/products/filter?minPrice=&maxPrice=&categoryId=${cateId}&color=${colors}&size=${sizeName}&pageNumber=1`
-      ).then((res)=>{
-        console.log(res);
-        setSearchData(res.data.data);
-        setElement(1);
-      })
+        .get(
+          `https://api.diwamjewels.com/DMJ/api/v1/products/filter?minPrice=&maxPrice=&categoryId=${cateId}&color=${colors}&size=${sizeName}&pageNumber=1`
+        )
+        .then((res) => {
+          console.log(res);
+          setSearchData(res.data.data);
+          setElement(1);
+        })
+        .catch((error) => {
+          console.error("Error occurred in prices API:", error);
+          runFallbackApi();
+        });
     } else if (sizeName.includes(filterItem)) {
-      setSearchData('')
+      setSearchData("");
+      setSizeName("");
       axios
-      .get(
-        `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=${colors}&size=&pageNumber=1`
-      ).then((res)=>{
-        console.log(res);
-        setSearchData(res.data.data);
-        setElement(1);
-      })
+        .get(
+          `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=${colors}&size=&pageNumber=1`
+        )
+        .then((res) => {
+          console.log(res);
+          setSearchData(res.data.data);
+          setElement(1);
+        })
+        .catch((error) => {
+          console.error("Error occurred in sizeName API:", error);
+          runFallbackApi();
+        });
     }
-
-    // fetData();
   };
-
+  const runFallbackApi = () => {
+    axios
+      .get(`${proto}${endPoint}${query}&pageSize=${pageSize}`)
+      .then((res) => {
+        // console.log(res);
+        setElement(res.data.data.totalPage);
+        setSearchData(res.data.data.order);
+        setCateId(res.data.data.order[0].categoryId);
+        setLoad(false);
+        handleClose();
+        handleClose5();
+      })
+      .catch((error) => {
+        console.error("Fallback API error:", error);
+      });
+  };
   return (
     <>
       <div className="container-fluid contain-grid">
@@ -347,25 +386,32 @@ console.log(colors.includes(filterItem));
                               {colorFilter &&
                                 colorFilter.map((item, index) => {
                                   return (
-                                    <>
-                                      <div
-                                        className="mb-3 form-check ms-3"
-                                        key={index}
+                                    <div
+                                      className="mb-3 form-check ms-3"
+                                      key={index}
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={`new${index}`}
+                                        className="form-check-input checkbox-inpt-bxvw"
+                                        onChange={() => {
+                                          if (colors === item) {
+                                            // Deselect the item if it's already selected
+                                            setColors("");
+                                          } else {
+                                            // Select the item if it's not already selected
+                                            setColors(item);
+                                          }
+                                        }}
+                                        checked={colors === item} // Check if the current item is selected
+                                      />
+                                      <label
+                                        className="form-check-label check-lbl-box-vw"
+                                        htmlFor={`new${index}`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={`new${index}`}
-                                          className="form-check-input checkbox-inpt-bxvw"
-                                          onChange={() => setColors(item)}
-                                        />
-                                        <label
-                                          className="form-check-label check-lbl-box-vw"
-                                          for={`new${index}`}
-                                        >
-                                          {item}
-                                        </label>
-                                      </div>
-                                    </>
+                                        {item}
+                                      </label>
+                                    </div>
                                   );
                                 })}
                             </TabPanel>
@@ -413,32 +459,37 @@ console.log(colors.includes(filterItem));
                             Popular Filters
                           </h6>
                           <div className="d-flex flex-wrap">
-                            {priceFilter &&
-                              priceFilter.map((item, index) => {
-                                return (
-                                  <>
-                                    <div className="mb-3 form-check ms-3">
-                                      <input
-                                        type="checkbox"
-                                        className="form-check-input checkbox-inpt-bxvw"
-                                        value={`minPrice=${item.min}&maxPrice=${item.max}`}
-                                        id={`new${index}`}
-                                        onChange={() =>
-                                          setPrices(
-                                            `minPrice=${item.min}&maxPrice=${item.max}`
-                                          )
-                                        }
-                                      />
-                                      <label
-                                        className="form-check-label check-lbl-box-vw"
-                                        htmlFor={`new${index}`}
-                                      >
-                                        {item.min} - {item.max}
-                                      </label>
-                                    </div>
-                                  </>
-                                );
-                              })}
+                          {priceFilter &&
+    priceFilter.map((item, index) => {
+        return (
+            <div className="mb-3 form-check ms-3" key={index}>
+                <input
+                    type="checkbox"
+                    className="form-check-input checkbox-inpt-bxvw"
+                    value={`minPrice=${item.min}&maxPrice=${item.max}`}
+                    id={`new${index}`}
+                    onChange={() => {
+                        if (prices === `minPrice=${item.min}&maxPrice=${item.max}`) {
+                            // Deselect the item if it's already selected
+                            setPrices("");
+                        } else {
+                            // Select the item if it's not already selected
+                            setPrices(`minPrice=${item.min}&maxPrice=${item.max}`);
+                        }
+                    }}
+                    checked={prices === `minPrice=${item.min}&maxPrice=${item.max}`} // Check if the current item is selected
+                />
+                <label
+                    className="form-check-label check-lbl-box-vw"
+                    htmlFor={`new${index}`}
+                >
+                    {item.min} - {item.max}
+                </label>
+            </div>
+        );
+    })
+}
+
                           </div>
                           <div className="d-flex justify-content-between mt-4">
                             <button className="clr-fltrs-tab">Clear</button>
@@ -537,7 +588,6 @@ console.log(colors.includes(filterItem));
           <ul className="d-flex gap-4 px-4 mt-2 w-50">
             {filterNames &&
               filterNames.map((item, index) => {
-             
                 return (
                   <>
                     <li className="FilterNameClass" key={index}>
@@ -545,7 +595,7 @@ console.log(colors.includes(filterItem));
                       <RxCross2
                         className="ml-2"
                         style={{ fontSize: "20px" }}
-                        onClick={() => deleteArray(index,item)}
+                        onClick={() => deleteArray(index, item)}
                       />
                     </li>
                   </>

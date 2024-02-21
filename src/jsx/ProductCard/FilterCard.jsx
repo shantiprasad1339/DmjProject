@@ -62,15 +62,16 @@ const FilterCard = () => {
         <div className="grid-view">
           {!isLoad ? (
             searchData.length > 0 &&
-            searchData.map((sItem) => {
+            searchData.map((sItem,index) => {
               return (
                 <ProductItemCard
                   img={
                     sItem.images.length > 0 &&
                     imgUrl + sItem.images[0].thumbImage
                   }
-                  key={sItem.id}
+                 
                   item={sItem}
+               
                   price={
                     sItem.images.length > 0 &&
                     sItem.images[0].productVariantEntities.length > 0 &&
@@ -90,7 +91,7 @@ const FilterCard = () => {
 
 export default FilterCard;
 
-const ProductItemCard = ({ img, item, price, key }) => {
+const ProductItemCard = ({ img, item, price }) => {
   const wishlistId = localStorage.getItem("wishList");
   const navigate = useNavigate();
   const addToCart = (productId) => {

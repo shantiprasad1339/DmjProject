@@ -11,13 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import { initializeApp } from "firebase/app";
-import {
-  RecaptchaVerifier,
-  getAuth,
-  signInWithPhoneNumber,
-} from "firebase/auth";
-import firebaseConfig from "../firebaseConfig";
+
 
 const url = "https://api.diwamjewels.com/DMJ/api/v1/user/";
 const verifyEndPoint = "verify/otp";
