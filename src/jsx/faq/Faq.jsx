@@ -8,7 +8,6 @@ import Footer from '../footer/Footer';
 export default class Faq extends React.Component {
     constructor(props) {
         super(props)
-        // this.state={}
 
         this.componentDidMount = this.componentDidMount.bind(this)
     }
@@ -33,7 +32,7 @@ export default class Faq extends React.Component {
                         <div class="col-md-12">
                             <Item
                                 dKey="0"
-                                Question='**1. How can I place an order on Diwamjewels?**'
+                                Question='1. How can I place an order on Diwamjewels?**'
                                 Answer='
                                 To place an order, follow these simple steps:
                                 Browse our website and select the products you wish to purchase.
