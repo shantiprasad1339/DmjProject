@@ -693,7 +693,7 @@ const[dataQuery,setQuery] = useState()
                 onClick={toggleBoxVisibility}
               ></i>
             </div> */}
-            <NavLink to="/wishlist">
+            <NavLink to="/favorite">
               {" "}
               <div className="show-numbericn">
                 <i className="bi bi-suit-heart-fill nav-icon-item ms-3"></i>

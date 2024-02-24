@@ -15,6 +15,7 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import PhonelinkLockIcon from "@mui/icons-material/PhonelinkLock";
 import HeaderCon from "../header/HeaderCon";
 import Navbar from "../header/Navbar";
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 
 export default class Dashboard extends React.Component {
   render() {
@@ -34,6 +35,7 @@ class Sidenavbar extends React.Component {
       // overview: "",
       order: "",
       profile: "",
+      saveaddress:"",
       // savedcard: "",
       // address: "",
       // coupon: "",
@@ -72,6 +74,17 @@ class Sidenavbar extends React.Component {
               >
                 <ManageAccountsIcon className="fs-5"></ManageAccountsIcon>{" "}
                 Profile
+              </h6>
+              </li>
+            
+              <hr></hr>
+              <li className="nav-item">
+              <h6
+                className="side-tab"
+                onClick={() => this.setDisplay("saveaddress")}
+              >
+                <EmojiPeopleIcon className="fs-5"></EmojiPeopleIcon>{" "}
+                Address
               </h6>
               </li>
 
@@ -115,6 +128,16 @@ class Sidenavbar extends React.Component {
                   Profile
                 </h6>
                 </div>
+            <div className="list-box-view">
+            <h6
+                  className="side-tab"
+                  aria-current="page"
+                  onClick={() => this.setDisplay("saveaddress")}
+                >
+                  <EmojiPeopleIcon className="fs-5"></EmojiPeopleIcon>{" "}
+                  Address
+                </h6>
+                </div>
             </div>
 
             <div className="column-size">
@@ -130,11 +153,11 @@ class Sidenavbar extends React.Component {
         </div>
 
         {displayElement === "order" ? <   Orderpage/> :
+        (displayElement === 'saveaddress') ? <Saveaddress /> :
           displayElement === "Profile" ? <Profileinfo /> : null
         }
 
-        {/* (displayElement === 'overview') ? <Overviewpage /> :
-                        (displayElement === 'order') ? <Orderpage /> :
+                        {/* (displayElement === 'order') ? <Orderpage /> :
                         (displayElement === 'coupon') ? <Couponpage /> :
                         (displayElement === 'Address') ? <Saveaddress /> :
                         (displayElement === 'Vpasaved') ? <UPI /> :
