@@ -235,6 +235,8 @@ function Product() {
   };
   useEffect(() => {
     handlePostRequest();
+    window.scrollTo(0, 0);
+
   }, []);
 
   useEffect(() => {
@@ -364,6 +366,8 @@ function Product() {
 
   useEffect(() => {
     getRating();
+    window.scrollTo(0, 0);
+
   }, [PrId]);
 
   return (
@@ -733,6 +737,8 @@ const ProductPrice = ({
 
   useEffect(() => {
     // console.log(variant)
+    window.scrollTo(0, 0);
+
     fetchCurrancy();
     window;
 

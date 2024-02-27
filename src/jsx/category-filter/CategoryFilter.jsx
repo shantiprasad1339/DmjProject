@@ -177,9 +177,8 @@ const FilterCategoryCard = ({ query }) => {
 
   useEffect(() => {
     fetData();
-    runFallbackApi()
+    runFallbackApi();
     window.scrollTo(0, 0);
-
   }, [pageSize]);
   const handlePagination = (e, page) => {
     setPageSize(page - 1);
@@ -233,6 +232,7 @@ const FilterCategoryCard = ({ query }) => {
         handleClose1();
       })
       .catch((error) => {
+        Swal.fire("This filter is not added yet!");
         runFallbackApi();
       });
     let maxPrice = "";
@@ -278,40 +278,52 @@ const FilterCategoryCard = ({ query }) => {
         })
         .catch((error) => {
           console.error("Error occurred in colors API:", error);
+          Swal.fire("This filter is not added yet!");
           runFallbackApi();
         });
     } else if (prices.includes(filterItem)) {
       setSearchData("");
       setPrices("");
-      axios
-        .get(
-          `https://api.diwamjewels.com/DMJ/api/v1/products/filter?minPrice=&maxPrice=&categoryId=${cateId}&color=${colors}&size=${sizeName}&pageNumber=1`
-        )
-        .then((res) => {
-          console.log(res);
-          setSearchData(res.data.data);
-          setElement(1);
-        })
-        .catch((error) => {
-          console.error("Error occurred in prices API:", error);
-          runFallbackApi();
-        });
+      try {
+        axios
+          .get(
+            `https://api.diwamjewels.com/DMJ/api/v1/products/filter?minPrice=&maxPrice=&categoryId=${cateId}&color=${colors}&size=${sizeName}&pageNumber=1`
+          )
+          .then((res) => {
+            console.log(res);
+            setSearchData(res.data.data);
+            setElement(1);
+          })
+          .catch((error) => {
+            console.error("Error occurred in prices API:", error);
+            Swal.fire("This filter is not added yet!");
+            runFallbackApi();
+          });
+      } catch (error) {
+        console.error("Error occurred in try block:", error);
+        alert("An error occurred");
+      }
     } else if (sizeName.includes(filterItem)) {
       setSearchData("");
       setSizeName("");
-      axios
-        .get(
-          `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=${colors}&size=&pageNumber=1`
-        )
-        .then((res) => {
-          console.log(res);
-          setSearchData(res.data.data);
-          setElement(1);
-        })
-        .catch((error) => {
-          console.error("Error occurred in sizeName API:", error);
-          runFallbackApi();
-        });
+      try {
+        axios
+          .get(
+            `https://api.diwamjewels.com/DMJ/api/v1/products/filter?${prices}&categoryId=${cateId}&color=${colors}&size=&pageNumber=1`
+          )
+          .then((res) => {
+            console.log(res);
+            setSearchData(res.data.data);
+            setElement(1);
+          })
+          .catch((error) => {
+            console.error("Error occurred in sizeName API:", error);
+            Swal.fire("This product is not added yet!");
+            runFallbackApi();
+          });
+      } catch (error) {
+        console.error("Error occurred in try block:", error);
+      }
     }
   };
   const runFallbackApi = () => {
@@ -459,37 +471,46 @@ const FilterCategoryCard = ({ query }) => {
                             Popular Filters
                           </h6>
                           <div className="d-flex flex-wrap">
-                          {priceFilter &&
-    priceFilter.map((item, index) => {
-        return (
-            <div className="mb-3 form-check ms-3" key={index}>
-                <input
-                    type="checkbox"
-                    className="form-check-input checkbox-inpt-bxvw"
-                    value={`minPrice=${item.min}&maxPrice=${item.max}`}
-                    id={`new${index}`}
-                    onChange={() => {
-                        if (prices === `minPrice=${item.min}&maxPrice=${item.max}`) {
-                            // Deselect the item if it's already selected
-                            setPrices("");
-                        } else {
-                            // Select the item if it's not already selected
-                            setPrices(`minPrice=${item.min}&maxPrice=${item.max}`);
-                        }
-                    }}
-                    checked={prices === `minPrice=${item.min}&maxPrice=${item.max}`} // Check if the current item is selected
-                />
-                <label
-                    className="form-check-label check-lbl-box-vw"
-                    htmlFor={`new${index}`}
-                >
-                    {item.min} - {item.max}
-                </label>
-            </div>
-        );
-    })
-}
-
+                            {priceFilter &&
+                              priceFilter.map((item, index) => {
+                                return (
+                                  <div
+                                    className="mb-3 form-check ms-3"
+                                    key={index}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input checkbox-inpt-bxvw"
+                                      value={`minPrice=${item.min}&maxPrice=${item.max}`}
+                                      id={`new${index}`}
+                                      onChange={() => {
+                                        if (
+                                          prices ===
+                                          `minPrice=${item.min}&maxPrice=${item.max}`
+                                        ) {
+                                          // Deselect the item if it's already selected
+                                          setPrices("");
+                                        } else {
+                                          // Select the item if it's not already selected
+                                          setPrices(
+                                            `minPrice=${item.min}&maxPrice=${item.max}`
+                                          );
+                                        }
+                                      }}
+                                      checked={
+                                        prices ===
+                                        `minPrice=${item.min}&maxPrice=${item.max}`
+                                      } // Check if the current item is selected
+                                    />
+                                    <label
+                                      className="form-check-label check-lbl-box-vw"
+                                      htmlFor={`new${index}`}
+                                    >
+                                      {item.min} - {item.max}
+                                    </label>
+                                  </div>
+                                );
+                              })}
                           </div>
                           <div className="d-flex justify-content-between mt-4">
                             <button className="clr-fltrs-tab">Clear</button>
